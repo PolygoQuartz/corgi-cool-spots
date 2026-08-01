@@ -19,6 +19,16 @@ let markers = {};
 let currentFilter = "all";
 let currentMarkFilter = "all";
 let currentSort = "score";
+let currentDriveMax = loadDriveMax(); // null = 制限なし
+
+function loadDriveMax() {
+  const v = localStorage.getItem("cogi-drivemax");
+  return v && v !== "all" ? parseInt(v, 10) : null;
+}
+
+function withinDrive(spot) {
+  return currentDriveMax == null || effDriveMin(spot) <= currentDriveMax;
+}
 
 /* ---------- 出発地（端末内にのみ保存） ---------- */
 function loadOrigin() {
@@ -224,7 +234,7 @@ function tempColor(t) {
 /* ---------- 並び替え・絞り込み ---------- */
 function visibleSpots() {
   let list = SPOTS.filter(
-    (s) => currentFilter === "all" || s.category === currentFilter
+    (s) => (currentFilter === "all" || s.category === currentFilter) && withinDrive(s)
   );
   if (currentMarkFilter !== "all") {
     list = list.filter((s) => hasMark(s.id, currentMarkFilter));
@@ -283,7 +293,13 @@ function renderTopPicks() {
     section.classList.add("hidden");
     return;
   }
-  const ranked = [...SPOTS].sort((a, b) => calcScore(b) - calcScore(a)).slice(0, 3);
+  const ranked = SPOTS.filter(withinDrive)
+    .sort((a, b) => calcScore(b) - calcScore(a))
+    .slice(0, 3);
+  if (ranked.length === 0) {
+    section.classList.add("hidden");
+    return;
+  }
   const medals = ["🥇", "🥈", "🥉"];
   container.innerHTML = ranked
     .map((s, i) => {
@@ -509,6 +525,21 @@ document.addEventListener("DOMContentLoaded", () => {
     origin = DEFAULT_ORIGIN;
     document.getElementById("origin-name").textContent = origin.label;
     document.getElementById("origin-status").textContent = "川崎市（初期設定）に戻しました";
+    renderAll();
+  });
+
+  const driveChips = document.getElementById("drive-chips");
+  const savedDrive = localStorage.getItem("cogi-drivemax") || "all";
+  driveChips.querySelectorAll(".chip").forEach((c) => {
+    c.classList.toggle("active", c.dataset.drive === savedDrive);
+  });
+  driveChips.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    driveChips.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentDriveMax = chip.dataset.drive === "all" ? null : parseInt(chip.dataset.drive, 10);
+    localStorage.setItem("cogi-drivemax", chip.dataset.drive);
     renderAll();
   });
 
