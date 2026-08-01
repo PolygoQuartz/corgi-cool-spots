@@ -1,6 +1,6 @@
 /* スポットデータ（2026年8月調査）
    掲載基準: 犬の入水OK / 駐車場あり / 犬連れ飲食店 / 日陰・路面環境
-   official: 犬連れ可否の一次情報リンク ／ hours: 営業時間 ／ parking[].hours: 駐車場利用時間
+   official: 一次情報リンク ／ hours: 営業時間 ／ restaurants: RESTAURANTSへのref参照（併設店はインライン）
    ⚠️ ルールは変更されることがあるため、おでかけ前に公式情報を確認 */
 const SPOTS = [
   {
@@ -82,27 +82,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "オレンジツリー",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r002",
         "note": "車約10分・愛川町のログハウス洋食。店内・テラスとも犬同伴可"
       },
       {
-        "name": "和ごころカフェ",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r003",
         "note": "車約10分・愛川町のカフェ・和食。店内とテラスで同伴可"
       },
       {
-        "name": "丸太小屋レストラン びんずる",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r004",
         "note": "車約15分・清川村の定食食堂。別棟店内とテラスで同伴可・清川恵水ポークが名物"
       },
       {
-        "name": "服部牧場（カサリンガのジェラート）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r005",
         "note": "車で約10分。入場・駐車無料、場内リード同伴OK"
       }
     ],
@@ -155,21 +147,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "kent crew",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r006",
         "note": "車約15分・松田町のドッグカフェ。ドッグラン併設・犬用メニューあり"
       },
       {
-        "name": "森のカフェ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r007",
         "note": "秦野市内。ペット同伴OKのテラス席は3席程度と少なめ"
       },
       {
-        "name": "白笹うどん 多奈加亭",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r008",
         "note": "車約15分・白笹稲荷神社そばのうどん・甘味処。要事前確認"
       }
     ],
@@ -221,21 +207,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "I'm home",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r009",
         "note": "車約10分・青梅市和田町のカフェ＆雑貨。店内同伴可（マナーパンツ推奨）"
       },
       {
-        "name": "DOG CAFE CANIS",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r010",
         "note": "車約15分・青梅IC近くのドッグカフェ。屋内席OKで雨の日も安心"
       },
       {
-        "name": "ome smash burger 杉屋",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r011",
         "note": "釜の淵公園内。テラス席ペットOK。火・水定休"
       }
     ],
@@ -282,15 +262,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "オギノパン 本社工場直売店",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r012",
         "note": "車約15分。屋外ベンチで名物あげぱん可"
       },
       {
-        "name": "つくい城の里",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r013",
         "note": "車約18分・古民家カフェ複合施設。ドッグテラス完備・愛犬用ごはんあり"
       }
     ],
@@ -337,9 +313,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "猟師工房ドライブイン",
-        "policy": "店内OK",
-        "leadOK": null,
+        "ref": "r014",
         "note": "車約15分。抱っこで入店可（12kgは要相談）・犬用ジビエおやつ販売・水曜定休"
       }
     ],
@@ -386,21 +360,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "箱根唐揚げ Karatto",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r015",
         "note": "車約3分・湯本駅前商店街。店内犬同伴可"
       },
       {
-        "name": "DogHub箱根",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r016",
         "note": "車約5分・おにぎりカフェ＋ペットホテル複合施設。店内ワンコOK"
       },
       {
-        "name": "NARAYA CAFE（宮ノ下）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r017",
         "note": "車約10分。足湯テラスで犬同伴可の定番店"
       }
     ],
@@ -452,21 +420,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "CAFE MOJAVE",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r018",
         "note": "車約15分・秋川駅近くのアメリカンダイナー。バーガーが名物・店内OK"
       },
       {
-        "name": "米沢牛ステーキハウス un",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r019",
         "note": "車約15分・ステーキハウス兼ドッグカフェ。犬用メニューあり"
       },
       {
-        "name": "黒茶屋",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r020",
         "note": "築300年古民家の食事処。犬同伴は指定テラス席のみ。要事前確認"
       }
     ],
@@ -513,21 +475,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "阿里山Cafe",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r021",
         "note": "高麗駅近く。屋根付きウッドデッキのテラスが犬同伴可"
       },
       {
-        "name": "CAWAZ base",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r022",
         "note": "車約10分・高麗川沿いの古民家リノベカフェ。川辺散策も可"
       },
       {
-        "name": "カフェ＆ベーカリー 日月堂",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r023",
         "note": "車約10分・渓流を見下ろす薪窯パン＆ピザ"
       }
     ],
@@ -574,27 +530,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "炭鳥筏 IKADA",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r024",
         "note": "車約3分・炭火焼き鳥体験店。犬連れ専用スペース・犬用焼き鳥あり"
       },
       {
-        "name": "MITAKE Deck Cafe Bitte",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r025",
         "note": "多摩川を見下ろすデッキ席。看板犬あり"
       },
       {
-        "name": "澤乃井園（清流ガーデン）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r026",
         "note": "遊歩道で行ける酒蔵の庭園。屋外席は犬OK"
       },
       {
-        "name": "Riverside Cafe awa",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r027",
         "note": "車約5分・川井の川沿いテラスカフェ。川原に直接下りられる"
       }
     ],
@@ -637,21 +585,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ジビエールカフェ",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r028",
         "note": "車約5分・同じ原市場の川沿いドッグカフェ。猟師店主の鹿肉ワンコごはんあり"
       },
       {
-        "name": "CARVAAN BREWERY & RESTAURANT 飯能本店",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r029",
         "note": "飯能河原沿い。テラス40席が犬同伴可、予約時に事前連絡"
       },
       {
-        "name": "COUNTRY CAFE ターニップ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r030",
         "note": "車約12分・上名栗のカントリーカフェ。要事前確認"
       }
     ],
@@ -698,15 +640,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "haz",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r031",
         "note": "車約25分・山北駅前のカフェ（15分圏内に犬OK店なし）"
       },
       {
-        "name": "cafe だいず",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r032",
         "note": "車約25分・山北町市街のカフェ。店内同伴可"
       }
     ],
@@ -747,14 +685,7 @@ const SPOTS = [
         "hours": "7:00〜17:00"
       }
     ],
-    "restaurants": [
-      {
-        "name": "道の駅どうし（屋外ベンチ）",
-        "policy": "なし",
-        "leadOK": null,
-        "note": "周辺に犬連れ入店可の飲食店は少ない。道の駅の屋外ベンチ利用が現実的"
-      }
-    ],
+    "restaurants": [],
     "surface": {
       "shade": "多い",
       "ground": "砂利・岩"
@@ -846,22 +777,12 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "Cafe Lirio",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r034",
         "note": "柿田川公園そば（車約10分）。看板犬のいるドッグカフェ"
       },
       {
-        "name": "マカロニ市場 三島店",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r035",
         "note": "車約10分・ベーカリーイタリアン。大型犬まで店内OK"
-      },
-      {
-        "name": "BARN COFFEE 静岡函南店",
-        "policy": "テラスのみ",
-        "leadOK": true,
-        "note": "車約15分・ロースターカフェ。全サイズOKのオープンエア席"
       }
     ],
     "surface": {
@@ -903,9 +824,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ビブラビブレ",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r037",
         "note": "車約10分・ピザ・パスタ・カレー。ワンコ専用屋内席＋ドッグラン併設"
       },
       {
@@ -915,9 +834,7 @@ const SPOTS = [
         "note": "ドッグラン併設施設内のカフェ。同伴条件は現地要確認"
       },
       {
-        "name": "カフェ&バル 掌",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r039",
         "note": "車約10分・伊豆長岡のカフェバル"
       }
     ],
@@ -970,9 +887,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "エルズパーク長瀞 カフェ&バル",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r040",
         "note": "犬同伴前提の施設。フック・マナーマット完備、宿泊者以外も利用可"
       },
       {
@@ -982,15 +897,11 @@ const SPOTS = [
         "note": "観光協会が「ペット受け入れ可能施設一覧」を公開しており選択肢多数"
       },
       {
-        "name": "丹一",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r042",
         "note": "車約3分・そば・鮎飯。屋根付きテラスで雨天も犬連れOK"
       },
       {
-        "name": "そば処 むらた",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r043",
         "note": "車約3分・商店街入口のそば店。テラス7〜8席がペット対応"
       }
     ],
@@ -1037,15 +948,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "MAVERICK（中伊豆ワイナリー内）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r044",
         "note": "車約10分。ステーキ中心"
       },
       {
-        "name": "黒玉テラス&Dog",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r045",
         "note": "車約15分・銘菓「出口の黒玉」直営カフェ。テラスはリードOK・伊豆牛カレー"
       }
     ],
@@ -1088,21 +995,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "いぬかふぇ まいら（鹿沼市街）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r046",
         "note": "車約25分のドッグカフェ。ドッグラン直結"
       },
       {
-        "name": "Lake Wood Resort",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r047",
         "note": "車約10分・アウトドアリゾート内カフェ。ドッグパーク併設"
       },
       {
-        "name": "リッチフィールド",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r048",
         "note": "車約20分・ドッグラン併設カフェ。店内・テラスとも犬OK"
       }
     ],
@@ -1141,21 +1042,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ファーマーズヒル",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r049",
         "note": "車約5分。石窯ピザ。犬連れ実績あり"
       },
       {
-        "name": "ほたるの庭",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r050",
         "note": "車約5分・湯ヶ島R414沿いのカフェ＆バー。テラスペット同伴可"
       },
       {
-        "name": "黒玉テラス&Dog",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r045",
         "note": "車約10分・カフェ＋ランチ。テラスはリードOK・大型犬も可"
       }
     ],
@@ -1202,27 +1097,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "GRILL&BAR The Campfire MINAKAMI",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r051",
         "note": "車約5分・グリル＆バー。店内に犬同伴区画あり・大型犬OK"
       },
       {
-        "name": "大トロ牛乳",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r052",
         "note": "車約3分・名物スイーツ店。サイズ制限なく店内OK"
       },
       {
-        "name": "育風堂精肉店（はもん みなかみ）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r053",
         "note": "車約8分。各テーブルにリードフック完備、ペット用食器あり。生ハムが名物"
       },
       {
-        "name": "DDC minakami",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r054",
         "note": "車約5分・利根川沿いコーヒー＆軽食。犬用フードあり"
       }
     ],
@@ -1267,14 +1154,7 @@ const SPOTS = [
         "hours": "通常期は終日開放（紅葉まつり期間のみ有料・9〜16時目安）"
       }
     ],
-    "restaurants": [
-      {
-        "name": "周辺に犬同伴可の店は確認できず",
-        "policy": "なし",
-        "leadOK": null,
-        "note": "テイクアウト持参推奨"
-      }
-    ],
+    "restaurants": [],
     "surface": {
       "shade": "多い",
       "ground": "自然林に覆われた岩場・玉石の河原"
@@ -1318,9 +1198,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "那須高原 清流の里",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r055",
         "note": "犬連れOK食事処（釣り堀併設）。屋外席で同伴可"
       }
     ],
@@ -1365,14 +1243,7 @@ const SPOTS = [
         "note": "海岸まで徒歩約5分。満車時は臨時開放あり"
       }
     ],
-    "restaurants": [
-      {
-        "name": "TREX CHIGASAKI OCEAN CAFE",
-        "policy": "テラスのみ",
-        "leadOK": true,
-        "note": "車約3分。敷地内に有料ドッグラン併設。店内可否は要確認"
-      }
-    ],
+    "restaurants": [],
     "surface": {
       "shade": "少ない",
       "ground": "砂浜＋石積み護岸（約700m）"
@@ -1422,27 +1293,19 @@ const SPOTS = [
         "note": "海を望むテラス席が犬同伴可。キッチンカーも利用可"
       },
       {
-        "name": "レストア（走水）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r058",
         "note": "広いテラス席で犬同伴可"
       },
       {
-        "name": "かねよ食堂",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r059",
         "note": "車約5分・走水海岸の漁師小屋改装シーフード食堂。海辺のテラス&ガーデン席が犬OK・月曜定休"
       },
       {
-        "name": "Guna cafe' base",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r060",
         "note": "車約5分・走水の古民家カフェ。犬用クッキーあり・木〜日営業"
       },
       {
-        "name": "エルマール（浦賀）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r061",
         "note": "車約10分・浦賀の渡し船乗り場横。2階テラスが犬OK（階段を抱えられれば大型犬も可）"
       }
     ],
@@ -1489,9 +1352,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "DOG DEPT GARDEN CAFE 木更津",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r062",
         "note": "車約30分・木更津金田。ドッグラン併設・木曜定休"
       }
     ],
@@ -1544,33 +1405,23 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "AnL cafe",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r063",
         "note": "車約7分・三崎口駅近くの手作りケーキのドッグカフェ。犬用クッキーあり・水木定休"
       },
       {
-        "name": "三崎港 海の幸",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r064",
         "note": "車約12分・三崎港のマグロ・海鮮料理店。2階席のみ犬同伴OK"
       },
       {
-        "name": "ソレイユの丘 内レストラン",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r065",
         "note": "車約5分。テラス・BBQ場が犬OK、ドッグランも併設"
       },
       {
-        "name": "BEACHEND CAFE（三浦海岸）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r066",
         "note": "車約15分。海の見えるテラス"
       },
       {
-        "name": "カメハメハ大王の渚",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r067",
         "note": "車約8分・諸磯の海沿いレストラン。犬用水皿サービスあり"
       }
     ],
@@ -1613,9 +1464,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "OISO CONNECT",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r068",
         "note": "徒歩すぐ。地魚グルメを海を見ながらテラスで"
       }
     ],
@@ -1662,15 +1511,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "道の駅 保田小学校",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r069",
         "note": "車約10分。ペットOKテラス・無料ドッグラン・足洗い場あり"
       },
       {
-        "name": "Pizza GONZO（金谷）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r070",
         "note": "車約15分。2階席がペット同伴可（要事前予約推奨）"
       }
     ],
@@ -1717,39 +1562,27 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "WAKAFE（湯河原駅近く）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r071",
         "note": "店内に愛犬同伴席あり。名物・湯河原ナポリタン"
       },
       {
-        "name": "ラ・テラス岩本屋（万葉公園入口）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r072",
         "note": "店内ペットOKのドッグフレンドリーカフェ"
       },
       {
-        "name": "豆杏cafe",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r073",
         "note": "車約10分・ドッグラン併設カフェ。マナーウェア着用で店内OK（小中型犬）・要事前予約"
       },
       {
-        "name": "福浦漁港 みなと食堂",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r074",
         "note": "漁港直送の海鮮。テラス席のみ犬OK"
       },
       {
-        "name": "和食うおたつ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r075",
         "note": "車約10分・魚屋直営の海鮮和食。大型犬も可（雨天時不可）・火水定休"
       },
       {
-        "name": "しあわせ中華そば食堂 にこり",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r076",
         "note": "車約7分・飯田商店姉妹店のラーメン。火水定休"
       }
     ],
@@ -1796,16 +1629,8 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "エリアスガーデン",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r077",
         "note": "車1分・海岸の目の前。犬同伴BBQ・ドッグラン・ドッグプール併設"
-      },
-      {
-        "name": "CROCE",
-        "policy": "テラスのみ",
-        "leadOK": true,
-        "note": "車10分・一宮市街のカフェ"
       }
     ],
     "surface": {
@@ -1851,15 +1676,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "CROCE",
-        "policy": "テラスのみ",
-        "leadOK": true,
-        "note": "車5分。犬連れテラスでモーニング〜ランチ"
-      },
-      {
-        "name": "エリアスガーデン",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r077",
         "note": "車8分。犬同伴BBQ・ドッグプール"
       }
     ],
@@ -1902,15 +1719,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "CAFEビゼン",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r079",
         "note": "車10分・いすみ市のカフェ。モーニング・ランチあり"
       },
       {
-        "name": "エリアスガーデン",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r077",
         "note": "車8分。犬同伴BBQ・ドッグプール"
       }
     ],
@@ -1957,21 +1770,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "海の駅九十九里",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r080",
         "note": "車3分・片貝漁港直結。2階の一部テラスが同伴可・イワシ料理"
       },
       {
-        "name": "九十九里ハーブガーデン ラ・パニエ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r081",
         "note": "車5分。テラスにリードフック・利用で芝ドッグラン無料"
       },
       {
-        "name": "海鮮料理 大漁亭",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r082",
         "note": "車7分。店内犬連れOKの大型海鮮レストラン"
       }
     ],
@@ -2018,33 +1825,23 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "CARO FORESTA 館山DIANA",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r083",
         "note": "車約15分・犬用宿併設レストラン。日帰りランチ可・利用でドッグラン無料"
       },
       {
-        "name": "ドッグ&ベジレストラン トゥルシー（館山市内）",
-        "policy": "テラスのみ",
-        "leadOK": false,
+        "ref": "r084",
         "note": "プチドッグラン併設・テラスはノーリード可の席あり"
       },
       {
-        "name": "カフェえどもんず",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r085",
         "note": "館山の犬連れ定番カフェ"
       },
       {
-        "name": "館山なぎさ食堂",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r086",
         "note": "車約5分・渚の駅たてやま2F。館山港を望むテラスが犬OK・海鮮丼"
       },
       {
-        "name": "カフェデルマ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r087",
         "note": "車約10分・北条海岸のビーチカフェ。公式にテラスペットOK明記"
       }
     ],
@@ -2091,15 +1888,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ASOBEACH -愛犬と過ごす海の家-",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r088",
         "note": "浜の上（徒歩0分）・夏期のみ。屋内ドッグラン付きプランあり・要予約"
       },
       {
-        "name": "浜茶屋 網元",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r089",
         "note": "車約15分・浜焼き。わんこ連れ専用エリアあり"
       }
     ],
@@ -2142,33 +1935,23 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "Two Tails' cafe（下田プリンスホテル内）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r090",
         "note": "車約4分・白浜海岸前のホテル内カフェ。犬用メニューあり・宿泊者以外も利用可"
       },
       {
-        "name": "フラム ジャック",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r091",
         "note": "車約10分・ペリーロードの洋食カフェ。不定休のため事前連絡推奨"
       },
       {
-        "name": "ギャラリー&カフェ 草画房",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r092",
         "note": "車約10分・ペリーロードの古民家カフェ。土間・縁側席で同伴可（要事前予約）"
       },
       {
-        "name": "下田バーガー Ra-maru（車約10分）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r093",
         "note": "道の駅開国下田みなと内"
       },
       {
-        "name": "青木サザエ店（白浜・車約7分）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r094",
         "note": "大型犬対応"
       }
     ],
@@ -2215,33 +1998,23 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "South Cafe",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r095",
         "note": "車約4分・吉佐美のハワイアン系カフェ。全席ワンコOK・大型犬まで可・木曜定休"
       },
       {
-        "name": "フラム ジャック",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r091",
         "note": "車約8分・ペリーロードの洋食カフェ。不定休のため事前連絡推奨"
       },
       {
-        "name": "下田バーガー Ra-maru（道の駅開国下田みなと）",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r093",
         "note": "名物・金目鯛バーガー。テラス席犬OK"
       },
       {
-        "name": "青木サザエ店",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r094",
         "note": "大型犬まで対応実績あり。サザエ・海鮮"
       },
       {
-        "name": "Fermenco",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r096",
         "note": "車約3分・入田浜そばのピッツァ&ワイン。駐車場3台"
       }
     ],
@@ -2288,27 +2061,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "SUGEEZ lil' frites（平野）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r097",
         "note": "全席犬同伴OKのバーガー・カフェ"
       },
       {
-        "name": "PICA山中湖 Hammock Cafe",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r098",
         "note": "全席犬同伴OK（屋外ハンモック席）"
       },
       {
-        "name": "煮込みシチューの店 Casserole",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r099",
         "note": "車約3分・シチュー専門店。大型犬も店内OK・犬用メニューあり"
       },
       {
-        "name": "NICO CAFE",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r100",
         "note": "車約4分・イタリアン。完全予約制で他の犬が苦手でも安心・犬用ケーキ可"
       }
     ],
@@ -2355,15 +2120,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "水明荘 売店・軽食カフェ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r101",
         "note": "湖畔テラスで軽食"
       },
       {
-        "name": "湖畔cafe NATIVE GARDEN+",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r102",
         "note": "湖畔すぐ（龍雲荘側）。ペット可の湖畔テラス・SUP併設・火曜定休（季節変動あり）"
       }
     ],
@@ -2410,15 +2171,11 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ながお亭",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r103",
         "note": "湖畔の定食屋。ペットと店内で食事可の実績あり。ワカサギフライが名物"
       },
       {
-        "name": "Cafe 水月",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r104",
         "note": "車約2分・榛名湖畔。湖を望むテラスがペットOK・ジェラートが人気"
       }
     ],
@@ -2461,27 +2218,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "鹿の子",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r105",
         "note": "中禅寺湖を見下ろすログハウス調カフェ。テラス席のみ犬OK"
       },
       {
-        "name": "TOKI珈琲店",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r106",
         "note": "湖畔モーニングの犬連れ実績あり"
       },
       {
-        "name": "欧州浪漫館 シェ・ホシノ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r107",
         "note": "車約5分・湖畔の老舗欧風料理。木曜定休・要予約推奨"
       },
       {
-        "name": "レストラン メープル",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r108",
         "note": "車約5分・洋食店。パラソル付きテラス4席が犬OK・4〜11月営業"
       }
     ],
@@ -2524,9 +2273,7 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "農家レストラン みのりの里",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r109",
         "note": "車約30分・R120沿いの農家直営。テラスがペット可・月曜定休（近隣に他店なし）"
       }
     ],
@@ -2573,27 +2320,19 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "Leko Cafe",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r110",
         "note": "センター南駅徒歩8分。店内・テラスとも犬同伴可"
       },
       {
-        "name": "Cafe OREO",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r111",
         "note": "都筑中央公園近く"
       },
       {
-        "name": "chou2clair",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r112",
         "note": "車約5分・センター南のドッグカフェ。全席犬同伴OK・犬用メニューあり"
       },
       {
-        "name": "FRESCO",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r113",
         "note": "車約7分・仲町台せせらぎ公園隣接のイタリアン。ウッドデッキ27席が犬OK"
       }
     ],
@@ -2638,21 +2377,15 @@ const SPOTS = [
         "note": "愛犬用メニューあり"
       },
       {
-        "name": "ドッグカフェ BUBU'S PAW",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r115",
         "note": "車約3分・ドッグスクール併設。アジリティ付きラン併設・月水定休"
       },
       {
-        "name": "マカロニ市場 松戸店",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r116",
         "note": "車約15分・ベーカリーイタリアン。冷暖房完備の屋内わんちゃん専用ルームあり"
       },
       {
-        "name": "しろいぬカフェ",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r117",
         "note": "車約15分・全席犬OK・サイズ制限なし。無料ドッグラン併設・年中無休"
       }
     ],
@@ -2695,33 +2428,23 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "ドッグテラス アミエル&カフェ（三浦海岸）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r118",
         "note": "車約10分。店内・テラスとも犬OK"
       },
       {
-        "name": "Dessert&Cafe BlueMoon",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r119",
         "note": "車約5分・津久井浜R134沿い。店内一部＋テラスが犬OK（リード着用）"
       },
       {
-        "name": "ドッグカフェわんこじゃん三浦海岸",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r120",
         "note": "車約15分・松輪のドッグカフェ（2025年開店）"
       },
       {
-        "name": "BEACHEND CAFE",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r066",
         "note": "車約10分"
       },
       {
-        "name": "Bayside Cafe",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r121",
         "note": "車約8分・三浦海岸を望むカフェ"
       }
     ],
@@ -2770,15 +2493,11 @@ const SPOTS = [
         "note": "全70席全席犬同伴OK。石窯ピザ・地元野菜メニュー"
       },
       {
-        "name": "CAFE MOJAVE",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r018",
         "note": "車約6分・秋川駅近くのハンバーガーカフェ。全席ワンコOK（大型犬も可）"
       },
       {
-        "name": "米沢牛ステーキハウス un",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r019",
         "note": "車約5分・店内・ガーデンとも犬OK。犬用ステーキあり・水曜定休"
       }
     ],
@@ -2827,21 +2546,15 @@ const SPOTS = [
         "note": "松田町産の旬野菜料理と犬用メニューあり"
       },
       {
-        "name": "kent crew",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r006",
         "note": "車約15分・大井松田IC近くの犬複合施設内カフェ。ドッグラン/プール併設・犬用鹿肉ハンバーグあり"
       },
       {
-        "name": "haz",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r031",
         "note": "車約20分・山北駅前のカフェ"
       },
       {
-        "name": "BIOTOPIA Café Saint-Jacques",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r124",
         "note": "車約20分・大井町BIOTOPIA内のカジュアルフレンチ。敷地内にドッグランあり"
       }
     ],
@@ -2894,15 +2607,11 @@ const SPOTS = [
         "note": "ドッグカフェ一体型施設のため店内同伴可"
       },
       {
-        "name": "和カフェ 夢宇",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r126",
         "note": "車約15分・喜多院近く。冷暖房完備の犬連れ専用スペースで大型犬OK・犬用米粉ワッフルあり"
       },
       {
-        "name": "コエド ボナペティ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r127",
         "note": "車約15分・築130年古民家の洋食。屋根付きテラスで大型犬もOK"
       }
     ],
@@ -2945,21 +2654,15 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "施設内レストラン（ワンズガーデン等）",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r128",
         "note": "リゾート内レストランは愛犬同伴可。犬用メニューあり"
       },
       {
-        "name": "クチーナ・トキオネーゼ・コジマ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r129",
         "note": "車約12分・本格イタリアン。テラスOK・ドッグラン無料・日曜定休"
       },
       {
-        "name": "プレールカフェ",
-        "policy": "テラスのみ",
-        "leadOK": true,
+        "ref": "r130",
         "note": "車約12分・農園カフェ。エアコン完備の屋内型テラスで雨天も安心・犬用メニューあり"
       }
     ],
@@ -3008,15 +2711,11 @@ const SPOTS = [
         "note": "犬同伴可のドッグカフェ・レストラン併設。犬用メニューあり"
       },
       {
-        "name": "Dogs Garden WILDPARK",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r132",
         "note": "車約6分・花の都公園裏のドッグカフェ。森のドッグラン併設・火水定休"
       },
       {
-        "name": "ほうとう さんさい",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r133",
         "note": "車約5分・ほうとう。別棟の店内わんこ席は大型犬OK"
       }
     ],
@@ -3065,21 +2764,15 @@ const SPOTS = [
         "note": "店内・テラスとも犬同伴OK。犬用メニューあり"
       },
       {
-        "name": "和食だワン",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r134",
         "note": "車約3分・和食（犬メニューあり）。大型犬可・各席リードフック・ドッグラン併設"
       },
       {
-        "name": "福茶's curry",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r135",
         "note": "車約3分・ログハウス系スパイスカレー。全サイズOK・芝ドッグラン併設"
       },
       {
-        "name": "Cafe CANDY",
-        "policy": "店内OK",
-        "leadOK": true,
+        "ref": "r136",
         "note": "車約10分・城ヶ崎海岸エリアのドッグカフェ。犬メニュー豊富・水木定休"
       }
     ],
@@ -3099,6 +2792,1708 @@ const SPOTS = [
     }
   }
 ];
+
+/* 犬連れOK飲食店（正規化データ。同じ店は複数スポットから参照される） */
+const RESTAURANTS = {
+  "r002": {
+    "id": "r002",
+    "name": "オレンジツリー",
+    "area": "神奈川県愛甲郡愛川町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5387,
+    "lng": 139.217,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "月曜定休",
+      "note": "ランチ10:00〜15:00。所在地は相模原市緑区鳥屋（宮ヶ瀬湖北岸）"
+    }
+  },
+  "r003": {
+    "id": "r003",
+    "name": "和ごころカフェ",
+    "area": "神奈川県愛甲郡愛川町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5235,
+    "lng": 139.224,
+    "hours": {
+      "open": "11:30〜15:00",
+      "closed": "不定休",
+      "note": "宮ヶ瀬水の郷商店街内。ランチのみ・要事前確認"
+    }
+  },
+  "r004": {
+    "id": "r004",
+    "name": "丸太小屋レストラン びんずる",
+    "area": "神奈川県愛甲郡愛川町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5234,
+    "lng": 139.2241,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "L.O.16:00。宮ヶ瀬水の郷商店街"
+    }
+  },
+  "r005": {
+    "id": "r005",
+    "name": "服部牧場（カサリンガのジェラート）",
+    "area": "神奈川県愛甲郡愛川町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.548,
+    "lng": 139.2582,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": null,
+      "note": "アイス工房（3〜10月）。冬期は〜16:00・金曜定休。牧場は入場無料"
+    }
+  },
+  "r006": {
+    "id": "r006",
+    "name": "kent crew",
+    "area": "神奈川県秦野市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.3531,
+    "lng": 139.1561,
+    "hours": {
+      "open": "9:00〜18:00",
+      "closed": "月曜定休",
+      "note": "松田町神山"
+    }
+  },
+  "r007": {
+    "id": "r007",
+    "name": "森のカフェ",
+    "area": "神奈川県秦野市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.3818,
+    "lng": 139.2201,
+    "hours": {
+      "open": "10:00〜16:00",
+      "closed": "水・木曜定休",
+      "note": "ランチプレートは11:00〜"
+    }
+  },
+  "r008": {
+    "id": "r008",
+    "name": "白笹うどん 多奈加亭",
+    "area": "神奈川県秦野市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.3638,
+    "lng": 139.2173,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "不定休",
+      "note": "L.O.14:30・正月三が日休"
+    }
+  },
+  "r009": {
+    "id": "r009",
+    "name": "I'm home",
+    "area": "東京都青梅市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7808,
+    "lng": 139.2285,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水曜定休",
+      "note": "第3火曜も休み"
+    }
+  },
+  "r010": {
+    "id": "r010",
+    "name": "DOG CAFE CANIS",
+    "area": "東京都青梅市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.8075,
+    "lng": 139.3049,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "不定休",
+      "note": "L.O.15:00・休業日はInstagram告知"
+    }
+  },
+  "r011": {
+    "id": "r011",
+    "name": "ome smash burger 杉屋",
+    "area": "東京都青梅市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.7845,
+    "lng": 139.2533,
+    "hours": {
+      "open": "11:30〜18:00",
+      "closed": "火・水曜定休",
+      "note": "L.O.17:30・売り切れ次第終了"
+    }
+  },
+  "r012": {
+    "id": "r012",
+    "name": "オギノパン 本社工場直売店",
+    "area": "神奈川県相模原市緑区",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5538,
+    "lng": 139.2618,
+    "hours": {
+      "open": "9:30〜17:30",
+      "closed": null,
+      "note": "4〜8月の土日祝は18:00まで・元日のみ休"
+    }
+  },
+  "r013": {
+    "id": "r013",
+    "name": "つくい城の里",
+    "area": "神奈川県相模原市緑区",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5796,
+    "lng": 139.2734,
+    "hours": {
+      "open": "10:00〜16:00",
+      "closed": null,
+      "note": "土日祝9:00〜18:00・年末年始休"
+    }
+  },
+  "r014": {
+    "id": "r014",
+    "name": "猟師工房ドライブイン",
+    "area": "千葉県君津市",
+    "policy": "店内OK",
+    "leadOK": null,
+    "lat": 35.1974,
+    "lng": 140.069,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "水曜定休",
+      "note": "ジビエビュッフェは11:00〜15:00"
+    }
+  },
+  "r015": {
+    "id": "r015",
+    "name": "箱根唐揚げ Karatto",
+    "area": "神奈川県箱根町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.2017,
+    "lng": 139.0314,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "木曜定休",
+      "note": "L.O.15:30・完売次第閉店・所在地は元箱根（芦ノ湖畔）"
+    }
+  },
+  "r016": {
+    "id": "r016",
+    "name": "DogHub箱根",
+    "area": "神奈川県箱根町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.2651,
+    "lng": 139.0126,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "所在地は仙石原"
+    }
+  },
+  "r017": {
+    "id": "r017",
+    "name": "NARAYA CAFE（宮ノ下）",
+    "area": "神奈川県箱根町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.2423,
+    "lng": 139.0629,
+    "hours": {
+      "open": "10:30〜18:00",
+      "closed": "水曜・第4木曜定休",
+      "note": "12〜2月は〜17:00"
+    }
+  },
+  "r018": {
+    "id": "r018",
+    "name": "CAFE MOJAVE",
+    "area": "東京都あきる野市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7279,
+    "lng": 139.2854,
+    "hours": {
+      "open": "11:30〜15:30",
+      "closed": "木曜・第1第3水曜定休",
+      "note": "L.O.14:30・夜は17:30〜21:00"
+    }
+  },
+  "r019": {
+    "id": "r019",
+    "name": "米沢牛ステーキハウス un",
+    "area": "東京都あきる野市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7225,
+    "lng": 139.3134,
+    "hours": {
+      "open": "11:00〜14:00",
+      "closed": "水曜定休",
+      "note": "ディナー17:30〜22:00"
+    }
+  },
+  "r020": {
+    "id": "r020",
+    "name": "黒茶屋",
+    "area": "東京都あきる野市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.7255,
+    "lng": 139.2112,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "不定休",
+      "note": "夜は予約制・営業カレンダー要確認"
+    }
+  },
+  "r021": {
+    "id": "r021",
+    "name": "阿里山Cafe",
+    "area": "埼玉県日高市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8828,
+    "lng": 139.3088,
+    "hours": {
+      "open": "11:30〜18:00",
+      "closed": "火・水曜定休",
+      "note": "L.O.17:30"
+    }
+  },
+  "r022": {
+    "id": "r022",
+    "name": "CAWAZ base",
+    "area": "埼玉県日高市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.888,
+    "lng": 139.3131,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "木・金曜定休",
+      "note": "年末年始休業あり"
+    }
+  },
+  "r023": {
+    "id": "r023",
+    "name": "カフェ＆ベーカリー 日月堂",
+    "area": "埼玉県日高市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8822,
+    "lng": 139.2981,
+    "hours": {
+      "open": "11:30〜16:30",
+      "closed": "火・水曜定休",
+      "note": "土日祝は〜17:00"
+    }
+  },
+  "r024": {
+    "id": "r024",
+    "name": "炭鳥筏 IKADA",
+    "area": "東京都青梅市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.8049,
+    "lng": 139.1751,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "金曜定休（祝日は営業）",
+      "note": "売切れ次第終了"
+    }
+  },
+  "r025": {
+    "id": "r025",
+    "name": "MITAKE Deck Cafe Bitte",
+    "area": "東京都青梅市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8039,
+    "lng": 139.1767,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "火・水・木曜定休",
+      "note": "金曜のみ13:00〜19:00。雨天時休業あり"
+    }
+  },
+  "r026": {
+    "id": "r026",
+    "name": "澤乃井園（清流ガーデン）",
+    "area": "東京都青梅市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8041,
+    "lng": 139.1937,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "月曜定休（祝日は翌日）",
+      "note": "軽食L.O.16:00"
+    }
+  },
+  "r027": {
+    "id": "r027",
+    "name": "Riverside Cafe awa",
+    "area": "東京都青梅市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8074,
+    "lng": 139.1745,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "月・火曜定休",
+      "note": "L.O.15:00・売切れ次第早仕舞いあり"
+    }
+  },
+  "r028": {
+    "id": "r028",
+    "name": "ジビエールカフェ",
+    "area": "埼玉県飯能市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.8633,
+    "lng": 139.2353,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "木・金曜定休",
+      "note": "季節により変動あり"
+    }
+  },
+  "r029": {
+    "id": "r029",
+    "name": "CARVAAN BREWERY & RESTAURANT 飯能本店",
+    "area": "埼玉県飯能市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8537,
+    "lng": 139.3103,
+    "hours": {
+      "open": "11:30〜16:30",
+      "closed": "水曜定休",
+      "note": "ディナー17:00〜21:00（月・火はランチのみ）"
+    }
+  },
+  "r030": {
+    "id": "r030",
+    "name": "COUNTRY CAFE ターニップ",
+    "area": "埼玉県飯能市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.8839,
+    "lng": 139.1836,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "水・木曜定休",
+      "note": "夜17:00〜20:00も営業"
+    }
+  },
+  "r031": {
+    "id": "r031",
+    "name": "haz",
+    "area": "神奈川県山北町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.3608,
+    "lng": 139.081,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "月〜水曜定休",
+      "note": "営業は木〜日。土曜のみ〜17:00"
+    }
+  },
+  "r032": {
+    "id": "r032",
+    "name": "cafe だいず",
+    "area": "神奈川県山北町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.3628,
+    "lng": 139.0886,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "水・木曜定休",
+      "note": "築100年の古民家カフェ"
+    }
+  },
+  "r034": {
+    "id": "r034",
+    "name": "Cafe Lirio",
+    "area": "静岡県三島市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1068,
+    "lng": 138.9025,
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": null,
+      "note": "年中無休・閉店時刻は季節変動あり"
+    }
+  },
+  "r035": {
+    "id": "r035",
+    "name": "マカロニ市場 三島店",
+    "area": "静岡県三島市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.0967,
+    "lng": 138.9242,
+    "hours": {
+      "open": "11:00〜22:00",
+      "closed": null,
+      "note": "L.O.21:30・ベーカリーは〜21:00"
+    }
+  },
+  "r037": {
+    "id": "r037",
+    "name": "ビブラビブレ",
+    "area": "静岡県伊豆の国市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1046,
+    "lng": 138.9668,
+    "hours": {
+      "open": "11:00〜14:00",
+      "closed": "月・火・水曜定休",
+      "note": "土日は〜14:30。所在地は函南町"
+    }
+  },
+  "r039": {
+    "id": "r039",
+    "name": "カフェ&バル 掌",
+    "area": "静岡県伊豆の国市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.03,
+    "lng": 138.9395,
+    "hours": {
+      "open": "10:30〜17:00",
+      "closed": "日・月曜定休",
+      "note": "L.O.16:00・夜は8名以上の完全予約制"
+    }
+  },
+  "r040": {
+    "id": "r040",
+    "name": "エルズパーク長瀞 カフェ&バル",
+    "area": "埼玉県秩父郡長瀞町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.0903,
+    "lng": 139.1043,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "不定休",
+      "note": "L.O.15:30・宿泊者以外も日帰り利用可"
+    }
+  },
+  "r042": {
+    "id": "r042",
+    "name": "丹一",
+    "area": "埼玉県秩父郡長瀞町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.0948,
+    "lng": 139.1147,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "木曜定休",
+      "note": "あゆめし売切れ次第終了の場合あり"
+    }
+  },
+  "r043": {
+    "id": "r043",
+    "name": "そば処 むらた",
+    "area": "埼玉県秩父郡長瀞町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.0947,
+    "lng": 139.1104,
+    "hours": {
+      "open": "10:30〜17:00",
+      "closed": "不定休",
+      "note": "そばが無くなり次第閉店・長瀞駅近く"
+    }
+  },
+  "r044": {
+    "id": "r044",
+    "name": "MAVERICK（中伊豆ワイナリー内）",
+    "area": "静岡県伊豆市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.9846,
+    "lng": 138.9994,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "土日祝のみ営業（平日定休）",
+      "note": "L.O.15:00・中伊豆ワイナリー敷地内"
+    }
+  },
+  "r045": {
+    "id": "r045",
+    "name": "黒玉テラス&Dog",
+    "area": "静岡県伊豆市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.908,
+    "lng": 138.9235,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "火・水曜定休",
+      "note": ""
+    }
+  },
+  "r046": {
+    "id": "r046",
+    "name": "いぬかふぇ まいら（鹿沼市街）",
+    "area": "栃木県鹿沼市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.5705,
+    "lng": 139.7245,
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "火曜・第1第3月曜定休",
+      "note": "祝日は営業"
+    }
+  },
+  "r047": {
+    "id": "r047",
+    "name": "Lake Wood Resort",
+    "area": "栃木県鹿沼市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.6065,
+    "lng": 139.6676,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "月曜・第1火曜定休",
+      "note": "現金のみ"
+    }
+  },
+  "r048": {
+    "id": "r048",
+    "name": "リッチフィールド",
+    "area": "栃木県鹿沼市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.6031,
+    "lng": 139.7324,
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "水曜定休",
+      "note": "祝日は営業し翌日休"
+    }
+  },
+  "r049": {
+    "id": "r049",
+    "name": "ファーマーズヒル",
+    "area": "静岡県伊豆市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.8665,
+    "lng": 138.9207
+  },
+  "r050": {
+    "id": "r050",
+    "name": "ほたるの庭",
+    "area": "静岡県伊豆市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.9465,
+    "lng": 138.9336,
+    "hours": {
+      "open": "9:30〜18:00",
+      "closed": "火曜定休",
+      "note": "土日祝は8:30〜"
+    }
+  },
+  "r051": {
+    "id": "r051",
+    "name": "GRILL&BAR The Campfire MINAKAMI",
+    "area": "群馬県みなかみ町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.7661,
+    "lng": 138.9697,
+    "hours": {
+      "open": "11:30〜14:30",
+      "closed": "月・火曜定休",
+      "note": "ディナー17:30〜21:30・BAR〜23:00"
+    }
+  },
+  "r052": {
+    "id": "r052",
+    "name": "大トロ牛乳",
+    "area": "群馬県みなかみ町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.7541,
+    "lng": 138.9724,
+    "hours": {
+      "open": "10:00〜17:30",
+      "closed": "火曜定休",
+      "note": "土日祝は〜18:00・売切れ次第終了"
+    }
+  },
+  "r053": {
+    "id": "r053",
+    "name": "育風堂精肉店（はもん みなかみ）",
+    "area": "群馬県みなかみ町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7882,
+    "lng": 138.9773,
+    "hours": {
+      "open": "11:00〜14:00",
+      "closed": "水曜定休",
+      "note": "レストランは土日祝〜17:00・ショップは10:00〜18:00"
+    }
+  },
+  "r054": {
+    "id": "r054",
+    "name": "DDC minakami",
+    "area": "群馬県みなかみ町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7661,
+    "lng": 138.9697,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "4〜11月の時間。冬季は週末のみ営業"
+    }
+  },
+  "r055": {
+    "id": "r055",
+    "name": "那須高原 清流の里",
+    "area": "栃木県那須塩原市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 37.0646,
+    "lng": 139.9935,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "木曜定休",
+      "note": "釣り堀は9:00〜15:00。木曜祝日は営業"
+    }
+  },
+  "r058": {
+    "id": "r058",
+    "name": "レストア（走水）",
+    "area": "神奈川県横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.2556,
+    "lng": 139.7424,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "月曜定休",
+      "note": "月曜祝日は営業・ランチL.O.14:30"
+    }
+  },
+  "r059": {
+    "id": "r059",
+    "name": "かねよ食堂",
+    "area": "神奈川県横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.2639,
+    "lng": 139.7272,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "月曜定休",
+      "note": "金土日祝は〜22:00"
+    }
+  },
+  "r060": {
+    "id": "r060",
+    "name": "Guna cafe' base",
+    "area": "神奈川県横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.2637,
+    "lng": 139.7308,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "不定休",
+      "note": "営業は木〜日中心・土日は8:00〜。Instagram要確認"
+    }
+  },
+  "r061": {
+    "id": "r061",
+    "name": "エルマール（浦賀）",
+    "area": "神奈川県横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.2432,
+    "lng": 139.7211,
+    "hours": {
+      "open": "11:30〜17:00",
+      "closed": "月・火曜定休",
+      "note": "浦賀の渡し隣"
+    }
+  },
+  "r062": {
+    "id": "r062",
+    "name": "DOG DEPT GARDEN CAFE 木更津",
+    "area": "千葉県富津市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.4305,
+    "lng": 139.9276,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "木曜定休",
+      "note": "土日祝は〜18:00・L.O.は閉店1時間前"
+    }
+  },
+  "r063": {
+    "id": "r063",
+    "name": "AnL cafe",
+    "area": "神奈川県三浦市・横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1489,
+    "lng": 139.6283,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "臨時休業あり（Instagramで要確認）"
+    }
+  },
+  "r064": {
+    "id": "r064",
+    "name": "三崎港 海の幸",
+    "area": "神奈川県三浦市・横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.14,
+    "lng": 139.6172,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "不定休",
+      "note": "犬連れは2階席（予約制）・木曜休みが多い"
+    }
+  },
+  "r065": {
+    "id": "r065",
+    "name": "ソレイユの丘 内レストラン",
+    "area": "神奈川県三浦市・横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1963,
+    "lng": 139.6122,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "火曜定休",
+      "note": "園内レストランVENTO LEONE・L.O.17:00・園自体は9:00〜18:00"
+    }
+  },
+  "r066": {
+    "id": "r066",
+    "name": "BEACHEND CAFE（三浦海岸）",
+    "area": "神奈川県三浦市・横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1736,
+    "lng": 139.6549,
+    "hours": {
+      "open": "9:00〜20:30",
+      "closed": "火曜定休",
+      "note": "土日祝は8時開店・ランチ11:00〜15:00"
+    }
+  },
+  "r067": {
+    "id": "r067",
+    "name": "カメハメハ大王の渚",
+    "area": "神奈川県三浦市・横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1589,
+    "lng": 139.6157,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "木・金曜定休",
+      "note": "日曜は10時〜。冬期は土日のみの場合あり"
+    }
+  },
+  "r068": {
+    "id": "r068",
+    "name": "OISO CONNECT",
+    "area": "神奈川県大磯町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.306,
+    "lng": 139.3159,
+    "hours": {
+      "open": "9:00〜18:00",
+      "closed": "不定休",
+      "note": "2階カフェL.O.17:00・1階物販は水曜定休"
+    }
+  },
+  "r069": {
+    "id": "r069",
+    "name": "道の駅 保田小学校",
+    "area": "千葉県鋸南町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1436,
+    "lng": 139.8439,
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": null,
+      "note": "年中無休・テナントごとに営業時間が異なる"
+    }
+  },
+  "r070": {
+    "id": "r070",
+    "name": "Pizza GONZO（金谷）",
+    "area": "千葉県鋸南町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1666,
+    "lng": 139.8243,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "平日のみ営業",
+      "note": "営業日の変動が多い・最新はGoogleマップで確認"
+    }
+  },
+  "r071": {
+    "id": "r071",
+    "name": "WAKAFE（湯河原駅近く）",
+    "area": "神奈川県湯河原町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.144,
+    "lng": 139.1011,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "木曜定休",
+      "note": "L.O.15:30・湯河原駅徒歩4分"
+    }
+  },
+  "r072": {
+    "id": "r072",
+    "name": "ラ・テラス岩本屋（万葉公園入口）",
+    "area": "神奈川県湯河原町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1469,
+    "lng": 139.0754,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "火・金曜定休",
+      "note": "不定期の長期休業あり"
+    }
+  },
+  "r073": {
+    "id": "r073",
+    "name": "豆杏cafe",
+    "area": "神奈川県湯河原町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1373,
+    "lng": 139.0666,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "不定休",
+      "note": "金土日中心の営業・席数6・要予約・犬1頭500円"
+    }
+  },
+  "r074": {
+    "id": "r074",
+    "name": "福浦漁港 みなと食堂",
+    "area": "神奈川県湯河原町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1508,
+    "lng": 139.1323,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "水曜定休",
+      "note": "売り切れ次第終了・要電話確認"
+    }
+  },
+  "r075": {
+    "id": "r075",
+    "name": "和食うおたつ",
+    "area": "神奈川県湯河原町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1408,
+    "lng": 139.0901,
+    "hours": {
+      "open": "11:30〜14:00",
+      "closed": "火・水曜定休",
+      "note": "夜17:00〜19:30は金土日のみ"
+    }
+  },
+  "r076": {
+    "id": "r076",
+    "name": "しあわせ中華そば食堂 にこり",
+    "area": "神奈川県湯河原町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1457,
+    "lng": 139.1082,
+    "hours": {
+      "open": "10:00〜20:00",
+      "closed": "火・水曜定休",
+      "note": "⚠️リニューアルのため一時休業中（再開日未定）・公式Xで要確認"
+    }
+  },
+  "r077": {
+    "id": "r077",
+    "name": "エリアスガーデン",
+    "area": "千葉県一宮町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.3353,
+    "lng": 140.39,
+    "hours": {
+      "open": "11:00〜21:00",
+      "closed": "水曜定休",
+      "note": "土日祝11時〜/平日17:30〜と時期変動が大きく要事前確認"
+    }
+  },
+  "r079": {
+    "id": "r079",
+    "name": "CAFEビゼン",
+    "area": "千葉県いすみ市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.2782,
+    "lng": 140.394,
+    "hours": {
+      "open": "8:30〜17:00",
+      "closed": "不定休",
+      "note": "金土日祝は〜21:00・事前連絡推奨"
+    }
+  },
+  "r080": {
+    "id": "r080",
+    "name": "海の駅九十九里",
+    "area": "千葉県九十九里町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5375,
+    "lng": 140.4544,
+    "hours": {
+      "open": "9:00〜18:00",
+      "closed": null,
+      "note": "フードコートは10:00〜17:00・11〜2月は〜17:00"
+    }
+  },
+  "r081": {
+    "id": "r081",
+    "name": "九十九里ハーブガーデン ラ・パニエ",
+    "area": "千葉県九十九里町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5457,
+    "lng": 140.4437,
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "火曜定休（祝日は営業）",
+      "note": "食事は11時〜"
+    }
+  },
+  "r082": {
+    "id": "r082",
+    "name": "海鮮料理 大漁亭",
+    "area": "千葉県九十九里町",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5161,
+    "lng": 140.4392,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "木曜・第1第3金曜定休",
+      "note": "土日祝は〜20:00・夏期（7/18〜8/31）は無休"
+    }
+  },
+  "r083": {
+    "id": "r083",
+    "name": "CARO FORESTA 館山DIANA",
+    "area": "千葉県館山市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.9741,
+    "lng": 139.8054,
+    "hours": {
+      "open": "11:30〜14:00",
+      "closed": null,
+      "note": "ディナー18:00〜21:00は要予約・無休"
+    }
+  },
+  "r084": {
+    "id": "r084",
+    "name": "ドッグ&ベジレストラン トゥルシー（館山市内）",
+    "area": "千葉県館山市",
+    "policy": "テラスのみ",
+    "leadOK": false,
+    "lat": 35.0066,
+    "lng": 139.9316,
+    "hours": {
+      "open": "11:30〜15:00",
+      "closed": "不定休",
+      "note": "火・水曜休みが多い・予約推奨"
+    }
+  },
+  "r085": {
+    "id": "r085",
+    "name": "カフェえどもんず",
+    "area": "千葉県館山市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1677,
+    "lng": 139.821,
+    "hours": {
+      "open": "12:00〜18:00",
+      "closed": "月〜木定休",
+      "note": "金土日祝のみ営業。実所在地は富津市金谷（浜金谷駅徒歩2分）"
+    }
+  },
+  "r086": {
+    "id": "r086",
+    "name": "館山なぎさ食堂",
+    "area": "千葉県館山市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.9882,
+    "lng": 139.8533,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "不定休",
+      "note": "L.O.16:30・渚の駅たてやま2F"
+    }
+  },
+  "r087": {
+    "id": "r087",
+    "name": "カフェデルマ",
+    "area": "千葉県館山市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.9962,
+    "lng": 139.8602,
+    "hours": {
+      "open": "11:30〜17:00",
+      "closed": "火〜土曜定休（日・月のみ営業）",
+      "note": "夏季休業あり・営業日は公式SNSで要確認"
+    }
+  },
+  "r088": {
+    "id": "r088",
+    "name": "ASOBEACH -愛犬と過ごす海の家-",
+    "area": "千葉県山武市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5534,
+    "lng": 140.467,
+    "hours": {
+      "open": "9:00〜20:00",
+      "closed": null,
+      "note": "夏季限定営業（7月上旬〜8/31）・要予約"
+    }
+  },
+  "r089": {
+    "id": "r089",
+    "name": "浜茶屋 網元",
+    "area": "千葉県山武市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5161,
+    "lng": 140.4392,
+    "hours": {
+      "open": "10:30〜16:00",
+      "closed": "水曜定休（祝日は営業）",
+      "note": "最終入店14:30"
+    }
+  },
+  "r090": {
+    "id": "r090",
+    "name": "Two Tails' cafe（下田プリンスホテル内）",
+    "area": "静岡県下田市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.6952,
+    "lng": 138.9736,
+    "hours": {
+      "open": "10:00〜17:30",
+      "closed": null,
+      "note": "L.O.17:00・予約不可"
+    }
+  },
+  "r091": {
+    "id": "r091",
+    "name": "フラム ジャック",
+    "area": "静岡県下田市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.6714,
+    "lng": 138.9442,
+    "hours": {
+      "open": "11:30〜19:30",
+      "closed": "不定休",
+      "note": "現金のみ"
+    }
+  },
+  "r092": {
+    "id": "r092",
+    "name": "ギャラリー&カフェ 草画房",
+    "area": "静岡県下田市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.6714,
+    "lng": 138.9436,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "土日祝のみ営業",
+      "note": "不定休あり・要電話確認"
+    }
+  },
+  "r093": {
+    "id": "r093",
+    "name": "下田バーガー Ra-maru（車約10分）",
+    "area": "静岡県下田市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.6748,
+    "lng": 138.9509,
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": null,
+      "note": "L.O.16:30"
+    }
+  },
+  "r094": {
+    "id": "r094",
+    "name": "青木サザエ店（白浜・車約7分）",
+    "area": "静岡県下田市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.6355,
+    "lng": 138.8914,
+    "hours": {
+      "open": "8:30〜17:30",
+      "closed": null,
+      "note": "実所在地は南伊豆町（弓ヶ浜前）"
+    }
+  },
+  "r095": {
+    "id": "r095",
+    "name": "South Cafe",
+    "area": "静岡県下田市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.6663,
+    "lng": 138.9115,
+    "hours": {
+      "open": "11:30〜20:00",
+      "closed": "木曜定休",
+      "note": "L.O.19:00"
+    }
+  },
+  "r096": {
+    "id": "r096",
+    "name": "Fermenco",
+    "area": "静岡県下田市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 34.6586,
+    "lng": 138.9216,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "火曜定休",
+      "note": "夜17:00〜20:30も営業・夏季は変動あり"
+    }
+  },
+  "r097": {
+    "id": "r097",
+    "name": "SUGEEZ lil' frites（平野）",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.427,
+    "lng": 138.9032,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "水曜定休",
+      "note": "季節により変動あり"
+    }
+  },
+  "r098": {
+    "id": "r098",
+    "name": "PICA山中湖 Hammock Cafe",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.4069,
+    "lng": 138.8746,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "水・木曜定休（夏季繁忙期は営業）",
+      "note": "雨天クローズ・冬季休業あり"
+    }
+  },
+  "r099": {
+    "id": "r099",
+    "name": "煮込みシチューの店 Casserole",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.4194,
+    "lng": 138.9077,
+    "hours": {
+      "open": "11:30〜14:30",
+      "closed": "月曜定休",
+      "note": "夜18:00〜20:00も営業"
+    }
+  },
+  "r100": {
+    "id": "r100",
+    "name": "NICO CAFE",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.4055,
+    "lng": 138.8807,
+    "hours": {
+      "open": "12:00〜14:30",
+      "closed": null,
+      "note": "完全予約制・夜17:30〜22:00も営業"
+    }
+  },
+  "r101": {
+    "id": "r101",
+    "name": "水明荘 売店・軽食カフェ",
+    "area": "山梨県市川三郷町",
+    "policy": "テラスのみ",
+    "leadOK": true
+  },
+  "r102": {
+    "id": "r102",
+    "name": "湖畔cafe NATIVE GARDEN+",
+    "area": "山梨県市川三郷町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5298,
+    "lng": 138.5151,
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": "火・水曜定休（7〜9月は無休）",
+      "note": "営業日カレンダー要確認"
+    }
+  },
+  "r103": {
+    "id": "r103",
+    "name": "ながお亭",
+    "area": "群馬県高崎市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 36.4718,
+    "lng": 138.8604
+  },
+  "r104": {
+    "id": "r104",
+    "name": "Cafe 水月",
+    "area": "群馬県高崎市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.4704,
+    "lng": 138.8605,
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": "不定休",
+      "note": "L.O.16:30・榛名観光ボート併設"
+    }
+  },
+  "r105": {
+    "id": "r105",
+    "name": "鹿の子",
+    "area": "栃木県日光市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7401,
+    "lng": 139.497,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "不定休",
+      "note": "終了時刻は季節変動あり"
+    }
+  },
+  "r106": {
+    "id": "r106",
+    "name": "TOKI珈琲店",
+    "area": "栃木県日光市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7395,
+    "lng": 139.4969,
+    "hours": {
+      "open": "7:30〜15:30",
+      "closed": "火・水曜定休",
+      "note": "モーニング7:30〜10:30・Instagramで告知"
+    }
+  },
+  "r107": {
+    "id": "r107",
+    "name": "欧州浪漫館 シェ・ホシノ",
+    "area": "栃木県日光市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7399,
+    "lng": 139.4945,
+    "hours": {
+      "open": "11:30〜15:00",
+      "closed": "木曜定休",
+      "note": "夜18:00〜20:00も営業・冬季は不定休"
+    }
+  },
+  "r108": {
+    "id": "r108",
+    "name": "レストラン メープル",
+    "area": "栃木県日光市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.7283,
+    "lng": 139.4933,
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": null,
+      "note": "4〜11月は無休。冬季10:00〜16:00・不定休"
+    }
+  },
+  "r109": {
+    "id": "r109",
+    "name": "農家レストラン みのりの里",
+    "area": "群馬県片品村",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 36.769,
+    "lng": 139.2326,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": "月・火曜定休",
+      "note": "営業は4月上旬〜11月下旬・冬期休業"
+    }
+  },
+  "r110": {
+    "id": "r110",
+    "name": "Leko Cafe",
+    "area": "神奈川県横浜市都筑区",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5463,
+    "lng": 139.5824,
+    "hours": {
+      "open": "10:00〜16:00",
+      "closed": null,
+      "note": "年中無休・駐車場7台"
+    }
+  },
+  "r111": {
+    "id": "r111",
+    "name": "Cafe OREO",
+    "area": "神奈川県横浜市都筑区",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5453,
+    "lng": 139.5693,
+    "hours": {
+      "open": "11:00〜18:00",
+      "closed": "火曜定休",
+      "note": "第1・第3月曜も休み"
+    }
+  },
+  "r112": {
+    "id": "r112",
+    "name": "chou2clair",
+    "area": "神奈川県横浜市都筑区",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.5453,
+    "lng": 139.5693,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "月・火曜定休",
+      "note": "土日祝は〜17:00・臨時休業あり"
+    }
+  },
+  "r113": {
+    "id": "r113",
+    "name": "FRESCO",
+    "area": "神奈川県横浜市都筑区",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.5375,
+    "lng": 139.5902,
+    "hours": {
+      "open": "11:30〜15:30",
+      "closed": "火曜定休",
+      "note": "ディナー17:30〜22:00・仲町台駅徒歩3分"
+    }
+  },
+  "r115": {
+    "id": "r115",
+    "name": "ドッグカフェ BUBU'S PAW",
+    "area": "千葉県松戸市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7629,
+    "lng": 139.9283,
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "月・水曜定休",
+      "note": "祝日は営業し翌日振替"
+    }
+  },
+  "r116": {
+    "id": "r116",
+    "name": "マカロニ市場 松戸店",
+    "area": "千葉県松戸市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7805,
+    "lng": 139.9159,
+    "hours": {
+      "open": "11:00〜22:00",
+      "closed": null,
+      "note": "L.O.21:30・無休"
+    }
+  },
+  "r117": {
+    "id": "r117",
+    "name": "しろいぬカフェ",
+    "area": "千葉県松戸市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.7962,
+    "lng": 139.9757,
+    "hours": {
+      "open": "10:00〜19:00",
+      "closed": null,
+      "note": "年中無休・駐車場100台"
+    }
+  },
+  "r118": {
+    "id": "r118",
+    "name": "ドッグテラス アミエル&カフェ（三浦海岸）",
+    "area": "神奈川県横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1547,
+    "lng": 139.6317,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "実際の所在地は油壺エリア（諸磯）"
+    }
+  },
+  "r119": {
+    "id": "r119",
+    "name": "Dessert&Cafe BlueMoon",
+    "area": "神奈川県横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1938,
+    "lng": 139.6645,
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "月曜・第2火曜定休",
+      "note": "津久井浜駅徒歩8分・R134沿い"
+    }
+  },
+  "r120": {
+    "id": "r120",
+    "name": "ドッグカフェわんこじゃん三浦海岸",
+    "area": "神奈川県横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.1508,
+    "lng": 139.6681,
+    "hours": {
+      "open": "10:30〜17:00",
+      "closed": "水曜定休",
+      "note": "土日は〜19:00"
+    }
+  },
+  "r121": {
+    "id": "r121",
+    "name": "Bayside Cafe",
+    "area": "神奈川県横須賀市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.1891,
+    "lng": 139.6578,
+    "hours": {
+      "open": "10:00〜19:00",
+      "closed": null,
+      "note": "カフェ&コワーキング「BAYSIDE SHARE」内"
+    }
+  },
+  "r124": {
+    "id": "r124",
+    "name": "BIOTOPIA Café Saint-Jacques",
+    "area": "神奈川県松田町",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.3373,
+    "lng": 139.159,
+    "hours": {
+      "open": "9:30〜17:00",
+      "closed": null,
+      "note": "ランチ11:30〜14:00・年末年始休"
+    }
+  },
+  "r126": {
+    "id": "r126",
+    "name": "和カフェ 夢宇",
+    "area": "埼玉県川越市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.9196,
+    "lng": 139.4864,
+    "hours": {
+      "open": "11:00〜16:30",
+      "closed": "月・火曜定休",
+      "note": "L.O.16:00・祝日は営業"
+    }
+  },
+  "r127": {
+    "id": "r127",
+    "name": "コエド ボナペティ",
+    "area": "埼玉県川越市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.925,
+    "lng": 139.4798,
+    "hours": {
+      "open": "11:00〜15:00",
+      "closed": null,
+      "note": "金土日祝はディナー17:30〜21:00も営業"
+    }
+  },
+  "r128": {
+    "id": "r128",
+    "name": "施設内レストラン（ワンズガーデン等）",
+    "area": "千葉県八街市",
+    "policy": "店内OK",
+    "leadOK": true
+  },
+  "r129": {
+    "id": "r129",
+    "name": "クチーナ・トキオネーゼ・コジマ",
+    "area": "千葉県八街市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.7189,
+    "lng": 140.3128,
+    "hours": {
+      "open": "11:30〜15:00",
+      "closed": "日曜定休",
+      "note": "ディナー17:30〜21:30もあり"
+    }
+  },
+  "r130": {
+    "id": "r130",
+    "name": "プレールカフェ",
+    "area": "千葉県八街市",
+    "policy": "テラスのみ",
+    "leadOK": true,
+    "lat": 35.7066,
+    "lng": 140.2978,
+    "hours": {
+      "open": "11:30〜17:00",
+      "closed": "月・火曜定休",
+      "note": "売り切れ次第終了・時期により金土日のみの場合あり"
+    }
+  },
+  "r132": {
+    "id": "r132",
+    "name": "Dogs Garden WILDPARK",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.4395,
+    "lng": 138.8556,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "火・水曜定休",
+      "note": "ドッグラン2面併設・大型犬歓迎"
+    }
+  },
+  "r133": {
+    "id": "r133",
+    "name": "ほうとう さんさい",
+    "area": "山梨県山中湖村",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.4232,
+    "lng": 138.8492,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "火曜定休",
+      "note": "夏季と年末年始は無休・冬は短縮"
+    }
+  },
+  "r134": {
+    "id": "r134",
+    "name": "和食だワン",
+    "area": "静岡県伊東市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.8783,
+    "lng": 139.112,
+    "hours": {
+      "open": "11:30〜15:00",
+      "closed": "水曜定休",
+      "note": "ディナー17:30〜21:00（日曜夜休）"
+    }
+  },
+  "r135": {
+    "id": "r135",
+    "name": "福茶's curry",
+    "area": "静岡県伊東市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.8853,
+    "lng": 139.0967,
+    "hours": {
+      "open": "11:00〜16:00",
+      "closed": "火・水曜定休",
+      "note": "L.O.15:30・不定休あり"
+    }
+  },
+  "r136": {
+    "id": "r136",
+    "name": "Cafe CANDY",
+    "area": "静岡県伊東市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 34.8876,
+    "lng": 139.127,
+    "hours": {
+      "open": "11:00〜17:00",
+      "closed": "水・木曜定休",
+      "note": "L.O.16:00・祝日は営業"
+    }
+  }
+};
 
 /* 調査の結果、掲載を見送ったスポット（2026年8月調査時点） */
 const EXCLUDED = [
@@ -3239,5 +4634,1201 @@ const EXCLUDED = [
     "area": "千葉県九十九里町",
     "reason": "犬同伴はOKだが駐車場情報が確認できず。片貝海岸の代替として利用可",
     "type": "不明"
+  }
+];
+
+/* 夜さんぽスポット（🌙モード用・2026年8月調査）
+   掲載基準: 夜間開放＋照明＋人通り（犬連れ散歩が自然な場所）。川・海・プールの水遊びは夜間対象外 */
+const NIGHT_SPOTS = [
+  {
+    "id": "futako-rise",
+    "name": "二子玉川ライズ リボンストリート",
+    "category": "mall",
+    "area": "東京都世田谷区",
+    "lat": 35.6127,
+    "lng": 139.6266,
+    "elevation_m": 12,
+    "driveMin": 20,
+    "night": {
+      "lighting": "多い",
+      "vibe": "駅〜テラスマーケット〜二子玉川公園へ続く屋外通路は夜も照明が続き川風が抜ける。犬連れ率が非常に高い街",
+      "note": "屋外部はリード歩行OK・館内はカート/キャリー。河川敷は無照明区間があるため夜はライズ側の明るい園路までに"
+    },
+    "parking": [
+      {
+        "name": "二子玉川ライズP4駐車場",
+        "fee": "30分300円（平日初回30分無料）",
+        "hours": "24時間入出庫可",
+        "note": "夜間もっとも確実"
+      },
+      {
+        "name": "二子玉川ライズP3駐車場",
+        "fee": "30分300円",
+        "hours": "7:00〜25:30",
+        "note": "400台と大きい・最終出庫25:30"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "マヨルカ 二子玉川",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "9:00〜22:00",
+          "closed": null,
+          "note": "L.O.21:30"
+        },
+        "note": "テラスマーケット2F・テラスに暖房/扇風設備"
+      },
+      {
+        "name": "アジアンビストロDai 二子玉川店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": "不定休",
+          "note": ""
+        },
+        "note": "大型犬OK"
+      },
+      {
+        "name": "bills 二子玉川",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "8:30〜21:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "20時台までなら利用可"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装デッキ・石畳＋河川敷園路"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "屋外通路は終日通行可・店舗は〜22/23時"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Futako-Tamagawa%20Rise%20Shopping%20Center%20terrace%20market%202018.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.rise.sc/",
+      "label": "二子玉川ライズ公式"
+    },
+    "notes": "川崎から最短の夜スポット。「夜テラス飯＋川風さんぽ」の最有力。無照明の河川敷区間には入らないこと"
+  },
+  {
+    "id": "akarenga-marine-walk",
+    "name": "赤レンガ倉庫〜MARINE & WALK YOKOHAMA",
+    "category": "mall",
+    "area": "横浜市中区新港",
+    "lat": 35.4536,
+    "lng": 139.6449,
+    "elevation_m": 3,
+    "driveMin": 25,
+    "night": {
+      "lighting": "多い",
+      "vibe": "赤レンガのライトアップと海沿いプロムナード。夜遅くまで観光客が多く犬連れ散歩の定番",
+      "note": "MARINE&WALKは屋外全域リード散歩OK（公式）。リードホルダー付ベンチ・ペット用水飲み場あり。店舗は22時まで"
+    },
+    "parking": [
+      {
+        "name": "タイムズMARINE&WALK（コインP）",
+        "fee": "10分330円・夜間最大1,400円（19時〜翌8時）",
+        "hours": "6:00〜24:00（最終出庫24:00厳守）",
+        "note": "24時をまたぐなら山下公園駐車場へ"
+      },
+      {
+        "name": "山下公園駐車場",
+        "fee": "30分260円〜",
+        "hours": "24時間入出庫可",
+        "note": "深夜まで歩くならこちらが安全"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "焼肉うしすけ／コリアンうしすけ（MARINE&WALK 2F）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "L.O.21:00"
+        },
+        "note": "徒歩0分。全席犬同伴可・犬用メニューあり"
+      },
+      {
+        "name": "ブッチャー・リパブリック 横浜赤レンガ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "ペット席は要事前確認"
+        },
+        "note": "徒歩3分・シカゴピザ＆ビア。夜景テラス"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装（ウッドデッキ・石畳）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "屋外プロムナードは終夜通行可・店舗は22時まで"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yokohama%20Red%20Brick%20Warehouse%202012.JPG?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://marineandwalk.jp/",
+      "label": "MARINE&WALK公式"
+    },
+    "notes": "「散歩＋夕食」を1か所で完結できる夜さんぽ最強コース。山下公園まで海沿いを往復するのも良い"
+  },
+  {
+    "id": "rinko-park",
+    "name": "臨港パーク（みなとみらい）",
+    "category": "park",
+    "area": "横浜市西区みなとみらい",
+    "lat": 35.4599,
+    "lng": 139.6371,
+    "elevation_m": 2,
+    "driveMin": 25,
+    "night": {
+      "lighting": "普通",
+      "vibe": "海沿い芝生公園。夜もランナーと犬の散歩客が行き交い、ベイブリッジと港の夜景が正面",
+      "note": "24時間開放・無料。芝生広場の内側は暗めなので海沿い園路中心に"
+    },
+    "parking": [
+      {
+        "name": "みなとみらい公共駐車場（パシフィコ横浜）",
+        "fee": "平日最大1,600円・土日祝最大2,100円",
+        "hours": "24時間営業",
+        "note": "出庫24時間可で夜さんぽ向き"
+      },
+      {
+        "name": "臨港パーク駐車場",
+        "fee": "30分250円",
+        "hours": "入庫8:00〜21:00",
+        "note": "⚠️閉門が早いため夜は公共駐車場推奨"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "KUA`AINA 横浜ベイクォーター店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "車約7分・ハワイアンバーガー"
+      },
+      {
+        "name": "焼肉うしすけ MARINE&WALK店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "L.O.21:00"
+        },
+        "note": "車約5分・全席犬同伴可"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装＋広い芝生"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "24時間開放・海沿い園路に照明"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Rinko%20Park%20Yokohama.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.pacifico.co.jp/",
+      "label": "パシフィコ横浜"
+    },
+    "notes": "山下公園より人が少なめで、落ち着いて歩きたい夜向き。芝生で涼みながら夜景を眺められる"
+  },
+  {
+    "id": "odaiba-kaihin-park",
+    "name": "お台場海浜公園",
+    "category": "park",
+    "area": "東京都港区台場",
+    "lat": 35.6297,
+    "lng": 139.7745,
+    "elevation_m": 3,
+    "driveMin": 25,
+    "night": {
+      "lighting": "多い",
+      "vibe": "レインボーブリッジ・東京タワーの夜景が正面。デックス前プロムナードは照明が明るく夜も観光客が多い",
+      "note": "終日開放・リード必須。砂浜沿いの散歩OK。海風で夏夜も涼しい"
+    },
+    "parking": [
+      {
+        "name": "お台場海浜公園北口駐車場",
+        "fee": "1時間400円・24時間最大2,000円",
+        "hours": "24時間入出庫可",
+        "note": "244台"
+      },
+      {
+        "name": "お台場海浜公園中央駐車場",
+        "fee": "1時間400円〜",
+        "hours": "24時間入出庫可",
+        "note": "ビーチ中央に近い"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "肉菜工房うしすけ デックス東京ビーチ店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "平日は15〜17時休憩あり"
+        },
+        "note": "徒歩3分・焼肉。全席ペットOK・犬用メニューあり"
+      },
+      {
+        "name": "BISTROうしすけ（デックス東京ビーチ）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "テラス10席あり"
+        },
+        "note": "徒歩3分・ビストロ。夜景テラス"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装プロムナード＋砂浜"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "終日開放。照明はデックス前が最も明るい"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Odaiba%20Marine%20Park%20at%20night%2020070523.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.tptc.co.jp/park/01_02",
+      "label": "海上公園なび"
+    },
+    "notes": "川崎から湾岸線で意外と近い。夜景のスケールは随一。花火・イベント日は混雑注意"
+  },
+  {
+    "id": "yamashita-park",
+    "name": "山下公園",
+    "category": "park",
+    "area": "横浜市中区",
+    "lat": 35.4443,
+    "lng": 139.6493,
+    "elevation_m": 3,
+    "driveMin": 30,
+    "night": {
+      "lighting": "多い",
+      "vibe": "海沿い約750mのプロムナード。夜も観光客や散歩客が多く犬連れが自然。氷川丸・ベイブリッジのライトアップ",
+      "note": "24時間開放・リード必須。園路照明ありだが芝生の内側はやや暗め。夏は海風が抜けて涼しい"
+    },
+    "parking": [
+      {
+        "name": "山下公園駐車場",
+        "fee": "平日30分260円・土日祝30分300円（平日24時間最大2,080円）",
+        "hours": "24時間入出庫可",
+        "note": "公園地下で最も至近"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "THE WHARF HOUSE 山下公園",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "18:00〜22:00",
+          "closed": "不定休",
+          "note": "カフェは9:00〜18:00・BBQは4〜10月"
+        },
+        "note": "公園内・徒歩0分。ペットOKテラスでBBQ可"
+      },
+      {
+        "name": "焼肉うしすけ MARINE&WALK店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": "L.O.21:00"
+        },
+        "note": "車約7分・焼肉。全席犬同伴可・犬用メニューあり"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装＋芝生"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園は24時間開放・照明あり"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/View%20of%20Port%20of%20Yokohama%20from%20Yamashita%20Park%20at%20night.JPG?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.city.yokohama.lg.jp/kurashi/machizukuri-kankyo/midori-koen/koen/daihyo/kouen007.html",
+      "label": "横浜市公式"
+    },
+    "notes": "夜さんぽの王道。中華街側から入ると人通りが途切れない。氷川丸前は海風が最も涼しい"
+  },
+  {
+    "id": "toyosu-gururi-park",
+    "name": "豊洲ぐるり公園",
+    "category": "park",
+    "area": "東京都江東区豊洲",
+    "lat": 35.6455,
+    "lng": 139.7858,
+    "elevation_m": 3,
+    "driveMin": 30,
+    "night": {
+      "lighting": "普通",
+      "vibe": "豊洲ふ頭を一周する海沿い園路。夜もランナー・釣り人・犬の散歩客が絶えない。レインボーブリッジ・東京タワーの夜景",
+      "note": "24時間開放。園内の「豊洲ぐるりドッグラン」も会員登録制で基本24時間・夜間照明あり（登録はアプリWan!Pass等）"
+    },
+    "parking": [
+      {
+        "name": "豊洲ぐるり公園駐車場",
+        "fee": "1時間400円（最大料金なし）",
+        "hours": "24時間入出庫可",
+        "note": "38台。長時間は周辺コインP併用が安い"
+      },
+      {
+        "name": "ららぽーと豊洲駐車場",
+        "fee": "買物金額に応じ無料あり",
+        "hours": "夜間出庫は要確認",
+        "note": "食事利用時に便利"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "Les deux Bleue ららぽーと豊洲店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "L.O.22:00"
+        },
+        "note": "徒歩圏・ドッグカフェ＆洋食。店内・海側テラスとも犬OK・犬用メニュー充実"
+      },
+      {
+        "name": "ビストロ石川亭（豊洲）",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "17:00〜22:00",
+          "closed": null,
+          "note": "小型犬のみ店内可・コーギーはテラス"
+        },
+        "note": "車5分・フレンチビストロ"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装園路＋芝生"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園・ドッグランとも24時間利用可（ドッグランは要会員登録）"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Toyosu%20Gururi%20Park.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://toyosugururi.jp/",
+      "label": "豊洲ぐるりパーク公式"
+    },
+    "notes": "「24時間使えるドッグラン＋夜景さんぽ」が揃う稀有なスポット。夜間はドッグランが空いていて貸切状態のことも"
+  },
+  {
+    "id": "shin-yokohama-dogrun",
+    "name": "新横浜公園ドッグラン（サマーナイト営業）",
+    "category": "dogrun",
+    "area": "横浜市港北区",
+    "lat": 35.5107,
+    "lng": 139.6055,
+    "elevation_m": 6,
+    "driveMin": 30,
+    "night": {
+      "lighting": "普通",
+      "vibe": "日産スタジアム隣の大型ドッグラン。夏季は夕方〜夜営業に切り替わり涼しい時間に走らせられる",
+      "note": "サマーシーズン（7/1〜9/30）は15:00〜21:00営業・受付20:00まで。開催は水・木・土・日（祝日は開催）。要利用登録（年1,200円）＋1回500円・ワクチン証明持参"
+    },
+    "parking": [
+      {
+        "name": "新横浜公園第2駐車場",
+        "fee": "2時間400円・以降30分100円",
+        "hours": "7:00〜22:00",
+        "note": "⚠️22時閉門・出庫不可に注意。ランに最も近い"
+      },
+      {
+        "name": "タイムズ日産スタジアム（コインP）",
+        "fee": "20分100円・深夜60分100円",
+        "hours": "24時間入出庫可",
+        "note": "22時を過ぎる可能性がある日はこちら"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "ノンダクレール（新横浜駅徒歩4分）",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "17:00〜23:00",
+          "closed": "不定休",
+          "note": "要事前確認"
+        },
+        "note": "車10分・ビストロ/タパス"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "土・芝"
+    },
+    "hours": {
+      "open": "15:00〜21:00",
+      "closed": "月・火・金（祝日を除く）",
+      "note": "7/1〜9/30のサマーシーズンのみ夜営業。10〜6月は9:30〜17:30"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nissan%20International%20Stadium%20Yokohama.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.nissan-stadium.jp/shinyoko-park/dogrun.php",
+      "label": "新横浜公園公式"
+    },
+    "notes": "川崎から下道でも行きやすい。夏限定の夜ドッグランとして貴重。初回は営業時間内に登録手続きが必要"
+  },
+  {
+    "id": "komazawa-park",
+    "name": "駒沢オリンピック公園",
+    "category": "park",
+    "area": "東京都世田谷区",
+    "lat": 35.6262,
+    "lng": 139.6617,
+    "elevation_m": 36,
+    "driveMin": 30,
+    "night": {
+      "lighting": "多い",
+      "vibe": "夜もランナー・犬連れが多く、外周ジョグコース沿いは街灯が続き歩きやすい",
+      "note": "常時開園。ドッグラン（約1,200㎡・中大型/小型エリア分離）は24時間利用可で外灯あり。都立ドッグラン共通の事前Web登録制"
+    },
+    "parking": [
+      {
+        "name": "駒沢オリンピック公園第一・第二駐車場",
+        "fee": "1時間400円・12時間最大1,600円",
+        "hours": "24時間入出庫可",
+        "note": "第二駐車場がドッグラン隣接"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "MUNYA",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "18:00〜24:00",
+          "closed": "不定休",
+          "note": "土日は12時〜"
+        },
+        "note": "大型犬も店内OK。夜遅くまで使える貴重な1軒"
+      },
+      {
+        "name": "駒沢食堂 george",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "L.O.22:00"
+        },
+        "note": "公園至近の和食堂・大型犬OK"
+      },
+      {
+        "name": "アジアンビストロDai 駒沢店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "平日は15〜17時休憩"
+        },
+        "note": "大型犬OK"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装ジョグコース＋ドッグランは土系"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "常時開園・ドッグランも24時間（要Web登録）"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Komazawa%20Olympic%20Park%2010.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.tokyo-park.or.jp/park/komazawa-olympic/",
+      "label": "都立公園公式"
+    },
+    "notes": "夜間利用実績が最も豊富な都内の定番。ドッグラン24時間＋駐車場24時間"
+  },
+  {
+    "id": "grandberry-park",
+    "name": "南町田グランベリーパーク",
+    "category": "mall",
+    "area": "東京都町田市",
+    "lat": 35.5095,
+    "lng": 139.47,
+    "elevation_m": 78,
+    "driveMin": 40,
+    "night": {
+      "lighting": "多い",
+      "vibe": "屋外型モールで通路照明・店舗の灯りが夜まで続く。犬連れ比率が非常に高く「犬の街」的な雰囲気",
+      "note": "物販は20時頃閉店だが飲食は22時頃まで営業し、屋外通路（パセオ）は明るく歩ける。1F共用部はリードOK（2FはカートORバッグ）"
+    },
+    "parking": [
+      {
+        "name": "グランベリーパーク駐車場（約2,000台）",
+        "fee": "30分250円・平日2時間無料/土日祝1時間無料＋買物割引",
+        "hours": "8:00〜24:00（最終出庫24:00）",
+        "note": "犬連れは駐車場Cのエレベーターがリードのまま利用可"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "WIRED KITCHEN",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "10:00〜22:00",
+          "closed": null,
+          "note": "フードL.O.21:00"
+        },
+        "note": "店内に愛犬同伴専用エリアあり・ドッグメニューあり"
+      },
+      {
+        "name": "BEER&CAFE つるま食堂（鶴間公園内）",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜21:00",
+          "closed": "月曜定休（祝日は翌日）",
+          "note": "火〜木は〜20:00"
+        },
+        "note": "犬用おやつメニューあり"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装（屋外通路・ウッドデッキ）"
+    },
+    "hours": {
+      "open": "10:00〜22:00",
+      "closed": null,
+      "note": "飲食は22時まで。ペットトイレ・足洗い場は10:00-20:00"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Minami-machida%20Grandberry%20Park%20Station%202020%20-%2001.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://gbp.minamimachida-grandberrypark.com/",
+      "label": "グランベリーパーク公式"
+    },
+    "notes": "川崎から246経由で最短級の内陸候補。標高約80mで海沿いよりやや涼しい。夕食を絡めた夜さんぽに最適"
+  },
+  {
+    "id": "roka-dogrun",
+    "name": "蘆花恒春園 都立ドッグラン",
+    "category": "dogrun",
+    "area": "東京都世田谷区",
+    "lat": 35.66,
+    "lng": 139.611,
+    "elevation_m": 42,
+    "driveMin": 40,
+    "night": {
+      "lighting": "普通",
+      "vibe": "武蔵野の面影が残る広いラン（約1,230㎡）。夜は利用者少なめで静か",
+      "note": "利用は5:00〜22:00（11-5月は6時開場）。夜間照明は控えめなので日没直後〜21時台が現実的。要都立共通Web登録"
+    },
+    "parking": [
+      {
+        "name": "蘆花恒春園駐車場（42台）",
+        "fee": "1時間400円・12時間最大1,600円",
+        "hours": "24時間入出庫可",
+        "note": "ランまで徒歩数分"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "アジアンビストロDai 駒沢店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "車約15分。周辺は夜の犬OK店が乏しく帰路の駒沢方面で"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "土・ウッドチップ"
+    },
+    "hours": {
+      "open": "5:00〜22:00",
+      "closed": null,
+      "note": "22時完全撤収。火・木はボール遊びOK"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Roka-koshunen-dec1.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.tokyo-park.or.jp/park/rokakoshun-en/",
+      "label": "都立公園公式"
+    },
+    "notes": "「24時間」ではなく22時までの点に注意。夜間照明が控えめなので反射リード等の装備推奨"
+  },
+  {
+    "id": "yoyogi-park",
+    "name": "代々木公園（外周＆園内さんぽ）",
+    "category": "park",
+    "area": "東京都渋谷区",
+    "lat": 35.6712,
+    "lng": 139.6949,
+    "elevation_m": 32,
+    "driveMin": 40,
+    "night": {
+      "lighting": "普通",
+      "vibe": "常時開園で夜も入園可。外周は街灯とビルの明かりで歩きやすい",
+      "note": "園内深部は消灯後暗いので夜は外周園路・ケヤキ並木側が現実的。ドッグランは24時間利用可（要都立共通Web登録）"
+    },
+    "parking": [
+      {
+        "name": "代々木公園駐車場",
+        "fee": "1時間600円・12時間最大2,400円",
+        "hours": "24時間入出庫可",
+        "note": "夜は公園直結が安心"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "nephew（富ヶ谷）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "19:00〜24:00",
+          "closed": "火曜夜休",
+          "note": "昼は8:00〜17:00"
+        },
+        "note": "1階のみ犬OK・大型犬可。夜はバー営業"
+      },
+      {
+        "name": "mimet（奥渋）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "hours": {
+          "open": "17:00〜22:30",
+          "closed": "水曜定休",
+          "note": ""
+        },
+        "note": "大型犬OKのフレンチビストロ"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装園路＋土の広場"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "夜は外周ルート推奨"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yoyogi%20Park%20exit.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.tokyo-park.or.jp/park/yoyogi/",
+      "label": "都立公園公式"
+    },
+    "notes": "夜間閉鎖されない数少ない都心大規模公園。店内OKの夜営業店が徒歩圏に揃う"
+  },
+  {
+    "id": "marunouchi-nakadori",
+    "name": "皇居外苑〜丸の内仲通り",
+    "category": "street",
+    "area": "東京都千代田区",
+    "lat": 35.679,
+    "lng": 139.7623,
+    "elevation_m": 3,
+    "driveMin": 40,
+    "night": {
+      "lighting": "多い",
+      "vibe": "石畳の仲通りは街路灯＋ショーウィンドウで終夜明るく、犬連れ散歩の定番。皇居外苑側は開けて風が通る",
+      "note": "皇居外苑はリード着用・マナー順守で犬同伴可（終日開放）。和田倉噴水公園のライトアップは日没〜20:45"
+    },
+    "parking": [
+      {
+        "name": "周辺コインパーキング（大手町・有楽町側）",
+        "fee": "夜間最大1,700円程度の設定あり",
+        "hours": "24時間",
+        "note": "夜間は最大料金の安い路外コインPが有利・現地看板要確認"
+      },
+      {
+        "name": "新丸の内ビルディング駐車場",
+        "fee": "1日最大2,750円",
+        "hours": "9:00〜23:00",
+        "note": "⚠️最終出庫23:00厳守"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "GARB Tokyo（丸の内仲通り）",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "日祝は〜22:00"
+        },
+        "note": "仲通りに面したオープンテラスで犬OK"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "石畳・舗装歩道"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "店の明かりがある19〜22時台が快適"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/JP-Tokyo-Marunouchi-Nakadori(Street)-Night.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.env.go.jp/garden/kokyogaien/",
+      "label": "環境省 皇居外苑"
+    },
+    "notes": "ビル風が抜けて夏夜は体感涼しめ。北の丸公園側は夜暗いので仲通り側中心で"
+  },
+  {
+    "id": "ebina-vinawalk",
+    "name": "ビナウォーク（海老名駅東口）",
+    "category": "mall",
+    "area": "神奈川県海老名市",
+    "lat": 35.4518,
+    "lng": 139.3921,
+    "elevation_m": 18,
+    "driveMin": 50,
+    "night": {
+      "lighting": "多い",
+      "vibe": "駅前の屋外回廊型モール。通路・中央公園まわりは夜も照明と人通りが多く、犬連れイベントも開催される犬歓迎エリア",
+      "note": "屋外通路はリード着用（短く持つ）で同伴可と公式明記。飲食棟は22時以降まで営業"
+    },
+    "parking": [
+      {
+        "name": "ビナウォーク第1〜第3駐車場",
+        "fee": "60分600円・買物で無料サービスあり",
+        "hours": "24時間営業（出庫24時間可）",
+        "note": "第2駐車場（942台）が大型で使いやすい"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "ラ・パウザ ビナウォーク海老名店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "テラス席のみ犬同伴可"
+        },
+        "note": "イタリアン。夜ごはん向き"
+      },
+      {
+        "name": "スターバックス ビナウォーク海老名店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "7:00〜22:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "中央公園に面したテラス"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装（回廊・広場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "物販21時・飲食22時以降まで。駐車場出庫24時間可"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/VINA%20WALK%20Ebina.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.odakyu-sc.com/vinawalk/",
+      "label": "ビナウォーク公式"
+    },
+    "notes": "東名で約50分の内陸候補。マーキング・つなぎ留め禁止等のマナー規定あり。店内同伴可否は各店入口ステッカーで確認"
+  },
+  {
+    "id": "enoshima-bentenbashi",
+    "name": "江の島弁天橋〜島内参道",
+    "category": "street",
+    "area": "神奈川県藤沢市",
+    "lat": 35.3063,
+    "lng": 139.4813,
+    "elevation_m": 3,
+    "driveMin": 55,
+    "night": {
+      "lighting": "多い",
+      "vibe": "夏は「江の島灯籠」（例年7月中旬〜8月末）で参道〜島内が18:00-20:30ライトアップ。夜も観光客が多く犬連れ散歩が自然",
+      "note": "参道の店は20時前後に閉店が多い。橋上は海風が抜けて涼しい"
+    },
+    "parking": [
+      {
+        "name": "江の島なぎさ駐車場",
+        "fee": "7-8月: 2時間820円〜・当日最大2,060円",
+        "hours": "6:00〜21:00",
+        "note": "⚠️21時完全閉場・最終出庫に注意"
+      },
+      {
+        "name": "三井のリパーク片瀬3丁目（コインP）",
+        "fee": "夜間最大（18時〜翌8時）550円",
+        "hours": "24時間",
+        "note": "21時以降まで滞在するならこちら。徒歩8分前後"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "GARB 江ノ島",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜23:00",
+          "closed": null,
+          "note": "年中無休・ディナー17時〜"
+        },
+        "note": "片瀬海岸東浜。テラス・屋上ペットOK、江の島の夜景を見ながら食事可"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装（橋・石畳参道）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "灯籠ライトアップは20:30まで。公営駐車場利用なら20:45目安で切り上げ"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Enoshima%20Night%20View%20panorama.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.fujisawa-kanko.jp/",
+      "label": "藤沢市観光公式"
+    },
+    "notes": "夜間の入水・波打ち際の遊泳はNG前提。弁天橋は歩車分離で安心。エスカー奥は階段が多いので参道往復が無難"
+  },
+  {
+    "id": "shonan-tsite",
+    "name": "湘南T-SITE（辻堂）",
+    "category": "mall",
+    "area": "神奈川県藤沢市",
+    "lat": 35.3345,
+    "lng": 139.4638,
+    "elevation_m": 10,
+    "driveMin": 55,
+    "night": {
+      "lighting": "多い",
+      "vibe": "3棟の蔦屋書店とプロムナードが22時（3号館21時）まで営業。敷地内は犬連れ歓迎でリードフック常設",
+      "note": "屋外プロムナードはリードで散歩可。館内はケージ/カートイン（1・2号館間でドッグカート無料貸出）"
+    },
+    "parking": [
+      {
+        "name": "湘南T-SITE駐車場（第1・第2）",
+        "fee": "最初の1時間無料・買物で最大4時間無料",
+        "hours": "8:00〜22:00",
+        "note": "⚠️22時以降は出入庫不可"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "スターバックス 湘南T-SITE店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "8:00〜22:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "夜のテラスが涼しく犬連れ定番"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装（プロムナード・ウッドデッキ）"
+    },
+    "hours": {
+      "open": "8:00〜22:00",
+      "closed": null,
+      "note": "駐車場が22時までのため21:45目安で切り上げ"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shonan%20t%20site%2001.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://store.tsite.jp/shonan/news/t-site/31307-2054440119.html",
+      "label": "湘南T-SITE公式（犬連れ案内）"
+    },
+    "notes": "フラット舗装で猛暑夜でも歩きやすい。排尿時は水で流すマナー必須（公式明記）。江の島とハシゴしやすい"
+  },
+  {
+    "id": "shichirigahama",
+    "name": "七里ヶ浜 海岸プロムナード",
+    "category": "street",
+    "area": "神奈川県鎌倉市",
+    "lat": 35.3053,
+    "lng": 139.5153,
+    "elevation_m": 4,
+    "driveMin": 60,
+    "night": {
+      "lighting": "普通",
+      "vibe": "R134沿い・飲食店の明かり＋江の島の夜景。bills前〜駐車場沿いは夜も人の出入りがある",
+      "note": "海側遊歩道は街灯が疎らな区間もあるため、駐車場〜billsの明るい範囲を往復するのが安心"
+    },
+    "parking": [
+      {
+        "name": "七里ヶ浜海岸駐車場",
+        "fee": "日中60分1,000円／夜間（23時〜5時）60分200円",
+        "hours": "24時間営業",
+        "note": "海岸至近で24時間出庫可。夜さんぽの拠点に最適"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "bills 七里ヶ浜",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "7:00〜21:00",
+          "closed": null,
+          "note": "月曜は〜17:00・フードL.O.20:00"
+        },
+        "note": "テラス席のみ犬OK（1組1匹）・予約推奨"
+      },
+      {
+        "name": "Pacific DRIVE-IN",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "8:00〜20:00",
+          "closed": "不定休",
+          "note": "閉店早め・要最新確認"
+        },
+        "note": "駐車場隣接のハワイアンドライブイン"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "舗装歩道＋砂浜（夜間の入水はNG）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "駐車場24時間営業なので22時頃までゆっくり歩ける"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shichirigahama%20beach%20and%20Enoshima%202022-05.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.trip-kamakura.com/",
+      "label": "鎌倉観光公式"
+    },
+    "notes": "海風が通り真夏夜でも比較的涼しい。R134の横断は信号で"
+  },
+  {
+    "id": "green-springs",
+    "name": "GREEN SPRINGS（立川）",
+    "category": "mall",
+    "area": "東京都立川市",
+    "lat": 35.7053,
+    "lng": 139.409,
+    "elevation_m": 85,
+    "driveMin": 60,
+    "night": {
+      "lighting": "多い",
+      "vibe": "水盤とカスケードのある2Fデッキ広場が夜間ライトアップされ、水辺効果で体感涼しい",
+      "note": "ほぼ全屋外エリアがリード歩行OK（公式ペットページあり）。屋外広場は常時開放・ペット用トイレ設置"
+    },
+    "parking": [
+      {
+        "name": "GREEN SPRINGS駐車場",
+        "fee": "日中30分200円・夜間（22時〜8時）60分100円・24時間最大1,400円",
+        "hours": "24時間入出庫可",
+        "note": "夜間割安・店舗利用割引あり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "リザラン GREEN SPRINGS立川店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": "不定休",
+          "note": "ランチ〜16:30・ディナー17時〜"
+        },
+        "note": "スペイン料理。ペット専用メニューあり"
+      },
+      {
+        "name": "アジアンビストロDai 立川",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜22:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "広いテラス・パラソル完備"
+      },
+      {
+        "name": "100本のスプーン 立川",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "hours": {
+          "open": "11:00〜21:00",
+          "closed": null,
+          "note": ""
+        },
+        "note": "20時台まで"
+      }
+    ],
+    "surface": {
+      "shade": "夜間は不問",
+      "ground": "ウッドデッキ・舗装広場"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "屋外エリア常時開放・飲食は〜21/22時"
+    },
+    "official": {
+      "url": "https://greensprings.jp/pet/",
+      "label": "GREEN SPRINGSペット案内"
+    },
+    "notes": "多摩エリアの夜テラス最強格。犬OKテラス店が10店超。昭和記念公園は夜間閉園なので注意"
+  }
+];
+
+/* 夜さんぽで掲載を見送った場所 */
+const NIGHT_EXCLUDED = [
+  {
+    "name": "城南島海浜公園（つばさドッグラン）",
+    "area": "東京都大田区",
+    "reason": "駐車場が7:30〜21:00で夜間閉鎖され、ドッグラン・砂浜も夜間利用不可",
+    "type": "夜間閉鎖"
+  },
+  {
+    "name": "グランベリーパーク",
+    "area": "東京都町田市",
+    "reason": "屋外はリード同伴OKだが店舗が20時前後に閉店し、以降は人通りが少なく夜さんぽ基準を満たさない",
+    "type": "夜間閉鎖"
+  },
+  {
+    "name": "ららぽーと海老名",
+    "area": "神奈川県海老名市",
+    "reason": "ペットはカート/キャリー必須で、リード歩行の散歩は不可",
+    "type": "犬NG"
+  },
+  {
+    "name": "テラスモール湘南（辻堂）",
+    "area": "神奈川県藤沢市",
+    "reason": "館内はペット同伴買物不可。屋外通路はあるが飲食を絡めた夜さんぽが成立しにくい・21時閉館",
+    "type": "犬NG"
+  },
+  {
+    "name": "湘南夢わくわく公園ドッグラン",
+    "area": "神奈川県茅ヶ崎市",
+    "reason": "利用は7:00〜19:00で日没以降ほぼ使えない。要登録",
+    "type": "夜間閉鎖"
+  },
+  {
+    "name": "県立湘南海岸公園（鵠沼）の夜間砂浜",
+    "area": "神奈川県藤沢市",
+    "reason": "終日開放だが海の家消灯後は街灯が少なく夜間照明の確認が取れず。夜は江の島側プロムナード推奨",
+    "type": "照明不足"
+  },
+  {
+    "name": "グランツリー武蔵小杉 屋上庭園",
+    "area": "川崎市中原区",
+    "reason": "屋上庭園は17〜18時で閉鎖され日没後は使えない",
+    "type": "夜間閉鎖"
+  },
+  {
+    "name": "イオンレイクタウン",
+    "area": "埼玉県越谷市",
+    "reason": "館内の犬連れ歩行は禁止（ペテモ直通ルートのみ）。モール内散歩は不可・21時閉店",
+    "type": "犬NG"
+  },
+  {
+    "name": "多摩川河川敷の無照明区間（兵庫島公園周辺など）",
+    "area": "世田谷区〜川崎市",
+    "reason": "街灯のない区間が長く夜間はリスクが高い。夜は二子玉川ライズ側の照明園路のみ推奨",
+    "type": "照明不足"
+  },
+  {
+    "name": "皇居 北の丸公園（夜間）",
+    "area": "東京都千代田区",
+    "reason": "犬同伴可だが樹林が深く夜間照明が乏しい。夜は皇居外苑・仲通り側を推奨",
+    "type": "照明不足"
   }
 ];

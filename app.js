@@ -5,7 +5,38 @@ const CATEGORY_LABEL = {
   sea: "🌊 海",
   lake: "🏔️ 湖",
   pool: "🏊 プール",
+  park: "🌳 公園",
+  street: "🌃 街歩き",
+  mall: "🛍️ モール",
+  dogrun: "🐕 ドッグラン",
 };
+
+const MODE_CONFIG = {
+  day: {
+    cats: ["all", "river", "sea", "lake", "pool"],
+    subtitle: "暑い日でも快適な、コーギーと行く水遊びスポット",
+    topTitle: "🏆 今日のおすすめ",
+  },
+  night: {
+    cats: ["all", "park", "street", "mall", "dogrun"],
+    subtitle: "涼しくなった夜に、コーギーと歩ける明るい散歩スポット",
+    topTitle: "🌙 今夜のおすすめ",
+  },
+};
+
+let currentMode = localStorage.getItem("cogi-mode") === "night" ? "night" : "day";
+
+function activeSpots() {
+  if (currentMode === "night") {
+    return typeof NIGHT_SPOTS !== "undefined" ? NIGHT_SPOTS : [];
+  }
+  return SPOTS;
+}
+
+function allSpots() {
+  const night = typeof NIGHT_SPOTS !== "undefined" ? NIGHT_SPOTS : [];
+  return SPOTS.concat(night);
+}
 
 const DEFAULT_ORIGIN = { label: "川崎市（初期設定）", lat: 35.5308, lng: 139.7029, isDefault: true };
 const LS_ORIGIN = "cogi-origin";
@@ -41,9 +72,9 @@ function parseOpenRange(open) {
   return { from: +m[1] * 60 + +m[2], to: +m[3] * 60 + +m[4] };
 }
 
-function closedDaysOf(spot) {
+function closedDaysOf(hours) {
   // 定休日文字列 → {days:Set<0-6>, ordinal:{nth,day}|null, weekdaysOff:bool, unknown:bool}
-  const c = spot.hours && spot.hours.closed;
+  const c = hours && hours.closed;
   const res = { days: new Set(), ordinal: null, weekdaysOff: false, unknown: false };
   if (!c) return res;
   if (/不定/.test(c)) { res.unknown = true; return res; }
@@ -65,8 +96,8 @@ function closedDaysOf(spot) {
   return res;
 }
 
-function isClosedOnDate(spot, date) {
-  const info = closedDaysOf(spot);
+function isClosedOnDate(hours, date) {
+  const info = closedDaysOf(hours);
   const dow = date.getDay();
   if (info.weekdaysOff) return dow >= 1 && dow <= 5;
   if (info.ordinal) {
@@ -76,11 +107,30 @@ function isClosedOnDate(spot, date) {
   return info.days.has(dow);
 }
 
-function isClosedOnDow(spot, dow) {
-  const info = closedDaysOf(spot);
+function isClosedOnDow(hours, dow) {
+  const info = closedDaysOf(hours);
   if (info.weekdaysOff) return dow >= 1 && dow <= 5;
   if (info.ordinal) return dow === info.ordinal.day; // その曜日に定休の可能性あり
   return info.days.has(dow);
+}
+
+function fmtMin(min) {
+  return `${Math.floor(min / 60)}:${String(min % 60).padStart(2, "0")}`;
+}
+
+/* 飲食店の「今行けるか」判定 */
+function restoStatus(r) {
+  if (!r.hours || !r.hours.open) return { cls: "off", text: "営業時間は要確認" };
+  const now = new Date();
+  if (isClosedOnDate(r.hours, now)) return { cls: "ng", text: "⛔ 本日定休日" };
+  const range = parseOpenRange(r.hours.open);
+  if (!range) return { cls: "ok", text: `営業: ${r.hours.open}` };
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  if (nowMin < range.from) return { cls: "off", text: `⏳ 営業時間外（${fmtMin(range.from)}開店）` };
+  if (nowMin >= range.to) return { cls: "ng", text: "🌙 本日の営業は終了" };
+  const remain = range.to - nowMin;
+  if (remain < 60) return { cls: "soon", text: `⚠️ 営業中・${fmtMin(range.to)}まで（あと${remain}分）` };
+  return { cls: "ok", text: `🟢 営業中・${fmtMin(range.to)}まで` };
 }
 
 /* 今出発した場合の到着と営業の関係
@@ -90,7 +140,7 @@ function reachability(spot) {
   const drive = effDriveMin(spot) || 0;
   const arrive = new Date(now.getTime() + drive * 60000);
   const arriveStr = `${arrive.getHours()}:${String(arrive.getMinutes()).padStart(2, "0")}`;
-  if (isClosedOnDate(spot, now)) return { status: "closed", arriveStr };
+  if (isClosedOnDate(spot.hours, now)) return { status: "closed", arriveStr };
   const range = parseOpenRange(spot.hours && spot.hours.open);
   if (!range) return { status: "always", arriveStr };
   const sameDay = arrive.getDate() === now.getDate();
@@ -104,7 +154,7 @@ function reachability(spot) {
 
 function isOpenNow(spot) {
   const now = new Date();
-  if (isClosedOnDate(spot, now)) return false;
+  if (isClosedOnDate(spot.hours, now)) return false;
   const range = parseOpenRange(spot.hours && spot.hours.open);
   if (!range) return true;
   const nowMin = now.getHours() * 60 + now.getMinutes();
@@ -218,8 +268,9 @@ function hasMark(id, key) {
 
 /* ---------- 天気取得 (Open-Meteo 一括リクエスト) ---------- */
 async function fetchWeather() {
-  const lats = SPOTS.map((s) => s.lat).join(",");
-  const lngs = SPOTS.map((s) => s.lng).join(",");
+  const targets = allSpots();
+  const lats = targets.map((s) => s.lat).join(",");
+  const lngs = targets.map((s) => s.lng).join(",");
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}` +
     `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code` +
@@ -230,7 +281,7 @@ async function fetchWeather() {
   const json = await res.json();
   const list = Array.isArray(json) ? json : [json];
   list.forEach((w, i) => {
-    const spot = SPOTS[i];
+    const spot = targets[i];
     if (!spot) return;
     weatherData[spot.id] = {
       temp: w.current.temperature_2m,
@@ -279,6 +330,9 @@ function calcScore(spot) {
     if (spot.surface.shade === "多い") score += 8;
     else if (spot.surface.shade === "普通") score += 4;
   }
+  if (spot.night) {
+    score += spot.night.lighting === "多い" ? 8 : 4;
+  }
   score -= (effDriveMin(spot) || 60) * 0.06;
 
   if (w) {
@@ -321,7 +375,7 @@ function tempColor(t) {
 
 /* ---------- 並び替え・絞り込み ---------- */
 function visibleSpots() {
-  let list = SPOTS.filter(
+  let list = activeSpots().filter(
     (s) => (currentFilter === "all" || s.category === currentFilter) && withinDrive(s)
   );
   if (currentMarkFilter !== "all") {
@@ -338,7 +392,7 @@ function visibleSpots() {
     list = list.filter((s) => !parseOpenRange(s.hours && s.hours.open));
   }
   if (currentDay !== "today") {
-    list = list.filter((s) => !isClosedOnDow(s, +currentDay));
+    list = list.filter((s) => !isClosedOnDow(s.hours, +currentDay));
   }
   if (currentSort === "score") {
     list.sort((a, b) => calcScore(b) - calcScore(a));
@@ -364,17 +418,72 @@ function globalPx(lat, lng, z) {
   };
 }
 
-function miniMapHtml(spot) {
-  // 出発地とスポットの両方が収まる最大ズームを選ぶ（スマホ幅でも見切れない余白基準）
-  let z = 11;
-  let pS, pO;
-  for (; z >= 5; z--) {
-    pS = globalPx(spot.lat, spot.lng, z);
-    pO = globalPx(origin.lat, origin.lng, z);
-    if (Math.abs(pS.x - pO.x) <= 250 && Math.abs(pS.y - pO.y) <= 100) break;
+/* 飲食店エントリを解決（ref参照 or 旧インライン形式の両対応） */
+function resolveResto(entry, spot) {
+  if (entry.ref && typeof RESTAURANTS !== "undefined" && RESTAURANTS[entry.ref]) {
+    return { ...RESTAURANTS[entry.ref], pairNote: entry.note || "" };
   }
-  const midX = (pS.x + pO.x) / 2;
-  const midY = (pS.y + pO.y) / 2;
+  const r = { ...entry, pairNote: entry.note || "" };
+  // 併設・園内カフェは施設の営業時間に準ずる
+  if (!r.hours && spot && /併設|園内|場内|館内/.test(r.name || "")) {
+    r.hours = spot.hours;
+  }
+  return r;
+}
+
+/* 飲食店カード（写真・ミニ地図・営業状況つき） */
+function restaurantCardHtml(r, spot) {
+  const lead = r.leadOK === true ? "・リードOK" : "";
+  const tag = r.policy === "店内OK"
+    ? `<span class="resto-tag in">店内OK${lead}</span>`
+    : `<span class="resto-tag">テラス${lead}</span>`;
+  const st = restoStatus(r);
+  const statusHtml = `<span class="resto-status ${st.cls}">${st.text}</span>`;
+  const hoursLine = r.hours && r.hours.open
+    ? `<div class="resto-hours">🕐 ${r.hours.open}${r.hours.closed ? `・<span class="hours-closed">${r.hours.closed}</span>` : ""}${r.hours.note ? `<span class="hours-note">（${r.hours.note}）</span>` : ""}</div>`
+    : "";
+  const photoHtml = r.photo && r.photo.url
+    ? `<div class="spot-photo"><img src="${r.photo.url}" alt="${r.name}" loading="lazy" onerror="this.parentElement.remove()"><span class="photo-credit">📷 ${r.photo.credit || ""}</span></div>`
+    : "";
+  let mapHtml = "";
+  if (r.lat && r.lng) {
+    const km = haversineKm(spot.lat, spot.lng, r.lat, r.lng);
+    mapHtml = miniMapPairHtml(
+      { lat: r.lat, lng: r.lng, pin: "🍽️" },
+      { lat: spot.lat, lng: spot.lng, pin: "📍" },
+      {
+        href: `https://www.google.com/maps/dir/?api=1&origin=${spot.lat},${spot.lng}&destination=${r.lat},${r.lng}`,
+        title: "遊び場からの経路を開く",
+        distLabel: `遊び場から直線 ${km < 10 ? km.toFixed(1) : km.toFixed(0)}km`,
+        cls: "resto-map",
+      }
+    );
+  }
+  const media = photoHtml || mapHtml ? `<div class="spot-media resto-media">${photoHtml}${mapHtml}</div>` : "";
+  return `
+  <div class="resto-card">
+    <div class="resto-card-head">
+      <a class="resto-name" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(r.name + " " + (r.area || spot.area))}" target="_blank" rel="noopener">${r.name}</a>
+      ${tag}
+    </div>
+    <div class="resto-status-row">${statusHtml}</div>
+    ${media}
+    ${hoursLine}
+    ${r.pairNote ? `<div class="resto-note">${r.pairNote}</div>` : ""}
+  </div>`;
+}
+
+/* 2点（a=主役ピン, b=基準ピン）が1枚に収まる広域ミニ地図を生成 */
+function miniMapPairHtml(a, b, opts) {
+  let z = opts.maxZoom || 11;
+  let pA, pB;
+  for (; z >= 5; z--) {
+    pA = globalPx(a.lat, a.lng, z);
+    pB = globalPx(b.lat, b.lng, z);
+    if (Math.abs(pA.x - pB.x) <= 250 && Math.abs(pA.y - pB.y) <= 100) break;
+  }
+  const midX = (pA.x + pB.x) / 2;
+  const midY = (pA.y + pB.y) / 2;
   const layerLeft = midX - 384;
   const layerTop = midY - 128;
   const n = 2 ** z;
@@ -390,22 +499,34 @@ function miniMapHtml(spot) {
       tiles += `<img src="https://tile.openstreetmap.org/${z}/${tx}/${ty}.png" style="left:${left}px;top:${top}px" loading="lazy" alt="">`;
     }
   }
-  const sx = pS.x - layerLeft, sy = pS.y - layerTop;
-  const ox = pO.x - layerLeft, oy = pO.y - layerTop;
+  const ax = pA.x - layerLeft, ay = pA.y - layerTop;
+  const bx = pB.x - layerLeft, by = pB.y - layerTop;
   const line = `<svg class="mini-map-line" width="768" height="256" viewBox="0 0 768 256">
-    <line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${sx.toFixed(1)}" y2="${sy.toFixed(1)}"
+    <line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${ax.toFixed(1)}" y2="${ay.toFixed(1)}"
           stroke="#0369a1" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" opacity="0.85"/>
   </svg>`;
-  const km = distKm(spot);
   return `
-  <a class="mini-map" href="https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${spot.lat},${spot.lng}" target="_blank" rel="noopener" title="経路を地図で開く">
+  <a class="mini-map ${opts.cls || ""}" href="${opts.href}" target="_blank" rel="noopener" title="${opts.title || "地図で開く"}">
     <div class="mini-map-tiles">${tiles}${line}
-      <span class="mini-map-pin origin-pin" style="left:${ox.toFixed(1)}px;top:${oy.toFixed(1)}px">🚩</span>
-      <span class="mini-map-pin spot-pin" style="left:${sx.toFixed(1)}px;top:${sy.toFixed(1)}px">📍</span>
+      <span class="mini-map-pin origin-pin" style="left:${bx.toFixed(1)}px;top:${by.toFixed(1)}px">${b.pin}</span>
+      <span class="mini-map-pin spot-pin" style="left:${ax.toFixed(1)}px;top:${ay.toFixed(1)}px">${a.pin}</span>
     </div>
-    <span class="mini-map-dist">出発地から直線 ${km < 10 ? km.toFixed(1) : km.toFixed(0)}km</span>
+    <span class="mini-map-dist">${opts.distLabel}</span>
     <span class="mini-map-osm">© OSM</span>
   </a>`;
+}
+
+function miniMapHtml(spot) {
+  const km = distKm(spot);
+  return miniMapPairHtml(
+    { lat: spot.lat, lng: spot.lng, pin: "📍" },
+    { lat: origin.lat, lng: origin.lng, pin: "🚩" },
+    {
+      href: `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${spot.lat},${spot.lng}`,
+      title: "経路を地図で開く",
+      distLabel: `出発地から直線 ${km < 10 ? km.toFixed(1) : km.toFixed(0)}km`,
+    }
+  );
 }
 
 /* ---------- 描画 ---------- */
@@ -416,7 +537,7 @@ function renderTopPicks() {
     section.classList.add("hidden");
     return;
   }
-  const ranked = SPOTS.filter(withinDrive)
+  const ranked = activeSpots().filter(withinDrive)
     .sort((a, b) => calcScore(b) - calcScore(a))
     .slice(0, 3);
   if (ranked.length === 0) {
@@ -458,6 +579,7 @@ function renderCard(spot) {
   const tooHot = w && w.temp > 30;
   const badges = [];
   badges.push(`<span class="badge">${CATEGORY_LABEL[spot.category] || ""}</span>`);
+  if (spot.night) badges.push(`<span class="badge night">🌙 夜さんぽOK</span>`);
   if (spot.water && spot.water.allowed) {
     badges.push(
       `<span class="badge green">💦 入水OK${(spot.water.depth || "").includes("泳げる") ? "・泳げる" : ""}</span>`
@@ -510,16 +632,15 @@ function renderCard(spot) {
     )
     .join("／");
 
-  const restaurants = (spot.restaurants || [])
-    .filter((r) => r.policy !== "なし")
-    .map((r) => {
-      const lead = r.leadOK === true ? "・リードOK" : "";
-      const tag = r.policy === "店内OK" ? `<span class="resto-tag in">店内OK${lead}</span>` : `<span class="resto-tag">テラス${lead}</span>`;
-      return `<div class="resto-row">${tag}<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        r.name + " " + spot.area
-      )}" target="_blank" rel="noopener">${r.name}</a>${r.note ? `<span class="resto-note">${r.note}</span>` : ""}</div>`;
-    })
-    .join("");
+  const restoEntries = (spot.restaurants || []).filter((r) => r.policy !== "なし" || r.ref);
+  const resolved = restoEntries.map((entry) => resolveResto(entry));
+  const insideN = resolved.filter((r) => r.policy === "店内OK").length;
+  const restoBlock = resolved.length
+    ? `<details class="resto-details">
+        <summary>🍽️ 近隣の犬連れOK店 <b>${resolved.length}件</b>${insideN ? `（店内OK ${insideN}件）` : ""}</summary>
+        <div class="resto-cards">${resolved.map((r) => restaurantCardHtml(r, spot)).join("")}</div>
+      </details>`
+    : "";
 
   const weatherBox = w
     ? `
@@ -555,15 +676,18 @@ function renderCard(spot) {
     ${hoursHtml}
     ${weatherBox}
     <div class="spot-detail">
-      <div class="detail-row"><span class="detail-icon">💦</span><span>${spot.water ? spot.water.note || spot.water.depth || "" : ""}</span></div>
+      ${spot.water ? `<div class="detail-row"><span class="detail-icon">💦</span><span>${spot.water.note || spot.water.depth || ""}</span></div>` : ""}
+      ${spot.night ? `<div class="detail-row"><span class="detail-icon">💡</span><span>照明: ${spot.night.lighting} ／ ${spot.night.vibe || ""}${spot.night.note ? `<br>${spot.night.note}` : ""}</span></div>` : ""}
       <div class="detail-row"><span class="detail-icon">🅿️</span><span>${parking || "要確認"}</span></div>
-      ${restaurants ? `<div class="detail-row"><span class="detail-icon">🍽️</span><span>${restaurants}</span></div>` : ""}
-      <div class="detail-row"><span class="detail-icon">🌳</span><span>日陰: ${spot.surface ? spot.surface.shade : "?"} ／ 地面: ${spot.surface ? spot.surface.ground : "?"}</span></div>
+      ${spot.night
+        ? `<div class="detail-row"><span class="detail-icon">🐾</span><span>地面: ${spot.surface ? spot.surface.ground : "?"}</span></div>`
+        : `<div class="detail-row"><span class="detail-icon">🌳</span><span>日陰: ${spot.surface ? spot.surface.shade : "?"} ／ 地面: ${spot.surface ? spot.surface.ground : "?"}</span></div>`}
       ${spot.notes ? `<div class="detail-row"><span class="detail-icon">📝</span><span>${spot.notes}</span></div>` : ""}
       ${spot.official && spot.official.url
         ? `<div class="detail-row official-row"><span class="detail-icon">📖</span><span>犬連れルールの一次情報: <a href="${spot.official.url}" target="_blank" rel="noopener"><b>${spot.official.label || "公式サイト"}</b></a> で最新情報を確認してからお出かけください</span></div>`
         : ""}
     </div>
+    ${restoBlock}
     ${markBtns}
     <div class="spot-actions">
       <a class="action-btn" href="https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}" target="_blank" rel="noopener">🚗 ナビ開始</a>
@@ -602,11 +726,42 @@ function renderMarkers() {
   });
 }
 
+/* ---------- モード切り替え ---------- */
+function renderCategoryChips() {
+  const container = document.getElementById("filter-chips");
+  container.innerHTML = MODE_CONFIG[currentMode].cats
+    .map(
+      (c) =>
+        `<button class="chip ${c === currentFilter ? "active" : ""}" data-filter="${c}">${c === "all" ? "すべて" : CATEGORY_LABEL[c]}</button>`
+    )
+    .join("");
+}
+
+function applyMode(mode) {
+  currentMode = mode;
+  localStorage.setItem("cogi-mode", mode);
+  currentFilter = "all";
+  document.getElementById("mode-day").classList.toggle("active", mode === "day");
+  document.getElementById("mode-night").classList.toggle("active", mode === "night");
+  document.getElementById("app-subtitle").textContent = MODE_CONFIG[mode].subtitle;
+  document.getElementById("top-picks-title").textContent = MODE_CONFIG[mode].topTitle;
+  document.body.classList.toggle("night-mode", mode === "night");
+  renderCategoryChips();
+  renderExcluded();
+  renderAll();
+}
+
 /* ---------- 除外リスト ---------- */
 function renderExcluded() {
   const container = document.getElementById("excluded-list");
   if (!container || typeof EXCLUDED === "undefined") return;
-  container.innerHTML = EXCLUDED.map(
+  const nightList = typeof NIGHT_EXCLUDED !== "undefined" ? NIGHT_EXCLUDED : [];
+  const list = currentMode === "night" ? nightList : EXCLUDED;
+  if (list.length === 0) {
+    container.innerHTML = '<p class="excluded-note">（このモードの除外リストはまだありません）</p>';
+    return;
+  }
+  container.innerHTML = list.map(
     (e) => `
     <div class="excluded-item">
       <span class="excluded-type ${e.type === "不明" || e.type === "駐車場なし" ? "gray" : ""}">${e.type}</span>
@@ -645,6 +800,9 @@ async function refresh() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("mode-day").addEventListener("click", () => applyMode("day"));
+  document.getElementById("mode-night").addEventListener("click", () => applyMode("night"));
+
   document.getElementById("origin-name").textContent = origin.label;
   document.getElementById("origin-edit-btn").addEventListener("click", () => {
     document.getElementById("origin-form").classList.toggle("hidden");
@@ -727,7 +885,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("spot-list").innerHTML =
     '<p class="loading-note">スポットを読み込み中…</p>';
   initMap();
-  renderSpots();
-  renderExcluded();
+  applyMode(currentMode);
   refresh();
 });

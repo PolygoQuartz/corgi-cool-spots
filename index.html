@@ -7,12 +7,16 @@
 <title>ひんやりコギさんぽ 🐕💦</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <header class="app-header">
   <h1>🐕💦 ひんやりコギさんぽ</h1>
-  <p class="subtitle">暑い日でも快適な、コーギーと行く水遊びスポット</p>
+  <p class="subtitle" id="app-subtitle">暑い日でも快適な、コーギーと行く水遊びスポット</p>
+  <div class="mode-toggle">
+    <button id="mode-day" class="mode-btn active">☀️ 昼・水遊び</button>
+    <button id="mode-night" class="mode-btn">🌙 夜さんぽ</button>
+  </div>
   <div class="status-bar">
     <span id="update-time">気温データ取得中…</span>
     <button id="refresh-btn" title="気温を再取得">🔄 更新</button>
@@ -52,18 +56,12 @@
   </section>
 
   <section id="top-picks" class="top-picks hidden">
-    <h2>🏆 今日のおすすめ</h2>
+    <h2 id="top-picks-title">🏆 今日のおすすめ</h2>
     <div id="top-picks-list" class="top-picks-list"></div>
   </section>
 
   <section class="controls">
-    <div class="filter-chips" id="filter-chips">
-      <button class="chip active" data-filter="all">すべて</button>
-      <button class="chip" data-filter="river">🏞️ 川</button>
-      <button class="chip" data-filter="sea">🌊 海</button>
-      <button class="chip" data-filter="lake">🏔️ 湖</button>
-      <button class="chip" data-filter="pool">🏊 プール</button>
-    </div>
+    <div class="filter-chips" id="filter-chips"></div>
     <div class="filter-chips mark-chips" id="mark-chips">
       <button class="chip active" data-mark="all">マーク: すべて</button>
       <button class="chip" data-mark="fav">⭐ お気に入り</button>
@@ -123,7 +121,7 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="spots.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="spots.js?v=8"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
