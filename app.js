@@ -30,6 +30,87 @@ function withinDrive(spot) {
   return currentDriveMax == null || effDriveMin(spot) <= currentDriveMax;
 }
 
+/* ---------- 営業時間の解析と「間に合うか」判定 ---------- */
+let currentHoursFilter = "all";
+let currentDay = "today"; // "today" または 0(日)〜6(土)
+
+function parseOpenRange(open) {
+  // "9:00〜17:00" → {from, to}（分）。"終日" などは null（常時OK）
+  const m = (open || "").match(/(\d{1,2}):(\d{2})\s*〜\s*(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  return { from: +m[1] * 60 + +m[2], to: +m[3] * 60 + +m[4] };
+}
+
+function closedDaysOf(spot) {
+  // 定休日文字列 → {days:Set<0-6>, ordinal:{nth,day}|null, weekdaysOff:bool, unknown:bool}
+  const c = spot.hours && spot.hours.closed;
+  const res = { days: new Set(), ordinal: null, weekdaysOff: false, unknown: false };
+  if (!c) return res;
+  if (/不定/.test(c)) { res.unknown = true; return res; }
+  const stripped = c.replace(/[（(].*?[）)]/g, "").replace(/祝日?/g, "");
+  const kanji = { 日: 0, 月: 1, 火: 2, 水: 3, 木: 4, 金: 5, 土: 6 };
+  const ord = stripped.match(/第(\d)([日月火水木金土])/);
+  if (ord) {
+    res.ordinal = { nth: +ord[1], day: kanji[ord[2]] };
+    return res;
+  }
+  if (/平日/.test(stripped)) {
+    // 「平日休（GW・夏休みは無休）」→ 7・8月は無休扱い
+    const m = new Date().getMonth();
+    if (/夏休み|GW/.test(c) && (m === 6 || m === 7)) return res;
+    res.weekdaysOff = true;
+    return res;
+  }
+  for (const ch of stripped) if (ch in kanji) res.days.add(kanji[ch]);
+  return res;
+}
+
+function isClosedOnDate(spot, date) {
+  const info = closedDaysOf(spot);
+  const dow = date.getDay();
+  if (info.weekdaysOff) return dow >= 1 && dow <= 5;
+  if (info.ordinal) {
+    const nth = Math.floor((date.getDate() - 1) / 7) + 1;
+    return dow === info.ordinal.day && nth === info.ordinal.nth;
+  }
+  return info.days.has(dow);
+}
+
+function isClosedOnDow(spot, dow) {
+  const info = closedDaysOf(spot);
+  if (info.weekdaysOff) return dow >= 1 && dow <= 5;
+  if (info.ordinal) return dow === info.ordinal.day; // その曜日に定休の可能性あり
+  return info.days.has(dow);
+}
+
+/* 今出発した場合の到着と営業の関係
+   status: closed(本日定休) / missed(閉店に間に合わない) / tight(滞在short) / early(開場前着) / ok / always(終日) */
+function reachability(spot) {
+  const now = new Date();
+  const drive = effDriveMin(spot) || 0;
+  const arrive = new Date(now.getTime() + drive * 60000);
+  const arriveStr = `${arrive.getHours()}:${String(arrive.getMinutes()).padStart(2, "0")}`;
+  if (isClosedOnDate(spot, now)) return { status: "closed", arriveStr };
+  const range = parseOpenRange(spot.hours && spot.hours.open);
+  if (!range) return { status: "always", arriveStr };
+  const sameDay = arrive.getDate() === now.getDate();
+  const arriveMin = arrive.getHours() * 60 + arrive.getMinutes();
+  if (!sameDay || arriveMin >= range.to) return { status: "missed", arriveStr };
+  const remain = range.to - Math.max(arriveMin, range.from);
+  if (arriveMin < range.from) return { status: "early", arriveStr, remain, opensAt: range.from };
+  if (remain < 60) return { status: "tight", arriveStr, remain };
+  return { status: "ok", arriveStr, remain };
+}
+
+function isOpenNow(spot) {
+  const now = new Date();
+  if (isClosedOnDate(spot, now)) return false;
+  const range = parseOpenRange(spot.hours && spot.hours.open);
+  if (!range) return true;
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  return nowMin >= range.from && nowMin < range.to;
+}
+
 /* ---------- 出発地（端末内にのみ保存） ---------- */
 function loadOrigin() {
   try {
@@ -208,6 +289,11 @@ function calcScore(spot) {
     if (isRainy(w.code)) score -= 40;
     else if (w.rainProb >= 60) score -= 15;
   }
+
+  // 今から出発して間に合わない場所はおすすめから降格
+  const r = reachability(spot).status;
+  if (r === "closed" || r === "missed") score -= 60;
+  else if (r === "tight") score -= 15;
   return score;
 }
 
@@ -240,6 +326,19 @@ function visibleSpots() {
   );
   if (currentMarkFilter !== "all") {
     list = list.filter((s) => hasMark(s.id, currentMarkFilter));
+  }
+  if (currentHoursFilter === "open-now") {
+    list = list.filter(isOpenNow);
+  } else if (currentHoursFilter === "reachable") {
+    list = list.filter((s) => {
+      const r = reachability(s).status;
+      return r !== "missed" && r !== "closed";
+    });
+  } else if (currentHoursFilter === "allday") {
+    list = list.filter((s) => !parseOpenRange(s.hours && s.hours.open));
+  }
+  if (currentDay !== "today") {
+    list = list.filter((s) => !isClosedOnDow(s, +currentDay));
   }
   if (currentSort === "score") {
     list.sort((a, b) => calcScore(b) - calcScore(a));
@@ -376,6 +475,15 @@ function renderCard(spot) {
   if (tooHot) badges.push(`<span class="badge warn">🥵 現在30℃超</span>`);
   if (w && isRainy(w.code)) badges.push(`<span class="badge warn">🌧️ 雨</span>`);
 
+  const reach = reachability(spot);
+  if (reach.status === "closed") {
+    badges.push(`<span class="badge warn">⛔ 本日定休日</span>`);
+  } else if (reach.status === "missed") {
+    badges.push(`<span class="badge warn">⚠️ 今から出ても営業時間に間に合いません</span>`);
+  } else if (reach.status === "tight") {
+    badges.push(`<span class="badge warn">⚠️ 到着後 約${reach.remain}分で営業終了</span>`);
+  }
+
   const photoHtml = spot.photo && spot.photo.url
     ? `<div class="spot-photo">
          <img src="${spot.photo.url}" alt="${spot.name}" loading="lazy"
@@ -385,8 +493,12 @@ function renderCard(spot) {
     : "";
   const mediaHtml = `<div class="spot-media">${photoHtml}${miniMapHtml(spot)}</div>`;
 
+  const arriveInfo =
+    reach.status === "closed"
+      ? ""
+      : `<span class="arrive-info${reach.status === "missed" ? " arrive-ng" : ""}">🚗 今出ると ${reach.arriveStr} 着</span>`;
   const hoursHtml = spot.hours
-    ? `<div class="hours-box">🕐 <b>${spot.hours.open}</b>${spot.hours.closed ? `・<span class="hours-closed">${spot.hours.closed}</span>` : ""}${spot.hours.note ? `<span class="hours-note">（${spot.hours.note}）</span>` : ""}</div>`
+    ? `<div class="hours-box">🕐 <b>${spot.hours.open}</b>${spot.hours.closed ? `・<span class="hours-closed">${spot.hours.closed}</span>` : ""}${spot.hours.note ? `<span class="hours-note">（${spot.hours.note}）</span>` : ""}${arriveInfo}</div>`
     : "";
 
   const parking = (spot.parking || [])
@@ -570,6 +682,22 @@ document.addEventListener("DOMContentLoaded", () => {
     chip.classList.add("active");
     currentDriveMax = chip.dataset.drive === "all" ? null : parseInt(chip.dataset.drive, 10);
     localStorage.setItem("cogi-drivemax", chip.dataset.drive);
+    renderAll();
+  });
+
+  const hoursChips = document.getElementById("hours-chips");
+  hoursChips.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    hoursChips.querySelectorAll(".chip").forEach((c) => c.classList.remove("active"));
+    chip.classList.add("active");
+    currentHoursFilter = chip.dataset.hours;
+    renderAll();
+  });
+  document.getElementById("day-select").addEventListener("change", (e) => {
+    currentDay = e.target.value;
+    const note = document.getElementById("day-note");
+    note.textContent = currentDay === "today" ? "" : "定休日のスポットを除外中";
     renderAll();
   });
 

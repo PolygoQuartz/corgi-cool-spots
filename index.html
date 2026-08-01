@@ -7,7 +7,7 @@
 <title>ひんやりコギさんぽ 🐕💦</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <header class="app-header">
@@ -70,6 +70,26 @@
       <button class="chip" data-mark="visited">✅ 行った</button>
       <button class="chip" data-mark="want">👀 気になる</button>
     </div>
+    <div class="filter-chips hours-chips" id="hours-chips">
+      <button class="chip active" data-hours="all">🕐 すべて</button>
+      <button class="chip" data-hours="open-now">今営業中</button>
+      <button class="chip" data-hours="reachable">今から間に合う</button>
+      <button class="chip" data-hours="allday">終日OK</button>
+    </div>
+    <div class="sort-row">
+      <label for="day-select">曜日で確認:</label>
+      <select id="day-select">
+        <option value="today">今日</option>
+        <option value="1">月曜</option>
+        <option value="2">火曜</option>
+        <option value="3">水曜</option>
+        <option value="4">木曜</option>
+        <option value="5">金曜</option>
+        <option value="6">土曜</option>
+        <option value="0">日曜</option>
+      </select>
+      <span class="day-note" id="day-note"></span>
+    </div>
     <div class="sort-row">
       <label for="sort-select">並び替え:</label>
       <select id="sort-select">
@@ -103,7 +123,7 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="spots.js?v=5"></script>
-<script src="app.js?v=5"></script>
+<script src="spots.js?v=6"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

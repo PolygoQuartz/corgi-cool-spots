@@ -314,6 +314,16 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 }
 .hours-closed { color: #b91c1c; font-weight: 700; }
 .hours-note { color: var(--muted); font-size: 0.75rem; }
+.arrive-info {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--sky-dark);
+  white-space: nowrap;
+}
+.arrive-info.arrive-ng { color: #b91c1c; }
+.hours-chips { margin-top: 8px; }
+.day-note { font-size: 0.72rem; color: #b45309; }
 
 .weather-box {
   display: flex;
