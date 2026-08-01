@@ -20,6 +20,27 @@
 </header>
 
 <main>
+  <section class="origin-box">
+    <div class="origin-row">
+      <span class="origin-label">🚩 出発地:</span>
+      <span id="origin-name">川崎市（初期設定）</span>
+      <button id="origin-edit-btn" class="mini-btn">変更</button>
+    </div>
+    <div id="origin-form" class="origin-form hidden">
+      <div class="origin-form-row">
+        <input type="text" id="origin-input" placeholder="住所・駅名・地名（例: 横浜駅）" autocomplete="off">
+        <button id="origin-search-btn" class="mini-btn primary">設定</button>
+      </div>
+      <div class="origin-form-row">
+        <button id="origin-geo-btn" class="mini-btn">📍 現在地を使う</button>
+        <button id="origin-reset-btn" class="mini-btn">川崎市に戻す</button>
+        <button id="origin-close-btn" class="mini-btn">閉じる</button>
+      </div>
+      <p class="privacy-note">🔒 出発地はこの端末のブラウザ内にのみ保存され、外部から参照されることはありません。住所・地名で設定する場合のみ、座標変換のため検索語がOpenStreetMap（Nominatim）に送信されます。現在地ボタンは端末内で完結します。</p>
+      <p id="origin-status" class="origin-status"></p>
+    </div>
+  </section>
+
   <section id="top-picks" class="top-picks hidden">
     <h2>🏆 今日のおすすめ</h2>
     <div id="top-picks-list" class="top-picks-list"></div>
@@ -32,6 +53,12 @@
       <button class="chip" data-filter="sea">🌊 海</button>
       <button class="chip" data-filter="lake">🏔️ 湖</button>
       <button class="chip" data-filter="pool">🏊 プール</button>
+    </div>
+    <div class="filter-chips mark-chips" id="mark-chips">
+      <button class="chip active" data-mark="all">マーク: すべて</button>
+      <button class="chip" data-mark="fav">⭐ お気に入り</button>
+      <button class="chip" data-mark="visited">✅ 行った</button>
+      <button class="chip" data-mark="want">👀 気になる</button>
     </div>
     <div class="sort-row">
       <label for="sort-select">並び替え:</label>
@@ -49,10 +76,19 @@
   </section>
 
   <section id="spot-list" class="spot-list"></section>
+
+  <section class="excluded-section">
+    <details>
+      <summary>⛔ 掲載を見送ったスポット（犬の入水禁止など）</summary>
+      <p class="excluded-note">調査の結果、以下は掲載していません。「行ってみたら犬NGだった」を防ぐための参考リストです（調査時点の情報。ルールは変わることがあります）。</p>
+      <div id="excluded-list"></div>
+    </details>
+  </section>
 </main>
 
 <footer class="app-footer">
-  <p>気温・湿度: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> ／ 地図: OpenStreetMap</p>
+  <p>気温・湿度: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> ／ 地図: © OpenStreetMap contributors ／ 写真: Wikimedia Commons</p>
+  <p>🔒 出発地・マークはこの端末のブラウザ内（localStorage）にのみ保存されます。</p>
   <p>⚠️ 犬の入店・入水ルールは変更されることがあります。おでかけ前に公式情報をご確認ください。</p>
 </footer>
 
