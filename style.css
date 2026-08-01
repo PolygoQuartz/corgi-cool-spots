@@ -29,7 +29,14 @@ body {
   padding: 20px 16px 14px;
   text-align: center;
 }
-.app-header h1 { font-size: 1.4rem; letter-spacing: 0.02em; }
+.app-header h1 {
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  touch-action: manipulation; /* ダブルタップ時のズーム抑止（隠しショートカット用） */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
 .subtitle { font-size: 0.8rem; opacity: 0.9; margin-top: 2px; }
 .mode-toggle {
   display: flex;

@@ -845,6 +845,14 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("mode-day").addEventListener("click", () => applyMode("day"));
   document.getElementById("mode-night").addEventListener("click", () => applyMode("night"));
 
+  // 隠しショートカット: タイトルを素早く2回タップ→おでかけメモ（管理人用）
+  let lastTitleTap = 0;
+  document.querySelector(".app-header h1").addEventListener("click", () => {
+    const now = Date.now();
+    if (now - lastTitleTap < 500) location.href = "report.html";
+    lastTitleTap = now;
+  });
+
   document.getElementById("origin-name").textContent = origin.label;
   document.getElementById("origin-edit-btn").addEventListener("click", () => {
     document.getElementById("origin-form").classList.toggle("hidden");
