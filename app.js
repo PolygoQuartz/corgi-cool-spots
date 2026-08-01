@@ -253,34 +253,56 @@ function visibleSpots() {
   return list;
 }
 
-/* ---------- ミニ地図（OSMタイルを直接合成） ---------- */
-function miniMapHtml(spot) {
-  const z = 12;
+/* ---------- ミニ地図（出発地🚩とスポット📍を1枚に収める広域図） ---------- */
+function globalPx(lat, lng, z) {
   const n = 2 ** z;
-  const xt = ((spot.lng + 180) / 360) * n;
-  const latRad = (spot.lat * Math.PI) / 180;
-  const yt = ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n;
-  const px = xt * 256;
-  const py = yt * 256;
-  // 768x256のタイル層（中心＝スポット）に必要なタイルだけを敷き詰める
-  const layerLeft = px - 384;
-  const layerTop = py - 128;
+  const latRad = (lat * Math.PI) / 180;
+  return {
+    x: ((lng + 180) / 360) * n * 256,
+    y: ((1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2) * n * 256,
+  };
+}
+
+function miniMapHtml(spot) {
+  // 出発地とスポットの両方が収まる最大ズームを選ぶ（スマホ幅でも見切れない余白基準）
+  let z = 11;
+  let pS, pO;
+  for (; z >= 5; z--) {
+    pS = globalPx(spot.lat, spot.lng, z);
+    pO = globalPx(origin.lat, origin.lng, z);
+    if (Math.abs(pS.x - pO.x) <= 250 && Math.abs(pS.y - pO.y) <= 100) break;
+  }
+  const midX = (pS.x + pO.x) / 2;
+  const midY = (pS.y + pO.y) / 2;
+  const layerLeft = midX - 384;
+  const layerTop = midY - 128;
+  const n = 2 ** z;
   let tiles = "";
   const tx0 = Math.floor(layerLeft / 256);
   const ty0 = Math.floor(layerTop / 256);
   for (let tx = tx0; tx <= tx0 + 3; tx++) {
     for (let ty = ty0; ty <= ty0 + 1; ty++) {
-      if (tx < 0 || ty < 0 || tx >= n || ty >= n) continue;
+      if (tx < 0 || ty < 0 || tx * 256 >= n * 256 || ty * 256 >= n * 256) continue;
       const left = tx * 256 - layerLeft;
       const top = ty * 256 - layerTop;
       if (left <= -256 || left >= 768 || top <= -256 || top >= 256) continue;
       tiles += `<img src="https://tile.openstreetmap.org/${z}/${tx}/${ty}.png" style="left:${left}px;top:${top}px" loading="lazy" alt="">`;
     }
   }
+  const sx = pS.x - layerLeft, sy = pS.y - layerTop;
+  const ox = pO.x - layerLeft, oy = pO.y - layerTop;
+  const line = `<svg class="mini-map-line" width="768" height="256" viewBox="0 0 768 256">
+    <line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${sx.toFixed(1)}" y2="${sy.toFixed(1)}"
+          stroke="#0369a1" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" opacity="0.85"/>
+  </svg>`;
+  const km = distKm(spot);
   return `
-  <a class="mini-map" href="https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}" target="_blank" rel="noopener" title="地図で開く">
-    <div class="mini-map-tiles">${tiles}</div>
-    <span class="mini-map-pin">📍</span>
+  <a class="mini-map" href="https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${spot.lat},${spot.lng}" target="_blank" rel="noopener" title="経路を地図で開く">
+    <div class="mini-map-tiles">${tiles}${line}
+      <span class="mini-map-pin origin-pin" style="left:${ox.toFixed(1)}px;top:${oy.toFixed(1)}px">🚩</span>
+      <span class="mini-map-pin spot-pin" style="left:${sx.toFixed(1)}px;top:${sy.toFixed(1)}px">📍</span>
+    </div>
+    <span class="mini-map-dist">出発地から直線 ${km < 10 ? km.toFixed(1) : km.toFixed(0)}km</span>
     <span class="mini-map-osm">© OSM</span>
   </a>`;
 }
@@ -361,12 +383,16 @@ function renderCard(spot) {
     : "";
   const mediaHtml = `<div class="spot-media">${photoHtml}${miniMapHtml(spot)}</div>`;
 
+  const hoursHtml = spot.hours
+    ? `<div class="hours-box">🕐 <b>${spot.hours.open}</b>${spot.hours.closed ? `・<span class="hours-closed">${spot.hours.closed}</span>` : ""}${spot.hours.note ? `<span class="hours-note">${spot.hours.note}</span>` : ""}</div>`
+    : "";
+
   const parking = (spot.parking || [])
     .map(
       (p) =>
         `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
           p.name + " " + spot.area
-        )}" target="_blank" rel="noopener">${p.name}</a>（${p.fee}${p.note ? "・" + p.note : ""}）`
+        )}" target="_blank" rel="noopener">${p.name}</a>（${p.fee}${p.hours ? `・<b>🕐${p.hours}</b>` : ""}${p.note ? "・" + p.note : ""}）`
     )
     .join("／");
 
@@ -410,6 +436,7 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
+    ${hoursHtml}
     ${weatherBox}
     <div class="spot-detail">
       <div class="detail-row"><span class="detail-icon">💦</span><span>${spot.water ? spot.water.note || spot.water.depth || "" : ""}</span></div>
