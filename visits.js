@@ -33,4 +33,51 @@
      issue: 12                       // 元になったGitHub Issue番号（任意）
    }
 */
-const VISITS = [];
+const VISITS = [
+  {
+    "id": "visit-2026-08-01-demo",
+    "schemaVersion": 1,
+    "spotId": "hadano-tokawa",
+    "pendingSpotName": null,
+    "date": "2026-08-01",
+    "arrivedAt": "13:00",
+    "durationMin": 70,
+    "weather": "晴れ",
+    "summary": "【動作確認用サンプル】川沿いはほぼ木陰で歩けた",
+    "dogCondition": [
+      "よく歩いた",
+      "水遊びをした",
+      "また来てもよさそう"
+    ],
+    "routeNotes": [
+      "駐車場から川遊び場まで徒歩5分ほど",
+      "途中に日向の舗装路が短くある"
+    ],
+    "shadeImpression": "日陰多め",
+    "crowdImpression": "ほどほど",
+    "groundTemps": [
+      {
+        "time": "13:15",
+        "surface": "日向のアスファルト",
+        "tempC": 46.8,
+        "sun": "日向",
+        "device": "",
+        "note": ""
+      },
+      {
+        "time": "13:18",
+        "surface": "芝生",
+        "tempC": 27.2,
+        "sun": "日陰",
+        "device": "",
+        "note": ""
+      }
+    ],
+    "onSiteNotes": [
+      "※これはPRフローの動作確認用サンプルデータです（実際の訪問記録ではありません）"
+    ],
+    "rawNote": "（動作確認用サンプル）駐車場から川まで5分くらい。途中だけ日向の舗装路。川沿いはほぼ木陰。芝生は冷たかった。",
+    "diary": "【動作確認用サンプル】このレコードは訪問レポート→PR作成フローのテスト用です。実際の旅行記はここに、管理人の生メモを事実の範囲で整えた文章が入ります。",
+    "photos": []
+  }
+];
