@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0ea5e9">
+<title>ひんやりコギさんぽ 🐕💦</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <h1>🐕💦 ひんやりコギさんぽ</h1>
+  <p class="subtitle">暑い日でも快適な、コーギーと行く水遊びスポット</p>
+  <div class="status-bar">
+    <span id="update-time">気温データ取得中…</span>
+    <button id="refresh-btn" title="気温を再取得">🔄 更新</button>
+  </div>
+</header>
+
+<main>
+  <section id="top-picks" class="top-picks hidden">
+    <h2>🏆 今日のおすすめ</h2>
+    <div id="top-picks-list" class="top-picks-list"></div>
+  </section>
+
+  <section class="controls">
+    <div class="filter-chips" id="filter-chips">
+      <button class="chip active" data-filter="all">すべて</button>
+      <button class="chip" data-filter="river">🏞️ 川</button>
+      <button class="chip" data-filter="sea">🌊 海</button>
+      <button class="chip" data-filter="lake">🏔️ 湖</button>
+      <button class="chip" data-filter="pool">🏊 プール</button>
+    </div>
+    <div class="sort-row">
+      <label for="sort-select">並び替え:</label>
+      <select id="sort-select">
+        <option value="score">おすすめ順</option>
+        <option value="temp">気温が低い順</option>
+        <option value="drive">近い順</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="map-section">
+    <div id="map"></div>
+    <p class="map-note">マーカーの色は現在気温（🟢 〜28℃ / 🟡 〜30℃ / 🔴 30℃超）</p>
+  </section>
+
+  <section id="spot-list" class="spot-list"></section>
+</main>
+
+<footer class="app-footer">
+  <p>気温・湿度: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> ／ 地図: OpenStreetMap</p>
+  <p>⚠️ 犬の入店・入水ルールは変更されることがあります。おでかけ前に公式情報をご確認ください。</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="spots.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
