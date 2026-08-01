@@ -418,6 +418,45 @@ function globalPx(lat, lng, z) {
   };
 }
 
+/* ---------- 端末間同期（マーク＋出発地をURLに載せて手動同期） ---------- */
+function buildSyncUrl() {
+  const payload = { v: 1, marks, origin: origin.isDefault ? null : { label: origin.label, lat: origin.lat, lng: origin.lng } };
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))))
+    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return location.origin + location.pathname + "#sync=" + b64;
+}
+
+function importFromSyncHash() {
+  if (!location.hash.startsWith("#sync=")) return;
+  const clear = () => history.replaceState(null, "", location.pathname + location.search);
+  try {
+    const b64 = location.hash.slice(6).replace(/-/g, "+").replace(/_/g, "/");
+    const data = JSON.parse(decodeURIComponent(escape(atob(b64))));
+    if (data.v !== 1) throw new Error("version");
+    const markN = Object.values(data.marks || {}).filter((m) => m.fav || m.visited || m.want).length;
+    const originTxt = data.origin ? `出発地「${data.origin.label}」` : "出発地: なし";
+    if (!confirm(`別の端末からの同期データを取り込みますか？\n\nマーク: ${markN}件 ／ ${originTxt}\n（この端末の既存マークとは統合されます）`)) {
+      clear();
+      return;
+    }
+    for (const [id, m] of Object.entries(data.marks || {})) {
+      marks[id] = marks[id] || {};
+      for (const k of ["fav", "visited", "want"]) if (m[k]) marks[id][k] = true;
+    }
+    localStorage.setItem(LS_MARKS, JSON.stringify(marks));
+    if (data.origin && typeof data.origin.lat === "number" && typeof data.origin.lng === "number") {
+      saveOrigin({ label: String(data.origin.label || "同期した出発地"), lat: data.origin.lat, lng: data.origin.lng, isDefault: false });
+    }
+    clear();
+    renderAll();
+    alert("✅ 取り込みました");
+  } catch (e) {
+    console.error(e);
+    alert("同期データを読み込めませんでした");
+    clear();
+  }
+}
+
 /* ---------- 訪問記録（管理人の一次情報） ---------- */
 function visitsOf(spot) {
   if (typeof VISITS === "undefined") return [];
@@ -871,6 +910,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   document.getElementById("origin-geo-btn").addEventListener("click", setOriginFromGeolocation);
+
+  // 端末間同期
+  document.getElementById("sync-btn").addEventListener("click", () => {
+    const panel = document.getElementById("sync-panel");
+    panel.classList.toggle("hidden");
+    if (!panel.classList.contains("hidden")) {
+      document.getElementById("sync-url").value = buildSyncUrl();
+    }
+  });
+  document.getElementById("sync-copy-btn").addEventListener("click", async () => {
+    const input = document.getElementById("sync-url");
+    input.value = buildSyncUrl();
+    await navigator.clipboard.writeText(input.value);
+    const btn = document.getElementById("sync-copy-btn");
+    btn.textContent = "✅ コピー済み";
+    setTimeout(() => (btn.textContent = "コピー"), 2000);
+  });
+  document.getElementById("sync-share-btn").addEventListener("click", () => {
+    const url = buildSyncUrl();
+    if (navigator.share) {
+      navigator.share({ title: "ひんやりコギさんぽ 同期", url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("この端末は共有シート非対応のためURLをコピーしました");
+    }
+  });
+  document.getElementById("sync-close-btn").addEventListener("click", () => {
+    document.getElementById("sync-panel").classList.add("hidden");
+  });
   document.getElementById("origin-reset-btn").addEventListener("click", () => {
     localStorage.removeItem(LS_ORIGIN);
     origin = DEFAULT_ORIGIN;
@@ -936,5 +1004,6 @@ document.addEventListener("DOMContentLoaded", () => {
     '<p class="loading-note">スポットを読み込み中…</p>';
   initMap();
   applyMode(currentMode);
+  importFromSyncHash();
   refresh();
 });

@@ -7,7 +7,7 @@
 <title>ひんやりコギさんぽ 🐕💦</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
 <header class="app-header">
@@ -30,6 +30,18 @@
       <span class="origin-label">🚩 出発地:</span>
       <span id="origin-name">川崎市（初期設定）</span>
       <button id="origin-edit-btn" class="mini-btn">変更</button>
+      <button id="sync-btn" class="mini-btn" title="別の端末とマーク・出発地を同期">📤 同期</button>
+    </div>
+    <div id="sync-panel" class="origin-form hidden">
+      <p class="privacy-note">🔁 このURLをLINEやメールで自分に送り、<b>もう一方の端末で開く</b>と、⭐✅👀マークと出発地が取り込まれます（既存のマークとは統合されます）。データはURLの中にだけ入っており、サーバーには保存されません。</p>
+      <div class="origin-form-row">
+        <input type="text" id="sync-url" readonly>
+        <button id="sync-copy-btn" class="mini-btn primary">コピー</button>
+      </div>
+      <div class="origin-form-row">
+        <button id="sync-share-btn" class="mini-btn">📱 共有シートで送る</button>
+        <button id="sync-close-btn" class="mini-btn">閉じる</button>
+      </div>
     </div>
     <div id="origin-form" class="origin-form hidden">
       <div class="origin-form-row">
@@ -123,8 +135,8 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="spots.js?v=12"></script>
-<script src="visits.js?v=12"></script>
-<script src="app.js?v=12"></script>
+<script src="spots.js?v=13"></script>
+<script src="visits.js?v=13"></script>
+<script src="app.js?v=13"></script>
 </body>
 </html>
