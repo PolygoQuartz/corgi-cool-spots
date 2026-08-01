@@ -28,10 +28,31 @@ body {
   color: #fff;
   padding: 20px 16px 14px;
   text-align: center;
+  position: relative;
 }
+
+/* ヘッダー脇の控えめなプロフィールボタン */
+.profile-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  opacity: 0.85;
+}
+.profile-btn:active { background: rgba(255, 255, 255, 0.3); }
 .app-header h1 {
   font-size: 1.4rem;
   letter-spacing: 0.02em;
+  padding: 0 46px; /* 右上のプロフィールボタンと干渉しないための余白 */
   touch-action: manipulation; /* ダブルタップ時のズーム抑止（隠しショートカット用） */
   user-select: none;
   -webkit-user-select: none;
@@ -568,4 +589,8 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 @media (min-width: 600px) {
   .app-header h1 { font-size: 1.7rem; }
   #map { height: 400px; }
+}
+
+@media (max-width: 400px) {
+  .app-header h1 { font-size: 1.22rem; }
 }
