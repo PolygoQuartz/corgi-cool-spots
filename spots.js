@@ -1,6 +1,6 @@
 /* スポットデータ（2026年8月調査）
    掲載基準: 犬の入水OK / 駐車場あり / 犬連れ飲食店 / 日陰・路面環境
-   official: 犬連れ可否の一次情報リンク（おでかけ前に必ず確認）
+   official: 犬連れ可否の一次情報リンク ／ hours: 営業時間 ／ parking[].hours: 駐車場利用時間
    ⚠️ ルールは変更されることがあるため、おでかけ前に公式情報を確認 */
 const SPOTS = [
   {
@@ -21,12 +21,14 @@ const SPOTS = [
       {
         "name": "田代運動公園駐車場",
         "fee": "無料",
-        "note": "河川敷隣接"
+        "note": "河川敷隣接",
+        "hours": "要確認（キャンプ・BBQ利用者の駐車は不可）"
       },
       {
         "name": "河川敷（車両乗り入れ可）",
         "fee": "無料",
-        "note": "川沿いまで直接乗り入れ可。土日祝は朝早くに埋まる"
+        "note": "川沿いまで直接乗り入れ可。土日祝は朝早くに埋まる",
+        "hours": "24時間"
       }
     ],
     "restaurants": [
@@ -49,6 +51,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nakatsu%20River%2001.jpg?width=640",
       "credit": "Σ64 / CC BY 3.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "河川敷自体は終日利用可"
     }
   },
   {
@@ -69,12 +76,14 @@ const SPOTS = [
       {
         "name": "大倉駐車場",
         "fee": "530円/日程度",
-        "note": "川遊び場まで徒歩数分"
+        "note": "川遊び場まで徒歩数分",
+        "hours": "入庫6:30〜21:00（出庫24時間可）"
       },
       {
         "name": "水無川駐車場",
         "fee": "530円/日程度",
-        "note": "公園南側エリアに近い"
+        "note": "公園南側エリアに近い",
+        "hours": "入庫6:30〜21:00（出庫24時間可）"
       }
     ],
     "restaurants": [
@@ -97,6 +106,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/HadanoTokawaKoen-KazenoTsuribashi.jpg?width=640",
       "credit": "テレストレラッソ / CC BY-SA 4.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園は常時開放。パークセンター等は日中のみ"
     }
   },
   {
@@ -122,7 +136,8 @@ const SPOTS = [
       {
         "name": "市営釜の淵公園大柳駐車場",
         "fee": "数百円/日程度",
-        "note": "河原まで徒歩5分程度"
+        "note": "河原まで徒歩5分程度",
+        "hours": "入庫3〜9月6:00〜20:00／10〜2月8:00〜18:00"
       }
     ],
     "restaurants": [
@@ -145,6 +160,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ome%20Tama%20River%201.JPG?width=640",
       "credit": "京浜にけ / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園・河原自体は終日利用可"
     }
   },
   {
@@ -165,7 +185,8 @@ const SPOTS = [
       {
         "name": "場内乗り入れ（デイキャンプ）",
         "fee": "入場料大人500円＋普通車500円",
-        "note": "予約不要で日帰り利用可。サイト＝駐車場所で川まで至近"
+        "note": "予約不要で日帰り利用可。サイト＝駐車場所で川まで至近",
+        "hours": "8:00〜17:00"
       }
     ],
     "restaurants": [
@@ -188,6 +209,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.aonohara-acl.jp/",
       "label": "青野原ACL公式"
+    },
+    "hours": {
+      "open": "8:00〜17:00",
+      "closed": null,
+      "note": "デイキャンプ受付8:00〜・当日17:00まで。予約不要"
     }
   },
   {
@@ -208,7 +234,8 @@ const SPOTS = [
       {
         "name": "箱根町営駐車場（湯本大橋そば）",
         "fee": "40分400円程度",
-        "note": "湯本駅周辺は台数少なめ、休日午前中の到着推奨"
+        "note": "湯本駅周辺は台数少なめ、休日午前中の到着推奨",
+        "hours": "土日祝のみ・8:00開場（閉場時刻は要確認）"
       }
     ],
     "restaurants": [
@@ -231,6 +258,11 @@ const SPOTS = [
     "official": {
       "url": "https://wanwalk.jp/spots/sugumogawa-asase-mizuasobi",
       "label": "WanWalk箱根"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "河川敷自体は終日利用可"
     }
   },
   {
@@ -256,7 +288,8 @@ const SPOTS = [
       {
         "name": "荷田子駐車場",
         "fee": "1,000円/日",
-        "note": "駐車場すぐ脇の河原で泳げる。8時台到着推奨"
+        "note": "駐車場すぐ脇の河原で泳げる。8時台到着推奨",
+        "hours": "8:00〜17:00"
       }
     ],
     "restaurants": [
@@ -279,6 +312,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akigawa%20River%20in%20the%20autumn.jpg?width=640",
       "credit": "Hiroaki Kaneko / CC BY-SA 2.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "河原自体は終日利用可"
     }
   },
   {
@@ -299,7 +337,8 @@ const SPOTS = [
       {
         "name": "巾着田有料駐車場",
         "fee": "500円/日",
-        "note": "トイレ完備。川まで徒歩数分"
+        "note": "トイレ完備。川まで徒歩数分",
+        "hours": "7:00〜17:00（最終入庫16:30）"
       }
     ],
     "restaurants": [
@@ -322,6 +361,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kinchakuda%20park%2C%20Saitama%20Prefecture%3B%20September%202017%20%2801%29.jpg?width=640",
       "credit": "雷太 / CC BY 2.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "巾着田自体は終日散策可。曼珠沙華開花期は公園入場有料"
     }
   },
   {
@@ -342,7 +386,8 @@ const SPOTS = [
       {
         "name": "御岳苑地駐車場",
         "fee": "1時間100円・1日最大800円",
-        "note": "52台。河原に直結。満車時は御岳交流センター駐車場（1日500円）"
+        "note": "52台。河原に直結。満車時は御岳交流センター駐車場（1日500円）",
+        "hours": "24時間"
       }
     ],
     "restaurants": [
@@ -367,7 +412,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mitake%20Valley%20@%20Tama%20River%20Walk%20@%20Ome%20City%20(13165382293).jpg?width=640",
       "credit": "Guilhem Vellut / CC BY 2.0"
     },
-    "notes": "遊歩道が整備され犬連れ散策と水遊びを両方楽しめる。夏休みは上流側の岩場が比較的空いている"
+    "notes": "遊歩道が整備され犬連れ散策と水遊びを両方楽しめる。夏休みは上流側の岩場が比較的空いている",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "渓谷・遊歩道は終日利用可"
+    }
   },
   {
     "id": "seiryuen",
@@ -387,7 +437,8 @@ const SPOTS = [
       {
         "name": "清流園駐車場",
         "fee": "1,000円/日〜＋入園料200円/人",
-        "note": "約130台。川の近くまで乗り入れ可。営業4〜10月、8〜17時"
+        "note": "約130台。川の近くまで乗り入れ可。営業4〜10月、8〜17時",
+        "hours": "8:00〜17:00（営業日のみ）"
       }
     ],
     "restaurants": [
@@ -410,6 +461,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hanno%20Iruma%20River%201.JPG?width=640",
       "credit": "京浜にけ / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "8:00〜17:00",
+      "closed": "平日休（GW・夏休みは無休）",
+      "note": "営業4〜10月・日帰りのみ"
     }
   },
   {
@@ -430,7 +486,8 @@ const SPOTS = [
       {
         "name": "ぶなの湯 川側駐車場",
         "fee": "駐車券＋温泉利用券2枚セット2,100円",
-        "note": "夏の週末は午前9時頃満車になることも"
+        "note": "夏の週末は午前9時頃満車になることも",
+        "hours": "施設営業時間内が目安"
       }
     ],
     "restaurants": [
@@ -449,7 +506,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Tanzawa%2002.jpg?width=640",
       "credit": "Σ64 / CC BY 3.0（至近の丹沢湖）"
     },
-    "notes": "水質・透明度は神奈川屈指。帰りに人間だけ交代で温泉入浴可（犬は不可）。犬の車内待機は温度に注意"
+    "notes": "水質・透明度は神奈川屈指。帰りに人間だけ交代で温泉入浴可（犬は不可）。犬の車内待機は温度に注意",
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "月曜定休（祝日は翌日）",
+      "note": "8月は全日10:00〜20:00。温泉施設の時間＝駐車場利用の目安"
+    }
   },
   {
     "id": "doshigawa",
@@ -469,7 +531,8 @@ const SPOTS = [
       {
         "name": "両国橋キャンプ場場内駐車場",
         "fee": "1,000〜1,500円＋施設利用料700円/人",
-        "note": "デイキャンプは予約不要、7〜18時。河原まですぐ"
+        "note": "デイキャンプは予約不要、7〜17時。河原まですぐ",
+        "hours": "7:00〜17:00"
       }
     ],
     "restaurants": [
@@ -492,6 +555,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Doshigawa%2003210%202160v.jpg?width=640",
       "credit": "ISAKA Yoji (cory) / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "7:00〜17:00",
+      "closed": null,
+      "note": "デイキャンプは7:00〜17:00。年末年始休業"
     }
   },
   {
@@ -512,7 +580,8 @@ const SPOTS = [
       {
         "name": "嵐山渓谷バーベキュー場駐車場",
         "fee": "1,000円/日",
-        "note": "約300台。河原至近。営業3月下旬〜12月上旬、9〜16時"
+        "note": "約300台。河原至近。営業3月下旬〜12月上旬、9〜16時",
+        "hours": "9:00〜16:00"
       }
     ],
     "restaurants": [
@@ -535,6 +604,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ranzan%20Ranzan-Valley%201.JPG?width=640",
       "credit": "京浜にけ / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "9:00〜16:00",
+      "closed": null,
+      "note": "通常営業3月下旬〜12月上旬。冬期は土日祝の予約営業のみ"
     }
   },
   {
@@ -574,7 +648,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Genbei%20River%202011-09-18%20(c).jpg?width=640",
       "credit": "Batholith / Public domain"
     },
-    "notes": "ホタル生息の清流のため排泄・シャンプー厳禁などマナー最重視。夏は子供連れで賑わうので早朝推奨"
+    "notes": "ホタル生息の清流のため排泄・シャンプー厳禁などマナー最重視。夏は子供連れで賑わうので早朝推奨",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "川沿いの水辺の道は終日散策可"
+    }
   },
   {
     "id": "kanogawa-kamishima",
@@ -594,7 +673,8 @@ const SPOTS = [
       {
         "name": "川の駅 伊豆城山 駐車場",
         "fee": "無料",
-        "note": "9:00〜17:00（17:00施錠のため退出厳守）"
+        "note": "9:00〜17:00（17:00施錠のため退出厳守）",
+        "hours": "9:00〜17:00（17時施錠）"
       }
     ],
     "restaurants": [
@@ -617,6 +697,11 @@ const SPOTS = [
     "official": {
       "url": "https://kanogawakamishima.com/dog/",
       "label": "川の駅伊豆城山公式"
+    },
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": null,
+      "note": "駐車場が17時施錠のため公園利用も実質この時間内"
     }
   },
   {
@@ -637,12 +722,14 @@ const SPOTS = [
       {
         "name": "宝登山神社大鳥居横 観光駐車場",
         "fee": "500円/日",
-        "note": "岩畳まで徒歩約5分"
+        "note": "岩畳まで徒歩約5分",
+        "hours": "要確認（日中のみとみられる）"
       },
       {
         "name": "タイムズ長瀞駅前",
         "fee": "60分400円〜",
-        "note": "商店街・岩畳至近"
+        "note": "商店街・岩畳至近",
+        "hours": "24時間"
       }
     ],
     "restaurants": [
@@ -671,6 +758,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nagatoro%20Iwadatami%20Rocks%20%2811043511563%29.jpg?width=640",
       "credit": "Guilhem Vellut / CC BY 2.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "岩畳自体は終日見学可"
     }
   },
   {
@@ -691,7 +783,8 @@ const SPOTS = [
       {
         "name": "萬城の滝キャンプ場駐車場",
         "fee": "無料",
-        "note": "滝入口向かい。キャンプ場併設"
+        "note": "滝入口向かい。キャンプ場併設",
+        "hours": "要確認（日中利用が目安）"
       }
     ],
     "restaurants": [
@@ -710,7 +803,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Banjo%20Falls%2020111002.jpg?width=640",
       "credit": "Batholith / Public domain"
     },
-    "notes": "水温は夏でも低く冷却効果大。滝つぼ直下は遊泳不可だが下流親水エリアで水遊び可"
+    "notes": "水温は夏でも低く冷却効果大。滝つぼ直下は遊泳不可だが下流親水エリアで水遊び可",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "滝の見学は終日可。隣接キャンプ場受付は10:00〜20:00・水木定休"
+    }
   },
   {
     "id": "oashigawa",
@@ -730,7 +828,8 @@ const SPOTS = [
       {
         "name": "西大芦フォレストビレッジ駐車場",
         "fee": "1,500円/日（8〜16時）",
-        "note": "約130台。周辺道路は全面駐車禁止で取締り強化中、必ずここに駐車"
+        "note": "約130台。周辺道路は全面駐車禁止で取締り強化中、必ずここに駐車",
+        "hours": "8:00〜16:00・7〜8月のみ"
       }
     ],
     "restaurants": [
@@ -745,7 +844,12 @@ const SPOTS = [
       "shade": "普通",
       "ground": "岩・玉石の河原（川への階段は急）"
     },
-    "notes": "夏休みの週末は混雑必至で午前中着推奨。BBQ・花火は指定区域のみ。標高低めなので朝夕か曇天日向き"
+    "notes": "夏休みの週末は混雑必至で午前中着推奨。BBQ・花火は指定区域のみ。標高低めなので朝夕か曇天日向き",
+    "hours": {
+      "open": "8:00〜16:00",
+      "closed": null,
+      "note": "7〜8月のみのシーズン営業"
+    }
   },
   {
     "id": "mizukoidori",
@@ -765,7 +869,8 @@ const SPOTS = [
       {
         "name": "水恋鳥広場 専用駐車場",
         "fee": "無料（入場料500円）",
-        "note": "施設内に複数区画"
+        "note": "施設内に複数区画",
+        "hours": "10:00〜15:00（営業期間中のみ）"
       }
     ],
     "restaurants": [
@@ -788,6 +893,11 @@ const SPOTS = [
     "official": {
       "url": "https://mizukoidori.com/kawa/",
       "label": "水恋鳥広場公式"
+    },
+    "hours": {
+      "open": "10:00〜15:00",
+      "closed": null,
+      "note": "夏季のみ営業（例年7月中旬〜8月末）"
     }
   },
   {
@@ -808,7 +918,8 @@ const SPOTS = [
       {
         "name": "道の駅みなかみ水紀行館 駐車場",
         "fee": "無料",
-        "note": "台数多め。清流公園に直結"
+        "note": "台数多め。清流公園に直結",
+        "hours": "24時間（トイレも24時間）"
       }
     ],
     "restaurants": [
@@ -831,6 +942,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.enjoy-minakami.jp/pet",
       "label": "みなかみ町観光協会"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園・遊歩道は終日利用可。水紀行館は9:00〜17:00"
     }
   },
   {
@@ -851,7 +967,8 @@ const SPOTS = [
       {
         "name": "花貫渓谷駐車場",
         "fee": "通常無料（紅葉まつり期間のみ500円）",
-        "note": "汐見滝吊り橋まで徒歩約15分"
+        "note": "汐見滝吊り橋まで徒歩約15分",
+        "hours": "通常期は終日開放（紅葉まつり期間のみ有料・9〜16時目安）"
       }
     ],
     "restaurants": [
@@ -874,6 +991,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.takahagi-kanko.jp/play/mountain/page000032.html",
       "label": "高萩市観光協会"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "渓谷自体は終日散策可"
     }
   },
   {
@@ -894,7 +1016,8 @@ const SPOTS = [
       {
         "name": "木の俣園地駐車場",
         "fee": "4〜9月有料（自動精算機）",
-        "note": "駐車場からすぐで川遊び可。台数少なめで夏休みは早着推奨"
+        "note": "駐車場からすぐで川遊び可。台数少なめで夏休みは早着推奨",
+        "hours": "7:00〜18:00（18時までに要出庫）"
       }
     ],
     "restaurants": [
@@ -917,6 +1040,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kinomata%20River%2C%20Nasushiobara%2C%20Tochigi.jpg?width=640",
       "credit": "Kanohara / Public domain"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "渓谷・河原自体は終日利用可"
     }
   },
   {
@@ -937,7 +1065,8 @@ const SPOTS = [
       {
         "name": "県立観音崎公園駐車場（第1〜6）",
         "fee": "550〜880円/日",
-        "note": "たたら浜へは第4・5駐車場が近い。夏の週末は午前中に満車になりやすい"
+        "note": "たたら浜へは第4・5駐車場が近い。夏の週末は午前中に満車になりやすい",
+        "hours": "5:00〜19:00（第4は8:00〜17:00、7-8月は〜18:00）"
       }
     ],
     "restaurants": [
@@ -966,6 +1095,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tatarahama%20-%20Kannonzaki%20%28Yokosuka%29.jpg?width=640",
       "credit": "Quercus acuta / CC BY-SA 4.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "自然海岸のため入場自由。海水浴場としての開設はなし（遊泳は自己責任）"
     }
   },
   {
@@ -986,12 +1120,14 @@ const SPOTS = [
       {
         "name": "和田浜駐車場（三浦市側）",
         "fee": "夏期1,000〜1,500円/日、その他の平日無料",
-        "note": "有料期間の営業7:00〜18:00"
+        "note": "有料期間の営業7:00〜18:00",
+        "hours": "有料期間は7:00〜18:00（期間外は閉鎖）"
       },
       {
         "name": "長浜駐車場（横須賀市側）",
         "fee": "同上",
-        "note": "浜まで徒歩すぐ"
+        "note": "浜まで徒歩すぐ",
+        "hours": "有料期間7:00〜18:00・期間外は24時間無料"
       }
     ],
     "restaurants": [
@@ -1016,7 +1152,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/%E5%92%8C%E7%94%B0%E9%95%B7%E6%B5%9C%E6%B5%B7%E5%B2%B8.JPG?width=640",
       "credit": "Mizunoumi / CC BY-SA 3.0"
     },
-    "notes": "透明度が高い遠浅ビーチで泳ぎ好きの中型犬に好適。塩抜き用の真水を多めに"
+    "notes": "透明度が高い遠浅ビーチで泳ぎ好きの中型犬に好適。塩抜き用の真水を多めに",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "自然海岸で入場自由。2026年海水浴場開設: 7月上旬〜8/31"
+    }
   },
   {
     "id": "yugawara",
@@ -1036,7 +1177,8 @@ const SPOTS = [
       {
         "name": "湯河原海浜公園駐車場",
         "fee": "2時間無料、以降200円/30分・最大1,100円",
-        "note": "ビーチまで徒歩数分。夏期は早めの到着推奨"
+        "note": "ビーチまで徒歩数分。夏期は早めの到着推奨",
+        "hours": "24時間利用可（プール期間の日中は1回1,000円）"
       }
     ],
     "restaurants": [
@@ -1071,6 +1213,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/BEACH%20-%20panoramio%20-%20kcomiida.jpg?width=640",
       "credit": "kcomiida / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "8:30〜17:00",
+      "closed": null,
+      "note": "海水浴場開設期間のみ（例年7月中旬〜8/31）。期間外の浜は終日立入可"
     }
   },
   {
@@ -1091,7 +1238,8 @@ const SPOTS = [
       {
         "name": "沖ノ島公園駐車場",
         "fee": "無料",
-        "note": "約400台。夏は早朝に満車必至。水道なしのため犬の足洗い用の水持参"
+        "note": "約400台。夏は早朝に満車必至。水道なしのため犬の足洗い用の水持参",
+        "hours": "時間指定なし（無料・夏期は環境保全協力金あり）"
       }
     ],
     "restaurants": [
@@ -1120,6 +1268,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tateyama%20Okinoshima.jpg?width=640",
       "credit": "Xser21 / CC BY-SA 4.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園・島への立入は自由。海水浴場開設は2026年7/18〜8/23・遊泳9:00〜16:00。島内にトイレなし"
     }
   },
   {
@@ -1140,7 +1293,8 @@ const SPOTS = [
       {
         "name": "外浦海岸周辺駐車場",
         "fee": "夏期2,000円〜/日",
-        "note": "約200台。浜のすぐ裏。有料シャワー500円あり"
+        "note": "約200台。浜のすぐ裏。有料シャワー500円あり",
+        "hours": "要確認（夏期1日2,000円〜）"
       }
     ],
     "restaurants": [
@@ -1169,6 +1323,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sotoura%20Beach%2001.jpg?width=640",
       "credit": "飯嶋 麗士 / CC BY 2.1 JP"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "自然海岸で入場自由。海水浴場開設は2026年7/18〜8/23・遊泳8:00〜16:00"
     }
   },
   {
@@ -1189,7 +1348,8 @@ const SPOTS = [
       {
         "name": "多々戸浜駐車場（民間）",
         "fee": "夏期2,000円〜/日",
-        "note": "約110台。温水シャワー通年あり。夏休みは早朝満車注意"
+        "note": "約110台。温水シャワー通年あり。夏休みは早朝満車注意",
+        "hours": "要確認（夏期の日中営業が基本）"
       }
     ],
     "restaurants": [
@@ -1218,6 +1378,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Izu%20Shimoda%20Tatado%20hama.jpg?width=640",
       "credit": "tmano / CC BY 4.0"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "浜自体は終日出入り可。海水浴場開設期間は例年7月中旬〜8月下旬、監視は8:00〜16:00"
     }
   },
   {
@@ -1238,7 +1403,8 @@ const SPOTS = [
       {
         "name": "平野の浜 湖畔無料駐車スペース",
         "fee": "無料",
-        "note": "約10台。満車時は山中湖交流プラザきらら駐車場（300円）が徒歩圏"
+        "note": "約10台。満車時は山中湖交流プラザきらら駐車場（300円）が徒歩圏",
+        "hours": "24時間"
       }
     ],
     "restaurants": [
@@ -1267,6 +1433,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Yamanaka.jpg?width=640",
       "credit": "RESPITE / Public domain"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "自然湖畔の浜で時間制限なし"
     }
   },
   {
@@ -1287,7 +1458,8 @@ const SPOTS = [
       {
         "name": "水明荘 第1・第2駐車場",
         "fee": "500円/日",
-        "note": "湖畔まで徒歩すぐ。デイ利用可（湖畔利用料あり・要確認）"
+        "note": "湖畔まで徒歩すぐ。デイ利用可（湖畔利用料あり・要確認）",
+        "hours": "9:00〜19:00目安・要事前電話連絡"
       }
     ],
     "restaurants": [
@@ -1310,6 +1482,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Shibire.JPG?width=640",
       "credit": "さかおり / CC BY-SA 3.0"
+    },
+    "hours": {
+      "open": "9:00〜19:00",
+      "closed": "不定休",
+      "note": "水明荘は完全予約制（電話のみ・受付9〜13時/15〜19時）"
     }
   },
   {
@@ -1330,7 +1507,8 @@ const SPOTS = [
       {
         "name": "榛名湖畔 無料駐車場（湖畔各所）",
         "fee": "無料",
-        "note": "湖を一周する道路沿いに複数あり"
+        "note": "湖を一周する道路沿いに複数あり",
+        "hours": "24時間"
       }
     ],
     "restaurants": [
@@ -1349,7 +1527,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Lake%20Haruna%2001.jpg?width=640",
       "credit": "きゅうすけ / CC BY 2.1 JP"
     },
-    "notes": "標高1,084mで夏も涼しい。犬連れOKの榛名神社と組み合わせた定番コース"
+    "notes": "標高1,084mで夏も涼しい。犬連れOKの榛名神社と組み合わせた定番コース",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "県立榛名公園内の自然湖で見学自由"
+    }
   },
   {
     "id": "chuzenji",
@@ -1369,7 +1552,8 @@ const SPOTS = [
       {
         "name": "県営歌ヶ浜第一駐車場",
         "fee": "無料",
-        "note": "湖岸に直結。紅葉期は早朝から混雑"
+        "note": "湖岸に直結。紅葉期は早朝から混雑",
+        "hours": "24時間入出庫可（6時間まで500円）"
       }
     ],
     "restaurants": [
@@ -1394,7 +1578,12 @@ const SPOTS = [
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Mount%20nantai%20and%20lake%20chuzenji.jpg?width=640",
       "credit": "Uraomote yamaneko / CC BY-SA 3.0"
     },
-    "notes": "標高1,269mの避暑地で真夏でも25℃前後。犬同伴OKのスワンボートやイタリア大使館別荘記念公園の散策も組み合わせ可"
+    "notes": "標高1,269mの避暑地で真夏でも25℃前後。犬同伴OKのスワンボートやイタリア大使館別荘記念公園の散策も組み合わせ可",
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "湖畔自体は終日出入り可。県営駐車場は2025年4月から有料化"
+    }
   },
   {
     "id": "sugenuma",
@@ -1414,7 +1603,8 @@ const SPOTS = [
       {
         "name": "菅沼キャンプ村 場内駐車場",
         "fee": "施設利用者は無料（日帰り可・受付必要）",
-        "note": "営業は4月下旬〜10月20日頃"
+        "note": "営業は4月下旬〜10月20日頃",
+        "hours": "日帰り受付8:00〜17:00内"
       }
     ],
     "restaurants": [
@@ -1437,6 +1627,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.sugenuma.com/",
       "label": "菅沼キャンプ村公式"
+    },
+    "hours": {
+      "open": "8:00〜17:00",
+      "closed": null,
+      "note": "季節営業（2026年は4/24〜10/20、期間内無休）"
     }
   },
   {
@@ -1457,7 +1652,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "400円",
-        "note": "台数少なめ。近隣コインパーキング複数あり。第三京浜都筑ICから約5分"
+        "note": "台数少なめ。近隣コインパーキング複数あり。第三京浜都筑ICから約5分",
+        "hours": "営業時間内（10:00〜17:00）・400円"
       }
     ],
     "restaurants": [
@@ -1478,7 +1674,12 @@ const SPOTS = [
       "shade": "普通",
       "ground": "土・人工芝のドッグラン"
     },
-    "notes": "川崎から最も近い水遊び先で猛暑日の短時間利用に最適。営業10:00〜17:00・水曜定休。プール開催日はInstagramで要確認"
+    "notes": "川崎から最も近い水遊び先で猛暑日の短時間利用に最適。営業10:00〜17:00・水曜定休。プール開催日はInstagramで要確認",
+    "hours": {
+      "open": "10:00〜17:00",
+      "closed": "第3水曜定休",
+      "note": "プール開催日はInstagramで要確認"
+    }
   },
   {
     "id": "dogone-matsudo",
@@ -1498,7 +1699,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "無料",
-        "note": "約50台完備"
+        "note": "約50台完備",
+        "hours": "営業時間内（9:00〜19:00）"
       }
     ],
     "restaurants": [
@@ -1517,6 +1719,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.instagram.com/dogone_matsudo_akiyama/",
       "label": "DOG ONE公式IG"
+    },
+    "hours": {
+      "open": "9:00〜19:00",
+      "closed": null,
+      "note": "レストラン10:00〜19:00。不定休の情報もありInstagramで最新確認推奨"
     }
   },
   {
@@ -1537,7 +1744,8 @@ const SPOTS = [
       {
         "name": "施設専用駐車場",
         "fee": "無料（利用料に含む）",
-        "note": "12台。利用料は季節により1,000〜2,500円程度、水曜定休"
+        "note": "12台。利用料は季節により1,000〜2,500円程度、水曜定休",
+        "hours": "営業時間内"
       }
     ],
     "restaurants": [
@@ -1562,6 +1770,11 @@ const SPOTS = [
     "official": {
       "url": "https://hi-dogyard.com/",
       "label": "Highland DOG YARD公式"
+    },
+    "hours": {
+      "open": "9:30〜17:30",
+      "closed": "水曜定休",
+      "note": "夏期（4〜10月）9:30〜17:30／冬期10:00〜16:00・年末年始休"
     }
   },
   {
@@ -1581,6 +1794,7 @@ const SPOTS = [
     "parking": [
       {
         "name": "施設駐車場（サマーランド共用）",
+          "hours": "営業時間内（17時以降入園は駐車無料）",
         "fee": "700円/日",
         "note": "大規模駐車場で台数十分"
       }
@@ -1601,6 +1815,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.wnv.tokyo/guide",
       "label": "わんダフル公式"
+    },
+    "hours": {
+      "open": "10:00〜20:00",
+      "closed": "水曜休園",
+      "note": "夏の夜間営業期間（2026/7/24〜8/31）は〜20:00。通常期は〜17:00前後。お盆の水曜は営業"
     }
   },
   {
@@ -1621,7 +1840,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "500円/1区画",
-        "note": "ドッグラン利用者用区画あり"
+        "note": "ドッグラン利用者用区画あり",
+        "hours": "営業時間内"
       }
     ],
     "restaurants": [
@@ -1644,6 +1864,11 @@ const SPOTS = [
     "photo": {
       "url": "https://commons.wikimedia.org/wiki/Special:FilePath/KoinoboriOverNakatsuRiverDuringYadorikiWakabaFestival.jpg?width=640",
       "credit": "Azegamaru / CC BY 4.0"
+    },
+    "hours": {
+      "open": "9:00〜17:00",
+      "closed": "火曜定休",
+      "note": "3〜9月は〜17:00（受付16:30）、10〜2月は〜16:00。火曜祝日は営業。最新情報はX/Instagram（@yadogrun）"
     }
   },
   {
@@ -1664,7 +1889,8 @@ const SPOTS = [
       {
         "name": "店舗駐車場",
         "fee": "無料",
-        "note": "郊外型店舗"
+        "note": "郊外型店舗",
+        "hours": "営業時間内"
       }
     ],
     "restaurants": [
@@ -1683,6 +1909,11 @@ const SPOTS = [
     "official": {
       "url": "http://www.fetch-cafe.com/",
       "label": "FETCH!公式"
+    },
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "水・木曜定休",
+      "note": "定休日が祝日の場合は営業"
     }
   },
   {
@@ -1703,7 +1934,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "800円/日",
-        "note": "大規模駐車場あり。宿泊者は無料"
+        "note": "大規模駐車場あり。宿泊者は無料",
+        "hours": "日帰り営業時間内"
       }
     ],
     "restaurants": [
@@ -1722,6 +1954,11 @@ const SPOTS = [
     "official": {
       "url": "https://doggys-island.jp/",
       "label": "ドギーズ公式"
+    },
+    "hours": {
+      "open": "9:00〜21:00",
+      "closed": null,
+      "note": "ドッグランは原則年中無休。貸切ドッグランは9:00〜17:00"
     }
   },
   {
@@ -1742,7 +1979,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "無料",
-        "note": "敷地内駐車場あり"
+        "note": "敷地内駐車場あり",
+        "hours": "営業時間内"
       }
     ],
     "restaurants": [
@@ -1761,6 +1999,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.yamanashi-kankou.jp/kankou/stay/pet_4.html",
       "label": "山梨県公式観光"
+    },
+    "hours": {
+      "open": "8:00〜18:00",
+      "closed": null,
+      "note": "ドッグラン8:00〜18:00、屋内温水プール9:00〜17:00。メンテナンス休館あり（要事前確認）。屋外プールは5〜10月のみ"
     }
   },
   {
@@ -1781,7 +2024,8 @@ const SPOTS = [
       {
         "name": "施設駐車場",
         "fee": "無料",
-        "note": "10:00〜18:00利用可"
+        "note": "10:00〜18:00利用可",
+        "hours": "10:00〜18:00"
       }
     ],
     "restaurants": [
@@ -1800,6 +2044,11 @@ const SPOTS = [
     "official": {
       "url": "https://www.welovedogs.jp/station/",
       "label": "愛犬の駅公式"
+    },
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": null,
+      "note": "ドッグラン最終受付17:30、カフェ〜17:00（LO16:00）。メンテナンス臨時休業あり"
     }
   }
 ];

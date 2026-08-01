@@ -142,7 +142,7 @@ async function fetchWeather() {
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${lats}&longitude=${lngs}` +
     `&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code` +
-    `&daily=temperature_2m_max,precipitation_probability_max` +
+    `&daily=temperature_2m_max,precipitation_probability_max,sunrise,sunset` +
     `&timezone=Asia%2FTokyo&forecast_days=1`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("weather fetch failed: " + res.status);
@@ -158,6 +158,8 @@ async function fetchWeather() {
       code: w.current.weather_code,
       tempMax: w.daily.temperature_2m_max[0],
       rainProb: w.daily.precipitation_probability_max[0],
+      sunrise: (w.daily.sunrise[0] || "").slice(11, 16),
+      sunset: (w.daily.sunset[0] || "").slice(11, 16),
     };
   });
 }
@@ -384,7 +386,7 @@ function renderCard(spot) {
   const mediaHtml = `<div class="spot-media">${photoHtml}${miniMapHtml(spot)}</div>`;
 
   const hoursHtml = spot.hours
-    ? `<div class="hours-box">🕐 <b>${spot.hours.open}</b>${spot.hours.closed ? `・<span class="hours-closed">${spot.hours.closed}</span>` : ""}${spot.hours.note ? `<span class="hours-note">${spot.hours.note}</span>` : ""}</div>`
+    ? `<div class="hours-box">🕐 <b>${spot.hours.open}</b>${spot.hours.closed ? `・<span class="hours-closed">${spot.hours.closed}</span>` : ""}${spot.hours.note ? `<span class="hours-note">（${spot.hours.note}）</span>` : ""}</div>`
     : "";
 
   const parking = (spot.parking || [])
@@ -414,7 +416,8 @@ function renderCard(spot) {
       </div>
       <div class="weather-detail">
         体感 ${w.feels.toFixed(0)}℃ ／ 湿度 ${w.humidity}%<br>
-        本日最高 ${w.tempMax.toFixed(0)}℃ ／ 降水確率 ${w.rainProb != null ? w.rainProb + "%" : "--"}
+        本日最高 ${w.tempMax.toFixed(0)}℃ ／ 降水確率 ${w.rainProb != null ? w.rainProb + "%" : "--"}<br>
+        🌅 日の出 ${w.sunrise || "--"} ／ 🌇 日の入 ${w.sunset || "--"}
       </div>
     </div>`
     : `<div class="weather-box"><span class="weather-detail">気温データ取得中…</span></div>`;
