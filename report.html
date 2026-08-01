@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#db2777">
+<meta name="robots" content="noindex">
+<title>📝 おでかけメモ｜ひんやりコギさんぽ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="report.css?v=10">
+</head>
+<body class="report-page">
+<header class="app-header report-header">
+  <h1>📝 おでかけメモ</h1>
+  <p class="subtitle">現地で見たことと、愛犬の様子だけを気軽に記録</p>
+  <p class="report-note">住所・営業時間・犬同伴ルールなどは<b>AIが公式情報を確認します</b>。<br>ここでは、現地で見たことと、愛犬の様子だけを気軽に記録してください。</p>
+</header>
+
+<main>
+  <section class="draft-bar">
+    <span id="draft-status">新規メモ</span>
+    <button id="draft-list-btn" class="mini-btn">🗂️ 下書き一覧</button>
+  </section>
+
+  <section id="draft-list" class="rcard hidden">
+    <h2>🗂️ 下書き一覧</h2>
+    <div id="draft-items"></div>
+    <div class="btn-row">
+      <button id="draft-new-btn" class="mini-btn primary">＋ 新規メモ</button>
+      <button id="draft-export-btn" class="mini-btn">JSONバックアップ</button>
+      <label class="mini-btn file-btn">JSONから復元<input type="file" id="draft-import" accept=".json" hidden></label>
+    </div>
+  </section>
+
+  <!-- 最小入力（常に表示） -->
+  <section class="rcard">
+    <h2>📍 どこに行った？</h2>
+    <input type="text" id="f-place-name" placeholder="場所の名前（わからなければ近くの施設名でもOK）" autocomplete="off">
+    <input type="url" id="f-place-url" placeholder="Googleマップの共有URL（任意）" autocomplete="off">
+    <div class="btn-row">
+      <button id="f-geo-btn" class="mini-btn">📍 現在地を記録</button>
+      <span id="f-geo-status" class="geo-status"></span>
+    </div>
+    <input type="text" id="f-place-hint" placeholder="近くの看板・目印メモ（任意）" autocomplete="off">
+  </section>
+
+  <section class="rcard">
+    <h2>📅 いつ？</h2>
+    <input type="date" id="f-date">
+  </section>
+
+  <section class="rcard">
+    <h2>🐕 犬の様子（タップで選択）</h2>
+    <div class="dog-select" id="f-dog-chips"></div>
+    <textarea id="f-raw-note" rows="4" placeholder="一言メモ（音声入力OK）&#10;例: 駐車場から川まで5分。川沿いはほぼ木陰。13時でも元気だった。"></textarea>
+  </section>
+
+  <!-- 詳細（折りたたみ） -->
+  <section class="rcard">
+    <details>
+      <summary>⏱️ 訪問時の状況（任意）</summary>
+      <div class="grid2">
+        <label>到着時刻<input type="time" id="f-arrived"></label>
+        <label>滞在時間<select id="f-duration">
+          <option value="">--</option><option value="30">30分くらい</option><option value="60">1時間くらい</option><option value="90">1.5時間くらい</option><option value="120">2時間くらい</option><option value="180">3時間以上</option>
+        </select></label>
+        <label>天気（体感）<select id="f-weather">
+          <option value="">--</option><option>快晴</option><option>晴れ</option><option>薄曇り</option><option>曇り</option><option>小雨</option><option>雨上がり</option>
+        </select></label>
+        <label>体感温度<select id="f-feel">
+          <option value="">--</option><option>涼しい</option><option>ちょうどいい</option><option>やや暑い</option><option>暑い</option><option>危険な暑さ</option>
+        </select></label>
+        <label>混雑<select id="f-crowd">
+          <option value="">--</option><option>ガラガラ</option><option>静か</option><option>ほどほど</option><option>混雑</option><option>大混雑</option>
+        </select></label>
+        <label>日陰<select id="f-shade">
+          <option value="">--</option><option>ほぼ日陰</option><option>日陰多め</option><option>半々</option><option>日向多め</option><option>日陰なし</option>
+        </select></label>
+      </div>
+    </details>
+  </section>
+
+  <section class="rcard">
+    <details>
+      <summary>🚶 実際の動線（任意）</summary>
+      <div class="check-list" id="f-route-checks"></div>
+      <input type="text" id="f-route-note" placeholder="動線メモ（例: 第2駐車場側の道が日陰）">
+    </details>
+  </section>
+
+  <section class="rcard">
+    <details>
+      <summary>🌡️ 地面温度の実測（任意）</summary>
+      <div id="f-gt-rows"></div>
+      <button id="f-gt-add" class="mini-btn">＋ 測定を追加</button>
+    </details>
+  </section>
+
+  <section class="rcard">
+    <details>
+      <summary>📷 写真（任意）</summary>
+      <p class="hint">ここでは写真の情報だけを記録します。写真ファイル本体はIssue作成後にコメントへドラッグ＆ドロップで添付してください。</p>
+      <label class="mini-btn file-btn">写真を選択<input type="file" id="f-photos" accept="image/*" multiple hidden></label>
+      <div id="f-photo-list"></div>
+    </details>
+  </section>
+
+  <section class="rcard">
+    <details>
+      <summary>📝 困ったこと・次回メモ（任意）</summary>
+      <input type="text" id="f-trouble" placeholder="現地で困ったこと">
+      <input type="text" id="f-next" placeholder="次回訪問時のメモ">
+    </details>
+  </section>
+
+  <!-- 送信 -->
+  <section class="rcard submit-card">
+    <h2>🤖 AIに整理を依頼</h2>
+    <p class="hint">この内容をもとに、AIが場所の特定・公式情報の調査・データ更新・Pull Request作成まで行います。</p>
+    <button id="f-preview-btn" class="big-btn">内容を確認する</button>
+    <div id="f-preview" class="hidden">
+      <div id="f-preview-body" class="preview-body"></div>
+      <div class="btn-col">
+        <a id="f-issue-btn" class="big-btn" target="_blank" rel="noopener">🐙 GitHub Issueを作成する</a>
+        <button id="f-copy-btn" class="mini-btn">📋 Markdownをコピー</button>
+        <button id="f-dl-md-btn" class="mini-btn">⬇️ .mdをダウンロード</button>
+        <button id="f-dl-json-btn" class="mini-btn">⬇️ .jsonをダウンロード</button>
+      </div>
+      <p class="hint" id="f-url-warn"></p>
+    </div>
+  </section>
+
+  <p class="back-link"><a href="index.html">← アプリに戻る</a></p>
+</main>
+
+<footer class="app-footer">
+  <p>🔒 入力内容はこの端末のブラウザ内（localStorage）にのみ自動保存されます。写真ファイル本体は保存されません。</p>
+</footer>
+
+<script src="report.js?v=10"></script>
+</body>
+</html>

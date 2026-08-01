@@ -418,6 +418,46 @@ function globalPx(lat, lng, z) {
   };
 }
 
+/* ---------- 訪問記録（管理人の一次情報） ---------- */
+function visitsOf(spot) {
+  if (typeof VISITS === "undefined") return [];
+  return VISITS.filter((v) => v.spotId === spot.id).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+}
+
+function visitBlockHtml(spot) {
+  const list = visitsOf(spot);
+  if (list.length === 0) return "";
+  const v = list[0]; // 最新の訪問
+  const temps = (v.groundTemps || [])
+    .map(
+      (t) =>
+        `<div class="gt-row"><span class="gt-label">${t.surface}${t.sun ? `（${t.sun}）` : ""}</span><b class="gt-val">${t.tempC}℃</b><span class="gt-meta">${v.date} ${t.time || ""} 管理人実測</span></div>`
+    )
+    .join("");
+  const dogs = (v.dogCondition || []).map((d) => `<span class="dog-chip">${d}</span>`).join("");
+  const routes = (v.routeNotes || []).map((r) => `<li>${r}</li>`).join("");
+  const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
+  const photos = (v.photos || [])
+    .map((p) => `<figure class="visit-photo"><img src="${p.src}" alt="${p.alt || ""}" loading="lazy" onerror="this.parentElement.remove()">${p.caption ? `<figcaption>${p.caption}</figcaption>` : ""}</figure>`)
+    .join("");
+  return `
+  <div class="visit-block">
+    <div class="visit-head">🐾 <b>管理人が訪問しました</b><span class="visit-date">${v.date}${v.arrivedAt ? ` ${v.arrivedAt}着` : ""}${list.length > 1 ? `・計${list.length}回` : ""}</span></div>
+    ${v.summary ? `<p class="visit-summary">「${v.summary}」</p>` : ""}
+    ${dogs ? `<div class="dog-chips">${dogs}</div>` : ""}
+    ${temps ? `<div class="gt-table">${temps}</div>` : ""}
+    <details class="visit-details">
+      <summary>旅行記・詳細を読む</summary>
+      ${v.shadeImpression || v.crowdImpression ? `<p class="visit-meta">日陰: ${v.shadeImpression || "-"} ／ 混雑: ${v.crowdImpression || "-"}${v.weather ? ` ／ 天気: ${v.weather}（体感）` : ""}</p>` : ""}
+      ${routes ? `<ul class="visit-routes">${routes}</ul>` : ""}
+      ${notes ? `<ul class="visit-notes">${notes}</ul>` : ""}
+      ${v.diary ? `<p class="visit-diary">${v.diary}</p>` : ""}
+      ${photos ? `<div class="visit-photos">${photos}</div>` : ""}
+      <p class="visit-caveat">※訪問時点の記録です。天候・季節・混雑によって状況は変わります。</p>
+    </details>
+  </div>`;
+}
+
 /* 飲食店エントリを解決（ref参照 or 旧インライン形式の両対応） */
 function resolveResto(entry, spot) {
   if (entry.ref && typeof RESTAURANTS !== "undefined" && RESTAURANTS[entry.ref]) {
@@ -580,6 +620,7 @@ function renderCard(spot) {
   const badges = [];
   badges.push(`<span class="badge">${CATEGORY_LABEL[spot.category] || ""}</span>`);
   if (spot.night) badges.push(`<span class="badge night">🌙 夜さんぽOK</span>`);
+  if (visitsOf(spot).length > 0) badges.push(`<span class="badge visited-badge">🐾 訪問済み</span>`);
   if (spot.water && spot.water.allowed) {
     badges.push(
       `<span class="badge green">💦 入水OK${(spot.water.depth || "").includes("泳げる") ? "・泳げる" : ""}</span>`
@@ -673,6 +714,7 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
+    ${visitBlockHtml(spot)}
     ${hoursHtml}
     ${weatherBox}
     <div class="spot-detail">

@@ -474,6 +474,44 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 
 .loading-note { text-align: center; color: var(--muted); padding: 30px 0; font-size: 0.9rem; }
 
+/* 訪問記録 */
+.badge.visited-badge { background: #fce7f3; color: #9d174d; }
+.visit-block {
+  background: #fdf2f8;
+  border: 1px solid #fbcfe8;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+.visit-head { font-size: 0.85rem; }
+.visit-date { color: var(--muted); font-size: 0.76rem; margin-left: 8px; }
+.visit-summary { margin: 6px 0 0; font-weight: 600; }
+.dog-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.dog-chip {
+  font-size: 0.72rem;
+  background: #fff;
+  border: 1px solid #f9a8d4;
+  color: #9d174d;
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+.gt-table { margin-top: 8px; }
+.gt-row { display: flex; align-items: baseline; gap: 8px; font-size: 0.8rem; padding: 2px 0; }
+.gt-label { color: var(--text); }
+.gt-val { font-size: 0.95rem; }
+.gt-meta { color: var(--muted); font-size: 0.68rem; }
+.visit-details { margin-top: 8px; }
+.visit-details summary { cursor: pointer; font-size: 0.8rem; color: #9d174d; font-weight: 600; }
+.visit-meta { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+.visit-routes, .visit-notes { margin: 6px 0 0 18px; font-size: 0.8rem; }
+.visit-diary { margin-top: 8px; line-height: 1.7; white-space: pre-wrap; }
+.visit-photos { display: flex; gap: 8px; overflow-x: auto; margin-top: 8px; }
+.visit-photo { flex-shrink: 0; width: 180px; margin: 0; }
+.visit-photo img { width: 100%; border-radius: 8px; }
+.visit-photo figcaption { font-size: 0.68rem; color: var(--muted); }
+.visit-caveat { font-size: 0.7rem; color: var(--muted); margin-top: 8px; }
+
 /* 除外リスト */
 .excluded-section { margin-top: 20px; }
 .excluded-section details {

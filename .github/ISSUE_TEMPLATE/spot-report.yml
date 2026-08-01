@@ -1,0 +1,39 @@
+name: 🐾 訪問レポート（管理人用）
+description: 現地で記録した一次情報をAIに渡す。通常は report.html から自動生成されたものを使う
+title: "[訪問レポート] "
+labels: ["spot-report", "ai-research-needed"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **通常は [おでかけメモ](https://polygoquartz.github.io/corgi-cool-spots/report.html) から自動生成してください。**
+        ここでは、現地で見たことと愛犬の様子だけを書けばOKです。
+        住所・営業時間・犬同伴ルールなどはAIが公式情報を調査します。
+  - type: textarea
+    id: intake
+    attributes:
+      label: 訪問レポート（yaml）
+      description: report.htmlが生成したyamlブロックを貼り付け。手書きの場合は「場所・訪問日・犬の様子・一言メモ」だけでも可
+      value: |
+        ```yaml
+        location_hint:
+          name:
+        visit:
+          date:
+        owner_observations:
+          dog_condition:
+            -
+          raw_note: |
+        ```
+    validations:
+      required: true
+  - type: textarea
+    id: photos
+    attributes:
+      label: 写真（任意）
+      description: ここに写真をドラッグ＆ドロップで添付。位置情報などのExifは公開処理時にAIが除去します
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        **AIエージェントへ**: `docs/AI_AGENT_GUIDE.md` の手順で処理し、Pull Requestを作成すること。mainへの直接pushは禁止。確認できない情報は推測せず「未確認」として残すこと。
