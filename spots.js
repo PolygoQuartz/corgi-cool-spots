@@ -4,6 +4,55 @@
    ⚠️ ルールは変更されることがあるため、おでかけ前に公式情報を確認 */
 const SPOTS = [
   {
+    "id": "hikichigawa-shinsui-park",
+    "name": "引地川親水公園",
+    "category": "river",
+    "area": "神奈川県藤沢市",
+    "lat": 35.3645,
+    "lng": 139.45,
+    "elevation_m": 5,
+    "driveMin": 50,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "流れが緩く浅い親水護岸で夏も安定して水遊び可（リード着用）。泳ぐには浅めだがクールダウンに最適。夏休みは子どもが多いので離れた河原を選ぶこと"
+    },
+    "parking": [
+      {
+        "name": "第1駐車場（天神橋横・82台）",
+        "fee": "無料",
+        "hours": "夏期おおむね8:00〜18:00",
+        "note": "第2駐車場（54台・無料）もあり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "湘南T-SITE（辻堂）内カフェ各店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分。犬同伴OK店舗が多くわんこメニューのある店も（店舗により条件あり）"
+      }
+    ],
+    "surface": {
+      "shade": "普通",
+      "ground": "芝生の緩護岸＋浅い石・砂利の川床"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "公園は常時開放、駐車場のみ時間制限あり"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Hikiji%20River%20-%20Fujisawa%20Kanagawa%20-%202026%203%2023%20various%202.jpg?width=640",
+      "credit": "Nesnad / CC BY 4.0"
+    },
+    "official": {
+      "url": "https://www.city.fujisawa.kanagawa.jp/kouen/kyoiku/leisure/koen/fujisawashi/hikijigawa-02/",
+      "label": "藤沢市公式"
+    },
+    "notes": "園内に登録制・無料の天然芝ドッグパーク（約1,200㎡）併設。川崎から50分と近く、海NGな真夏日の代替先として優秀"
+  },
+  {
     "id": "tashiro-nakatsugawa",
     "name": "田代運動公園前 中津川河川敷",
     "category": "river",
@@ -32,6 +81,24 @@ const SPOTS = [
       }
     ],
     "restaurants": [
+      {
+        "name": "オレンジツリー",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・愛川町のログハウス洋食。店内・テラスとも犬同伴可"
+      },
+      {
+        "name": "和ごころカフェ",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・愛川町のカフェ・和食。店内とテラスで同伴可"
+      },
+      {
+        "name": "丸太小屋レストラン びんずる",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・清川村の定食食堂。別棟店内とテラスで同伴可・清川恵水ポークが名物"
+      },
       {
         "name": "服部牧場（カサリンガのジェラート）",
         "policy": "テラスのみ",
@@ -88,10 +155,22 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "kent crew",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・松田町のドッグカフェ。ドッグラン併設・犬用メニューあり"
+      },
+      {
         "name": "森のカフェ",
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "秦野市内。ペット同伴OKのテラス席は3席程度と少なめ"
+      },
+      {
+        "name": "白笹うどん 多奈加亭",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約15分・白笹稲荷神社そばのうどん・甘味処。要事前確認"
       }
     ],
     "surface": {
@@ -141,6 +220,18 @@ const SPOTS = [
       }
     ],
     "restaurants": [
+      {
+        "name": "I'm home",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・青梅市和田町のカフェ＆雑貨。店内同伴可（マナーパンツ推奨）"
+      },
+      {
+        "name": "DOG CAFE CANIS",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・青梅IC近くのドッグカフェ。屋内席OKで雨の日も安心"
+      },
       {
         "name": "ome smash burger 杉屋",
         "policy": "テラスのみ",
@@ -195,6 +286,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約15分。屋外ベンチで名物あげぱん可"
+      },
+      {
+        "name": "つくい城の里",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約18分・古民家カフェ複合施設。ドッグテラス完備・愛犬用ごはんあり"
       }
     ],
     "surface": {
@@ -215,6 +312,55 @@ const SPOTS = [
       "closed": null,
       "note": "デイキャンプ受付8:00〜・当日17:00まで。予約不要"
     }
+  },
+  {
+    "id": "kakiyamada-camp",
+    "name": "柿山田オートキャンプガーデン（小糸川）",
+    "category": "river",
+    "area": "千葉県君津市",
+    "lat": 35.2445,
+    "lng": 139.9996,
+    "elevation_m": 100,
+    "driveMin": 70,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "三方を小糸川に囲まれたキャンプ場でペット同伴可（君津市公式に明記）。浅瀬が多く犬の川遊び向き。流れが緩く真夏の水遊びに好適"
+    },
+    "parking": [
+      {
+        "name": "場内駐車（サイト乗り入れ）",
+        "fee": "デイキャンプ料金に含む（大人800円〜）",
+        "hours": "10:00〜18:00",
+        "note": "要事前予約。ドッグラン・温水シャワーあり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "猟師工房ドライブイン",
+        "policy": "店内OK",
+        "leadOK": null,
+        "note": "車約15分。抱っこで入店可（12kgは要相談）・犬用ジビエおやつ販売・水曜定休"
+      }
+    ],
+    "surface": {
+      "shade": "多い",
+      "ground": "河原（砂利・岩）＋芝サイト"
+    },
+    "hours": {
+      "open": "10:00〜18:00",
+      "closed": "不定休",
+      "note": "デイキャンプの利用時間。要予約"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Koitogawa-Fukuhashi.jpg?width=640",
+      "credit": "Wikimedia Commons（小糸川下流部）"
+    },
+    "official": {
+      "url": "https://www.city.kimitsu.lg.jp/site/kanko/2172.html",
+      "label": "君津市公式"
+    },
+    "notes": "圏央道木更津東IC経由。有料施設で監視の目があり川遊びデビューでも安心。川遊び後の温水シャワー・足洗いが使える"
   },
   {
     "id": "hakone-yumoto",
@@ -239,6 +385,18 @@ const SPOTS = [
       }
     ],
     "restaurants": [
+      {
+        "name": "箱根唐揚げ Karatto",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・湯本駅前商店街。店内犬同伴可"
+      },
+      {
+        "name": "DogHub箱根",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・おにぎりカフェ＋ペットホテル複合施設。店内ワンコOK"
+      },
       {
         "name": "NARAYA CAFE（宮ノ下）",
         "policy": "テラスのみ",
@@ -294,6 +452,18 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "CAFE MOJAVE",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・秋川駅近くのアメリカンダイナー。バーガーが名物・店内OK"
+      },
+      {
+        "name": "米沢牛ステーキハウス un",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・ステーキハウス兼ドッグカフェ。犬用メニューあり"
+      },
+      {
         "name": "黒茶屋",
         "policy": "テラスのみ",
         "leadOK": true,
@@ -347,6 +517,18 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "高麗駅近く。屋根付きウッドデッキのテラスが犬同伴可"
+      },
+      {
+        "name": "CAWAZ base",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・高麗川沿いの古民家リノベカフェ。川辺散策も可"
+      },
+      {
+        "name": "カフェ＆ベーカリー 日月堂",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・渓流を見下ろす薪窯パン＆ピザ"
       }
     ],
     "surface": {
@@ -392,6 +574,12 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "炭鳥筏 IKADA",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・炭火焼き鳥体験店。犬連れ専用スペース・犬用焼き鳥あり"
+      },
+      {
         "name": "MITAKE Deck Cafe Bitte",
         "policy": "テラスのみ",
         "leadOK": true,
@@ -402,6 +590,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "遊歩道で行ける酒蔵の庭園。屋外席は犬OK"
+      },
+      {
+        "name": "Riverside Cafe awa",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・川井の川沿いテラスカフェ。川原に直接下りられる"
       }
     ],
     "surface": {
@@ -443,10 +637,22 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "ジビエールカフェ",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・同じ原市場の川沿いドッグカフェ。猟師店主の鹿肉ワンコごはんあり"
+      },
+      {
         "name": "CARVAAN BREWERY & RESTAURANT 飯能本店",
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "飯能河原沿い。テラス40席が犬同伴可、予約時に事前連絡"
+      },
+      {
+        "name": "COUNTRY CAFE ターニップ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約12分・上名栗のカントリーカフェ。要事前確認"
       }
     ],
     "surface": {
@@ -492,10 +698,16 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "周辺に犬OK店はほぼ無し",
-        "policy": "なし",
-        "leadOK": null,
-        "note": "テイクアウトして河原で食べるのが定番"
+        "name": "haz",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約25分・山北駅前のカフェ（15分圏内に犬OK店なし）"
+      },
+      {
+        "name": "cafe だいず",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約25分・山北町市街のカフェ。店内同伴可"
       }
     ],
     "surface": {
@@ -638,6 +850,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "柿田川公園そば（車約10分）。看板犬のいるドッグカフェ"
+      },
+      {
+        "name": "マカロニ市場 三島店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・ベーカリーイタリアン。大型犬まで店内OK"
+      },
+      {
+        "name": "BARN COFFEE 静岡函南店",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約15分・ロースターカフェ。全サイズOKのオープンエア席"
       }
     ],
     "surface": {
@@ -679,10 +903,22 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "ビブラビブレ",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・ピザ・パスタ・カレー。ワンコ専用屋内席＋ドッグラン併設"
+      },
+      {
         "name": "川の駅 伊豆城山 園内カフェ",
         "policy": "テラスのみ",
         "leadOK": null,
         "note": "ドッグラン併設施設内のカフェ。同伴条件は現地要確認"
+      },
+      {
+        "name": "カフェ&バル 掌",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・伊豆長岡のカフェバル"
       }
     ],
     "surface": {
@@ -744,6 +980,18 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "観光協会が「ペット受け入れ可能施設一覧」を公開しており選択肢多数"
+      },
+      {
+        "name": "丹一",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約3分・そば・鮎飯。屋根付きテラスで雨天も犬連れOK"
+      },
+      {
+        "name": "そば処 むらた",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約3分・商店街入口のそば店。テラス7〜8席がペット対応"
       }
     ],
     "surface": {
@@ -793,6 +1041,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約10分。ステーキ中心"
+      },
+      {
+        "name": "黒玉テラス&Dog",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約15分・銘菓「出口の黒玉」直営カフェ。テラスはリードOK・伊豆牛カレー"
       }
     ],
     "surface": {
@@ -838,6 +1092,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "車約25分のドッグカフェ。ドッグラン直結"
+      },
+      {
+        "name": "Lake Wood Resort",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・アウトドアリゾート内カフェ。ドッグパーク併設"
+      },
+      {
+        "name": "リッチフィールド",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約20分・ドッグラン併設カフェ。店内・テラスとも犬OK"
       }
     ],
     "surface": {
@@ -879,6 +1145,18 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約5分。石窯ピザ。犬連れ実績あり"
+      },
+      {
+        "name": "ほたるの庭",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・湯ヶ島R414沿いのカフェ＆バー。テラスペット同伴可"
+      },
+      {
+        "name": "黒玉テラス&Dog",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・カフェ＋ランチ。テラスはリードOK・大型犬も可"
       }
     ],
     "surface": {
@@ -924,10 +1202,28 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "GRILL&BAR The Campfire MINAKAMI",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・グリル＆バー。店内に犬同伴区画あり・大型犬OK"
+      },
+      {
+        "name": "大トロ牛乳",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・名物スイーツ店。サイズ制限なく店内OK"
+      },
+      {
         "name": "育風堂精肉店（はもん みなかみ）",
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約8分。各テーブルにリードフック完備、ペット用食器あり。生ハムが名物"
+      },
+      {
+        "name": "DDC minakami",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・利根川沿いコーヒー＆軽食。犬用フードあり"
       }
     ],
     "surface": {
@@ -1048,6 +1344,55 @@ const SPOTS = [
     }
   },
   {
+    "id": "yanagishima-kaigan",
+    "name": "柳島海岸（相模川河口東側）",
+    "category": "sea",
+    "area": "神奈川県茅ヶ崎市",
+    "lat": 35.317,
+    "lng": 139.3765,
+    "elevation_m": 3,
+    "driveMin": 60,
+    "water": {
+      "allowed": true,
+      "depth": "泳げる深さあり",
+      "note": "サザンビーチ（海水浴場）の区域外のため夏期も犬の水遊び可。市はリード着用・フン持ち帰りを条件に犬同伴を容認。外海は波・離岸流ありライフジャケット推奨。河口寄りは流れに注意"
+    },
+    "parking": [
+      {
+        "name": "柳島スポーツ公園駐車場",
+        "fee": "60分200円（当日最大 平日600円・土日祝900円）",
+        "hours": "6:00〜22:15",
+        "note": "海岸まで徒歩約5分。満車時は臨時開放あり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "TREX CHIGASAKI OCEAN CAFE",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約3分。敷地内に有料ドッグラン併設。店内可否は要確認"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜＋石積み護岸（約700m）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "実質、駐車場の6:00〜22:15に制約される"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yanagishima,%20Chigasaki,%20Kanagawa%20Prefecture%20253-0064,%20Japan%20-%20panoramio.jpg?width=640",
+      "credit": "運転太郎 / CC BY 3.0"
+    },
+    "official": {
+      "url": "https://www.city.chigasaki.kanagawa.jp/kouen/1006491/1015429.html",
+      "label": "茅ヶ崎市公式"
+    },
+    "notes": "湘南で通年犬連れできる貴重な浜。釣り人・サーファー中心の静かな環境。柳島しおさい公園とセットで"
+  },
+  {
     "id": "tatarahama",
     "name": "たたら浜（観音崎ビーチ）",
     "category": "sea",
@@ -1081,6 +1426,24 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "広いテラス席で犬同伴可"
+      },
+      {
+        "name": "かねよ食堂",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・走水海岸の漁師小屋改装シーフード食堂。海辺のテラス&ガーデン席が犬OK・月曜定休"
+      },
+      {
+        "name": "Guna cafe' base",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・走水の古民家カフェ。犬用クッキーあり・木〜日営業"
+      },
+      {
+        "name": "エルマール（浦賀）",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・浦賀の渡し船乗り場横。2階テラスが犬OK（階段を抱えられれば大型犬も可）"
       }
     ],
     "surface": {
@@ -1101,6 +1464,55 @@ const SPOTS = [
       "closed": null,
       "note": "自然海岸のため入場自由。海水浴場としての開設はなし（遊泳は自己責任）"
     }
+  },
+  {
+    "id": "futtsu-misaki",
+    "name": "富津岬（県立富津公園の砂浜）",
+    "category": "sea",
+    "area": "千葉県富津市",
+    "lat": 35.3125,
+    "lng": 139.7833,
+    "elevation_m": 2,
+    "driveMin": 70,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "海水浴場指定外のためペット規制なし。リード着用で犬散歩OK（犬連れ実績多数）。内湾側（北側）は遠浅で波静か。岬先端の外洋側は潮流が速いため入水は内湾側で"
+    },
+    "parking": [
+      {
+        "name": "富津公園第3駐車場（展望塔至近）",
+        "fee": "無料",
+        "hours": "終日",
+        "note": "約100台。園内に他の無料駐車場もあり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "DOG DEPT GARDEN CAFE 木更津",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約30分・木更津金田。ドッグラン併設・木曜定休"
+      }
+    ],
+    "surface": {
+      "shade": "普通",
+      "ground": "砂浜（背後に松林の木陰あり）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "明治百年記念展望塔は通年無休・無料"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Cape%20Futtsu%2001.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://www.futtsu-kanko.info/",
+      "label": "富津市観光協会"
+    },
+    "notes": "アクアライン→木更津南IC経由。真夏は砂が熱くなるため朝夕推奨。波音が苦手な犬は内湾側から慣らすのが吉"
   },
   {
     "id": "wadanahama",
@@ -1132,6 +1544,18 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "AnL cafe",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約7分・三崎口駅近くの手作りケーキのドッグカフェ。犬用クッキーあり・水木定休"
+      },
+      {
+        "name": "三崎港 海の幸",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約12分・三崎港のマグロ・海鮮料理店。2階席のみ犬同伴OK"
+      },
+      {
         "name": "ソレイユの丘 内レストラン",
         "policy": "テラスのみ",
         "leadOK": true,
@@ -1142,6 +1566,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約15分。海の見えるテラス"
+      },
+      {
+        "name": "カメハメハ大王の渚",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約8分・諸磯の海沿いレストラン。犬用水皿サービスあり"
       }
     ],
     "surface": {
@@ -1158,6 +1588,110 @@ const SPOTS = [
       "closed": null,
       "note": "自然海岸で入場自由。2026年海水浴場開設: 7月上旬〜8/31"
     }
+  },
+  {
+    "id": "koyurugi-beach",
+    "name": "こゆるぎの浜（大磯港西側）",
+    "category": "sea",
+    "area": "神奈川県大磯町",
+    "lat": 35.3053,
+    "lng": 139.3067,
+    "elevation_m": 2,
+    "driveMin": 75,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "海水浴場ではないため夏期も犬同伴・波打ち際の水遊び可（浜歩き実績多数）。ショアブレイクが強い日があるため沖へは泳がせず波打ち際中心に。ロングリード＋ライフジャケット推奨"
+    },
+    "parking": [
+      {
+        "name": "大磯港第1・第2駐車場",
+        "fee": "310円/時間",
+        "hours": "終日",
+        "note": "電子決済可。浜へは港西側からすぐ"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "OISO CONNECT",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "徒歩すぐ。地魚グルメを海を見ながらテラスで"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "さざれ石（小石）＋砂の混合浜"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": ""
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Terugasaki%20Coast%20-%20Oiso%20Kanagawa%202026%20March%2014%20various%201.jpg?width=640",
+      "credit": "Nesnad / CC BY 4.0（隣接の照ヶ崎海岸）"
+    },
+    "official": {
+      "url": "https://www.town.oiso.kanagawa.jp/isotabi/index.html",
+      "label": "大磯町観光情報"
+    },
+    "notes": "夏でも海水浴客がほぼいない静かな石浜。小石浜なので肉球の火傷は砂浜より軽度だが日中は避け朝夕推奨。夏期NGの大磯北浜海岸と間違えないこと"
+  },
+  {
+    "id": "ryujima-kaigan",
+    "name": "竜島海岸（勝山）",
+    "category": "sea",
+    "area": "千葉県鋸南町",
+    "lat": 35.115,
+    "lng": 139.8265,
+    "elevation_m": 3,
+    "driveMin": 85,
+    "water": {
+      "allowed": true,
+      "depth": "泳げる深さあり",
+      "note": "地元SUPスクールが夏期含め通年「DOG SUP」を開催しており犬の海泳ぎが公認されている浜。湾が浮島に守られ波が非常に穏やか。夏の海水浴場開設時は遊泳区域の外側で"
+    },
+    "parking": [
+      {
+        "name": "竜島海岸駐車場",
+        "fee": "無料",
+        "hours": "終日",
+        "note": "海水浴シーズンは混雑・有料化の場合あり。早めの到着推奨"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "道の駅 保田小学校",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分。ペットOKテラス・無料ドッグラン・足洗い場あり"
+      },
+      {
+        "name": "Pizza GONZO（金谷）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分。2階席がペット同伴可（要事前予約推奨）"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜＋小石混じり（マリンシューズ推奨）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "DOG SUP体験は要予約（犬は30kg以下）"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Uki-Island%20Kyonan%20town.JPG?width=640",
+      "credit": "Wikimedia Commons（竜島海岸沖の浮島）"
+    },
+    "official": {
+      "url": "https://south-surf.com/",
+      "label": "UMI to YAMA公式"
+    },
+    "notes": "鋸南勝山ICから約5分。泳ぎ好きコーギー向きの内房本命スポット。日陰がほぼ無いのでタープ持参推奨"
   },
   {
     "id": "yugawara",
@@ -1195,10 +1729,28 @@ const SPOTS = [
         "note": "店内ペットOKのドッグフレンドリーカフェ"
       },
       {
+        "name": "豆杏cafe",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・ドッグラン併設カフェ。マナーウェア着用で店内OK（小中型犬）・要事前予約"
+      },
+      {
         "name": "福浦漁港 みなと食堂",
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "漁港直送の海鮮。テラス席のみ犬OK"
+      },
+      {
+        "name": "和食うおたつ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・魚屋直営の海鮮和食。大型犬も可（雨天時不可）・火水定休"
+      },
+      {
+        "name": "しあわせ中華そば食堂 にこり",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約7分・飯田商店姉妹店のラーメン。火水定休"
       }
     ],
     "surface": {
@@ -1219,6 +1771,228 @@ const SPOTS = [
       "closed": null,
       "note": "海水浴場開設期間のみ（例年7月中旬〜8/31）。期間外の浜は終日立入可"
     }
+  },
+  {
+    "id": "tsurigasaki-beach",
+    "name": "釣ヶ崎海岸（志田下）",
+    "category": "sea",
+    "area": "千葉県一宮町",
+    "lat": 35.3437,
+    "lng": 140.3925,
+    "elevation_m": 3,
+    "driveMin": 90,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "海水浴場として開設されないサーフィンビーチのため夏期の遊泳区域規制がなく、通年リードで砂浜・波打ち際遊びOK。波が高くサーファーが多いので犬の遊泳は波打ち際まで"
+    },
+    "parking": [
+      {
+        "name": "釣ヶ崎海岸 無料駐車場",
+        "fee": "無料",
+        "hours": "終日",
+        "note": "大型駐車場。トイレ・シャワーあり。大会開催日は規制あり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "エリアスガーデン",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車1分・海岸の目の前。犬同伴BBQ・ドッグラン・ドッグプール併設"
+      },
+      {
+        "name": "CROCE",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車10分・一宮市街のカフェ"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜＋海岸沿いに舗装遊歩道"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "サーフィン大会開催時は一部立入規制"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tsurigasaki%20Surfing%20Beach.jpg?width=640",
+      "credit": "Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://ichinomiya.org/",
+      "label": "一宮町観光協会"
+    },
+    "notes": "東京2020サーフィン会場。東浪見の鳥居が立つ絶景ビーチ。市原鶴舞IC経由で外房最短クラス"
+  },
+  {
+    "id": "ichinomiya-beach",
+    "name": "一宮海岸",
+    "category": "sea",
+    "area": "千葉県一宮町",
+    "lat": 35.3733,
+    "lng": 140.3966,
+    "elevation_m": 3,
+    "driveMin": 90,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "リードで砂浜同伴OK・ペット連れに寛容。海水浴場開設期間（7月中旬〜8月中旬）の遊泳区域内は避け、区域外の波打ち際で。波はやや高めなので深追い禁物"
+    },
+    "parking": [
+      {
+        "name": "一宮海岸駐車場",
+        "fee": "無料（開設期間は協力金の場合あり）",
+        "hours": "終日",
+        "note": "トイレ・シャワーは開設期間中利用可"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "CROCE",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車5分。犬連れテラスでモーニング〜ランチ"
+      },
+      {
+        "name": "エリアスガーデン",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車8分。犬同伴BBQ・ドッグプール"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "幅30m×長さ350mの砂浜。堤防沿いに散歩道あり"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "海水浴場開設は例年7月中旬〜8月中旬"
+    },
+    "official": {
+      "url": "https://ichinomiya.org/spot/017/",
+      "label": "一宮町観光協会"
+    },
+    "notes": "日本の渚百選。7-8月は運用が変わりうるため南隣の釣ヶ崎・太東を優先するのが無難"
+  },
+  {
+    "id": "taito-beach",
+    "name": "太東海岸（太東ビーチ）",
+    "category": "sea",
+    "area": "千葉県いすみ市",
+    "lat": 35.3106,
+    "lng": 140.403,
+    "elevation_m": 2,
+    "driveMin": 100,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "リードで砂浜・浅瀬の水遊びOK。太東岬に守られ外房では波が穏やかで犬の水遊びに最も向く。夏期に海水浴場が開設される年は遊泳区域外で"
+    },
+    "parking": [
+      {
+        "name": "太東海岸 無料駐車場",
+        "fee": "無料（開設期間は有料の場合あり）",
+        "hours": "終日",
+        "note": "広め。トイレ・シャワーあり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "CAFEビゼン",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車10分・いすみ市のカフェ。モーニング・ランチあり"
+      },
+      {
+        "name": "エリアスガーデン",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車8分。犬同伴BBQ・ドッグプール"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "コンパクトで歩きやすい砂浜、ヤシの木あり"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "海水浴場開設時期はいすみ市の年度発表を確認"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/%E5%A4%AA%E6%9D%B1%E6%B5%B7%E6%B5%9C%E6%A4%8D%E7%89%A9%E7%BE%A4%E8%90%BD%E3%81%8B%E3%82%89%E3%81%AE%E9%A2%A8%E6%99%AF20190618-IMG%205203.jpg?width=640",
+      "credit": "Wikimedia Commons / CC BY-SA"
+    },
+    "official": {
+      "url": "https://www.city.isumi.lg.jp/soshikikarasagasu/suisanshokoka/kankopromotionhan/2/1/795.html",
+      "label": "いすみ市公式"
+    },
+    "notes": "九十九里浜最南端。波穏やか・駐車無料で、泳ぎ好きコーギーの水遊びには外房で第一候補"
+  },
+  {
+    "id": "katakai-beach",
+    "name": "片貝海岸（片貝中央海岸）",
+    "category": "sea",
+    "area": "千葉県九十九里町",
+    "lat": 35.5286,
+    "lng": 140.4437,
+    "elevation_m": 2,
+    "driveMin": 105,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "リード着用で砂浜同伴OK（犬が海で遊ぶ実績多数）。海水浴場開設期間の遊泳区域内は犬の遊泳不可、夏は区域の外側で波打ち際遊びを。平坦で歩きやすい砂"
+    },
+    "parking": [
+      {
+        "name": "片貝海岸 町営駐車場",
+        "fee": "開設期間500円程度・期間外無料",
+        "hours": "終日（開設期間中は管理時間あり）",
+        "note": "約1,250台と県内屈指の規模"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "海の駅九十九里",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車3分・片貝漁港直結。2階の一部テラスが同伴可・イワシ料理"
+      },
+      {
+        "name": "九十九里ハーブガーデン ラ・パニエ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車5分。テラスにリードフック・利用で芝ドッグラン無料"
+      },
+      {
+        "name": "海鮮料理 大漁亭",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車7分。店内犬連れOKの大型海鮮レストラン"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "広く平坦な砂浜。駐車場から浜まで近い"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "海水浴場開設は例年7〜8月"
+    },
+    "photo": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kujukuri%20beach.jpg?width=640",
+      "credit": "Syced / Wikimedia Commons"
+    },
+    "official": {
+      "url": "https://maruchiba.jp/spot/detail_10660.html",
+      "label": "ちば観光ナビ"
+    },
+    "notes": "九十九里浜中央部・犬連れ利用の代表格。隣の不動堂海岸も犬同伴OKで混雑回避の代替に"
   },
   {
     "id": "okinoshima",
@@ -1244,6 +2018,12 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "CARO FORESTA 館山DIANA",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・犬用宿併設レストラン。日帰りランチ可・利用でドッグラン無料"
+      },
+      {
         "name": "ドッグ&ベジレストラン トゥルシー（館山市内）",
         "policy": "テラスのみ",
         "leadOK": false,
@@ -1254,6 +2034,18 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "館山の犬連れ定番カフェ"
+      },
+      {
+        "name": "館山なぎさ食堂",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・渚の駅たてやま2F。館山港を望むテラスが犬OK・海鮮丼"
+      },
+      {
+        "name": "カフェデルマ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約10分・北条海岸のビーチカフェ。公式にテラスペットOK明記"
       }
     ],
     "surface": {
@@ -1274,6 +2066,57 @@ const SPOTS = [
       "closed": null,
       "note": "公園・島への立入は自由。海水浴場開設は2026年7/18〜8/23・遊泳9:00〜16:00。島内にトイレなし"
     }
+  },
+  {
+    "id": "motosuka-beach",
+    "name": "本須賀海岸",
+    "category": "sea",
+    "area": "千葉県山武市",
+    "lat": 35.5519,
+    "lng": 140.4727,
+    "elevation_m": 3,
+    "driveMin": 110,
+    "water": {
+      "allowed": true,
+      "depth": "浅瀬中心",
+      "note": "リード着用で砂浜・波打ち際OK。夏期の遊泳区域内は避け区域外の波打ち際で。犬連れ専用海の家「ASOBEACH」（7月上旬〜8月末・冷房付き屋内ドッグラン・シャワー完備）があり夏の犬連れ実績が厚い。ショアブレイクがあるため腰高までが安全"
+    },
+    "parking": [
+      {
+        "name": "本須賀海岸 市営駐車場",
+        "fee": "開設期間500円/回・期間外無料",
+        "hours": "5:00〜21:00（開設期間中）",
+        "note": "約1,000台。トイレ・シャワーあり"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "ASOBEACH -愛犬と過ごす海の家-",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "浜の上（徒歩0分）・夏期のみ。屋内ドッグラン付きプランあり・要予約"
+      },
+      {
+        "name": "浜茶屋 網元",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・浜焼き。わんこ連れ専用エリアあり"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜（ヤシ並木）。夏は砂が高温になるため朝夕推奨"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": "海水浴場開設は例年7月中旬〜8月下旬"
+    },
+    "official": {
+      "url": "https://sammukanko.jp/attraction/123/",
+      "label": "山武市観光協会"
+    },
+    "notes": "ブルーフラッグ認証ビーチ。犬連れ向け設備が九十九里で最も充実。圏央道・山武成東IC経由"
   },
   {
     "id": "sotoura",
@@ -1298,6 +2141,24 @@ const SPOTS = [
       }
     ],
     "restaurants": [
+      {
+        "name": "Two Tails' cafe（下田プリンスホテル内）",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約4分・白浜海岸前のホテル内カフェ。犬用メニューあり・宿泊者以外も利用可"
+      },
+      {
+        "name": "フラム ジャック",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・ペリーロードの洋食カフェ。不定休のため事前連絡推奨"
+      },
+      {
+        "name": "ギャラリー&カフェ 草画房",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・ペリーロードの古民家カフェ。土間・縁側席で同伴可（要事前予約）"
+      },
       {
         "name": "下田バーガー Ra-maru（車約10分）",
         "policy": "テラスのみ",
@@ -1354,6 +2215,18 @@ const SPOTS = [
     ],
     "restaurants": [
       {
+        "name": "South Cafe",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約4分・吉佐美のハワイアン系カフェ。全席ワンコOK・大型犬まで可・木曜定休"
+      },
+      {
+        "name": "フラム ジャック",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約8分・ペリーロードの洋食カフェ。不定休のため事前連絡推奨"
+      },
+      {
         "name": "下田バーガー Ra-maru（道の駅開国下田みなと）",
         "policy": "テラスのみ",
         "leadOK": true,
@@ -1364,6 +2237,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "大型犬まで対応実績あり。サザエ・海鮮"
+      },
+      {
+        "name": "Fermenco",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約3分・入田浜そばのピッツァ&ワイン。駐車場3台"
       }
     ],
     "surface": {
@@ -1419,6 +2298,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "全席犬同伴OK（屋外ハンモック席）"
+      },
+      {
+        "name": "煮込みシチューの店 Casserole",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・シチュー専門店。大型犬も店内OK・犬用メニューあり"
+      },
+      {
+        "name": "NICO CAFE",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約4分・イタリアン。完全予約制で他の犬が苦手でも安心・犬用ケーキ可"
       }
     ],
     "surface": {
@@ -1468,6 +2359,12 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "湖畔テラスで軽食"
+      },
+      {
+        "name": "湖畔cafe NATIVE GARDEN+",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "湖畔すぐ（龍雲荘側）。ペット可の湖畔テラス・SUP併設・火曜定休（季節変動あり）"
       }
     ],
     "surface": {
@@ -1517,6 +2414,12 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "湖畔の定食屋。ペットと店内で食事可の実績あり。ワカサギフライが名物"
+      },
+      {
+        "name": "Cafe 水月",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約2分・榛名湖畔。湖を望むテラスがペットOK・ジェラートが人気"
       }
     ],
     "surface": {
@@ -1568,6 +2471,18 @@ const SPOTS = [
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "湖畔モーニングの犬連れ実績あり"
+      },
+      {
+        "name": "欧州浪漫館 シェ・ホシノ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・湖畔の老舗欧風料理。木曜定休・要予約推奨"
+      },
+      {
+        "name": "レストラン メープル",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約5分・洋食店。パラソル付きテラス4席が犬OK・4〜11月営業"
       }
     ],
     "surface": {
@@ -1609,10 +2524,10 @@ const SPOTS = [
     ],
     "restaurants": [
       {
-        "name": "丸沼高原センターステーション",
-        "policy": "なし",
-        "leadOK": null,
-        "note": "車約10分。犬同伴可否は要確認。テイクアウト持参が無難"
+        "name": "農家レストラン みのりの里",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約30分・R120沿いの農家直営。テラスがペット可・月曜定休（近隣に他店なし）"
       }
     ],
     "surface": {
@@ -1668,6 +2583,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "都筑中央公園近く"
+      },
+      {
+        "name": "chou2clair",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・センター南のドッグカフェ。全席犬同伴OK・犬用メニューあり"
+      },
+      {
+        "name": "FRESCO",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約7分・仲町台せせらぎ公園隣接のイタリアン。ウッドデッキ27席が犬OK"
       }
     ],
     "surface": {
@@ -1709,6 +2636,24 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "愛犬用メニューあり"
+      },
+      {
+        "name": "ドッグカフェ BUBU'S PAW",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・ドッグスクール併設。アジリティ付きラン併設・月水定休"
+      },
+      {
+        "name": "マカロニ市場 松戸店",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・ベーカリーイタリアン。冷暖房完備の屋内わんちゃん専用ルームあり"
+      },
+      {
+        "name": "しろいぬカフェ",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・全席犬OK・サイズ制限なし。無料ドッグラン併設・年中無休"
       }
     ],
     "surface": {
@@ -1756,10 +2701,28 @@ const SPOTS = [
         "note": "車約10分。店内・テラスとも犬OK"
       },
       {
+        "name": "Dessert&Cafe BlueMoon",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・津久井浜R134沿い。店内一部＋テラスが犬OK（リード着用）"
+      },
+      {
+        "name": "ドッグカフェわんこじゃん三浦海岸",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・松輪のドッグカフェ（2025年開店）"
+      },
+      {
         "name": "BEACHEND CAFE",
         "policy": "テラスのみ",
         "leadOK": true,
         "note": "車約10分"
+      },
+      {
+        "name": "Bayside Cafe",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約8分・三浦海岸を望むカフェ"
       }
     ],
     "surface": {
@@ -1794,7 +2757,7 @@ const SPOTS = [
     "parking": [
       {
         "name": "施設駐車場（サマーランド共用）",
-          "hours": "営業時間内（17時以降入園は駐車無料）",
+        "hours": "営業時間内（17時以降入園は駐車無料）",
         "fee": "700円/日",
         "note": "大規模駐車場で台数十分"
       }
@@ -1805,6 +2768,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "全70席全席犬同伴OK。石窯ピザ・地元野菜メニュー"
+      },
+      {
+        "name": "CAFE MOJAVE",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約6分・秋川駅近くのハンバーガーカフェ。全席ワンコOK（大型犬も可）"
+      },
+      {
+        "name": "米沢牛ステーキハウス un",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・店内・ガーデンとも犬OK。犬用ステーキあり・水曜定休"
       }
     ],
     "surface": {
@@ -1850,6 +2825,24 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "松田町産の旬野菜料理と犬用メニューあり"
+      },
+      {
+        "name": "kent crew",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・大井松田IC近くの犬複合施設内カフェ。ドッグラン/プール併設・犬用鹿肉ハンバーグあり"
+      },
+      {
+        "name": "haz",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約20分・山北駅前のカフェ"
+      },
+      {
+        "name": "BIOTOPIA Café Saint-Jacques",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約20分・大井町BIOTOPIA内のカジュアルフレンチ。敷地内にドッグランあり"
       }
     ],
     "surface": {
@@ -1899,6 +2892,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "ドッグカフェ一体型施設のため店内同伴可"
+      },
+      {
+        "name": "和カフェ 夢宇",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約15分・喜多院近く。冷暖房完備の犬連れ専用スペースで大型犬OK・犬用米粉ワッフルあり"
+      },
+      {
+        "name": "コエド ボナペティ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約15分・築130年古民家の洋食。屋根付きテラスで大型犬もOK"
       }
     ],
     "surface": {
@@ -1944,6 +2949,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "リゾート内レストランは愛犬同伴可。犬用メニューあり"
+      },
+      {
+        "name": "クチーナ・トキオネーゼ・コジマ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約12分・本格イタリアン。テラスOK・ドッグラン無料・日曜定休"
+      },
+      {
+        "name": "プレールカフェ",
+        "policy": "テラスのみ",
+        "leadOK": true,
+        "note": "車約12分・農園カフェ。エアコン完備の屋内型テラスで雨天も安心・犬用メニューあり"
       }
     ],
     "surface": {
@@ -1989,6 +3006,18 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "犬同伴可のドッグカフェ・レストラン併設。犬用メニューあり"
+      },
+      {
+        "name": "Dogs Garden WILDPARK",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約6分・花の都公園裏のドッグカフェ。森のドッグラン併設・火水定休"
+      },
+      {
+        "name": "ほうとう さんさい",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約5分・ほうとう。別棟の店内わんこ席は大型犬OK"
       }
     ],
     "surface": {
@@ -2034,6 +3063,24 @@ const SPOTS = [
         "policy": "店内OK",
         "leadOK": true,
         "note": "店内・テラスとも犬同伴OK。犬用メニューあり"
+      },
+      {
+        "name": "和食だワン",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・和食（犬メニューあり）。大型犬可・各席リードフック・ドッグラン併設"
+      },
+      {
+        "name": "福茶's curry",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約3分・ログハウス系スパイスカレー。全サイズOK・芝ドッグラン併設"
+      },
+      {
+        "name": "Cafe CANDY",
+        "policy": "店内OK",
+        "leadOK": true,
+        "note": "車約10分・城ヶ崎海岸エリアのドッグカフェ。犬メニュー豊富・水木定休"
       }
     ],
     "surface": {
@@ -2098,9 +3145,99 @@ const EXCLUDED = [
     "type": "駐車場なし"
   },
   {
-    "name": "長者ヶ崎海岸",
+    "name": "由比ヶ浜・材木座海水浴場",
+    "area": "神奈川県鎌倉市",
+    "reason": "海水浴場開設期間（7-8月）は犬の入水不可。砂浜の散歩のみ可",
+    "type": "夏期NG"
+  },
+  {
+    "name": "片瀬東浜・片瀬西浜鵠沼海水浴場",
+    "area": "神奈川県藤沢市",
+    "reason": "海水浴場開設期間（7-8月）は犬の入水不可",
+    "type": "夏期NG"
+  },
+  {
+    "name": "辻堂海岸",
+    "area": "神奈川県藤沢市",
+    "reason": "夏期は混雑し、犬の入水可否の公式根拠が確認できず",
+    "type": "不明"
+  },
+  {
+    "name": "逗子海岸",
+    "area": "神奈川県逗子市",
+    "reason": "条例により開場時間中の海水浴場区域内は犬の持込自体が禁止",
+    "type": "夏期NG"
+  },
+  {
+    "name": "森戸・一色・長者ヶ崎海岸",
     "area": "神奈川県葉山町",
-    "reason": "夏期の犬入水可否が公式に確認できなかったため掲載見送り",
+    "reason": "オフシーズンは犬連れ定番だが、海水浴場開設期間（7/1-8/31）は犬の入水禁止",
+    "type": "夏期NG"
+  },
+  {
+    "name": "サザンビーチちがさき",
+    "area": "神奈川県茅ヶ崎市",
+    "reason": "夏期は海水浴場開設のため犬の入水不可（西側の柳島海岸へ）",
+    "type": "夏期NG"
+  },
+  {
+    "name": "湘南ひらつかビーチパーク",
+    "area": "神奈川県平塚市",
+    "reason": "公衆衛生・安全のためペットの入水禁止と市公式に明記（通年）",
+    "type": "入水禁止"
+  },
+  {
+    "name": "大磯北浜海岸（大磯海水浴場）",
+    "area": "神奈川県大磯町",
+    "reason": "開設期間（7月中旬-8/31）は犬の入水不可（西側のこゆるぎの浜へ）",
+    "type": "夏期NG"
+  },
+  {
+    "name": "濃溝の滝・亀岩の洞窟",
+    "area": "千葉県君津市",
+    "reason": "リード散歩は可だが、ペットの川遊び（入水）は禁止",
+    "type": "入水禁止"
+  },
+  {
+    "name": "富津海岸潮干狩場",
+    "area": "千葉県富津市",
+    "reason": "犬同伴潮干狩りの実績はあるが営業は3〜7月で8月は閉場",
+    "type": "夏期NG"
+  },
+  {
+    "name": "江川海岸・久津間海岸",
+    "area": "千葉県木更津市",
+    "reason": "潮干狩り場で夏期は営業なし。犬同伴可否の公式記載も確認できず",
+    "type": "不明"
+  },
+  {
+    "name": "上総湊海水浴場",
+    "area": "千葉県富津市",
+    "reason": "条件は良いが犬入水OKの実績・公式明記が確認できず（市商工観光課に要確認）",
+    "type": "不明"
+  },
+  {
+    "name": "新舞子海岸",
+    "area": "千葉県富津市",
+    "reason": "犬連れ可否の一次情報が確認できず。隣接のDOG POOL VILLAGE富津海岸利用なら確実",
+    "type": "不明"
+  },
+  {
+    "name": "保田海岸・元名海岸",
+    "area": "千葉県鋸南町",
+    "reason": "海水浴場開設期間（7-8月）の犬入水可否が確認できず",
+    "type": "不明"
+  },
+  {
+    "name": "大原海岸",
+    "area": "千葉県いすみ市",
+    "reason": "犬同伴可否の一次情報・実績が確認できず。確認が取れるまで非推奨",
+    "type": "不明"
+  },
+  {
+    "name": "不動堂海岸",
+    "area": "千葉県九十九里町",
+    "reason": "犬同伴はOKだが駐車場情報が確認できず。片貝海岸の代替として利用可",
     "type": "不明"
   }
 ];

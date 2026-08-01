@@ -514,11 +514,12 @@ function renderCard(spot) {
     .filter((r) => r.policy !== "なし")
     .map((r) => {
       const lead = r.leadOK === true ? "・リードOK" : "";
-      return `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      const tag = r.policy === "店内OK" ? `<span class="resto-tag in">店内OK${lead}</span>` : `<span class="resto-tag">テラス${lead}</span>`;
+      return `<div class="resto-row">${tag}<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
         r.name + " " + spot.area
-      )}" target="_blank" rel="noopener">${r.name}</a>（${r.policy}${lead}）`;
+      )}" target="_blank" rel="noopener">${r.name}</a>${r.note ? `<span class="resto-note">${r.note}</span>` : ""}</div>`;
     })
-    .join("／");
+    .join("");
 
   const weatherBox = w
     ? `
