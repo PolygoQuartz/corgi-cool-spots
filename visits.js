@@ -1,6 +1,7 @@
 /* 訪問記録データ（管理人の一次情報）
    schemaVersion 1
    - 1レコード = 1回の訪問。spotId で spots.js の SPOTS[].id を参照する
+   - 飲食店への訪問は spotId: null + restaurantRef（RESTAURANTSのid、例 "r013"）を使う → 飲食店カードに表示される
    - まだスポット登録がない場所への訪問は spotId: null + pendingSpotName を使う
    - 「管理人が現地で見たこと」だけを記録する。公式情報は spots.js 側に持つ
    - AIエージェントは docs/AI_AGENT_GUIDE.md の手順でのみこのファイルを更新すること
@@ -11,6 +12,7 @@
      id: "visit-YYYY-MM-DD-nnn",
      schemaVersion: 1,
      spotId: "hadano-tokawa",      // SPOTSのid（未登録スポットはnull）
+     restaurantRef: null,            // 飲食店訪問のときRESTAURANTSのid（例 "r013"）
      pendingSpotName: null,          // spotId=nullのときの場所名メモ
      date: "2026-07-20",
      arrivedAt: "13:00",            // 任意

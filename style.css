@@ -534,6 +534,11 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 .visit-meta { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
 .visit-routes, .visit-notes { margin: 6px 0 0 18px; font-size: 0.8rem; }
 .visit-diary { margin-top: 8px; line-height: 1.7; white-space: pre-wrap; }
+/* 飲食店カード内のコンパクトな訪問記録欄 */
+.resto-visit { margin-top: 8px; padding: 8px 10px; }
+.resto-visit .visit-head { font-size: 0.78rem; }
+.resto-visit .visit-summary { font-size: 0.8rem; }
+
 /* 縦横混在の写真が隙間なく並ぶジャスティファイドギャラリー */
 .visit-photos { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
 .visit-photos::after { content: ""; flex-grow: 999999; }

@@ -31,6 +31,7 @@
 - Issue本文の ```yaml ブロックを IntakeReport として読み取る。壊れている場合は独力で修復を試み、判断できなければIssueで人間に質問する。
 
 ### 2. 場所の特定
+- **`location_hint.existing_spot_id` がある場合は場所の特定・重複確認を省略する。** これは管理人が既存カードを明示指定した追記であり、`existing_kind` が `spot`/`night` なら該当スポットへ `spotId` で、`restaurant` なら `restaurantRef` で訪問記録を紐付ける。
 - `location_hint` の name / shared_url / latitude,longitude / nearby_note / 写真の順に手掛かりとして使う。
 - 共有URLは展開して座標・施設名を得る。
 - **似た名前の施設を同一と断定しない。** 座標と名称の両方が整合する場合のみ特定とみなす。
@@ -68,6 +69,7 @@
 
 **訪問記録（visits.js）**
 - `visits.js` 冒頭コメントのスキーマ（schemaVersion 1）に従う。
+- 飲食店への訪問は `spotId: null` + `restaurantRef: "rNNN"` で記録する（飲食店カードに表示される）。
 - `rawNote` は**原文のまま**保存する。
 - `diary` は rawNote と入力項目を事実の範囲内で読みやすく編集した短い旅行記。
   - 構成: 一言まとめ → 訪問時の状況 → 実際の動線 → 犬の様子 → 良かった点 → 注意したい点 → 次回メモ

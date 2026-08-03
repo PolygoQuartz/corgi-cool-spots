@@ -34,7 +34,7 @@ function newReport() {
     reportId: "visit-" + now.toISOString().slice(0, 10) + "-" + String(now.getTime()).slice(-4),
     createdAt: now.toISOString(),
     updatedAt: now.toISOString(),
-    location: { name: "", sharedUrl: "", lat: null, lng: null, hint: "" },
+    location: { name: "", sharedUrl: "", lat: null, lng: null, hint: "", existingId: "", existingKind: "" },
     visit: { date: now.toISOString().slice(0, 10), arrivedAt: "", durationMin: "", weather: "", feel: "", crowd: "", shade: "" },
     dogCondition: [],
     rawNote: "",
@@ -103,6 +103,10 @@ function collect() {
 
 function fill() {
   const s = (id, v) => (document.getElementById(id).value = v || "");
+  const sel = document.getElementById("f-existing-spot");
+  sel.value = current.location.existingId ? `${current.location.existingKind}:${current.location.existingId}` : "";
+  if (sel.selectedIndex < 0) sel.value = ""; // 削除済みスポット等
+  applyExistingSelection();
   s("f-place-name", current.location.name);
   s("f-place-url", current.location.sharedUrl);
   s("f-place-hint", current.location.hint);
@@ -163,6 +167,48 @@ function addPhotoItem(p) {
 }
 
 function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+/* ---------- 既存スポットへの追記UI ---------- */
+function buildExistingSpotSelect() {
+  const sel = document.getElementById("f-existing-spot");
+  const add = (label, items, kind) => {
+    if (!items.length) return;
+    const og = document.createElement("optgroup");
+    og.label = label;
+    items.forEach(([id, name]) => {
+      const o = document.createElement("option");
+      o.value = `${kind}:${id}`;
+      o.textContent = name;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  };
+  const byName = (a, b) => a[1].localeCompare(b[1], "ja");
+  if (typeof SPOTS !== "undefined") add("☀️ 昼・水遊びスポット", SPOTS.map((s) => [s.id, s.name]).sort(byName), "spot");
+  if (typeof NIGHT_SPOTS !== "undefined") add("🌙 夜さんぽスポット", NIGHT_SPOTS.map((s) => [s.id, s.name]).sort(byName), "night");
+  if (typeof RESTAURANTS !== "undefined") add("🍽️ 飲食店", Object.values(RESTAURANTS).map((r) => [r.id, r.name]).sort(byName), "restaurant");
+}
+
+function applyExistingSelection() {
+  const sel = document.getElementById("f-existing-spot");
+  const badge = document.getElementById("f-existing-badge");
+  const v = sel.value;
+  if (!v) {
+    current.location.existingId = "";
+    current.location.existingKind = "";
+    badge.classList.add("hidden");
+    return;
+  }
+  const [kind, id] = v.split(":");
+  current.location.existingKind = kind;
+  current.location.existingId = id;
+  const name = sel.options[sel.selectedIndex].textContent;
+  document.getElementById("f-existing-name").textContent = name;
+  badge.classList.remove("hidden");
+  // 名前欄が空なら自動で入れる（編集可）
+  const nameEl = document.getElementById("f-place-name");
+  if (!nameEl.value) { nameEl.value = name; current.location.name = name; }
+}
 
 /* ---------- 写真のExif読み取り（撮影時刻・GPS） ---------- */
 async function readExif(file) {
@@ -254,6 +300,10 @@ function toIntakeYaml(r) {
   lines.push(`schema_version: ${r.schemaVersion}`);
   lines.push(`submitted_at: ${new Date().toISOString()}`);
   lines.push(`location_hint:`);
+  if (r.location.existingId) {
+    lines.push(`  existing_spot_id: ${r.location.existingId}`); // 既存カードへの追記（場所の特定・重複確認は不要）
+    lines.push(`  existing_kind: ${r.location.existingKind}`); // spot | night | restaurant
+  }
   if (r.location.name) lines.push(`  name: ${r.location.name}`);
   if (r.location.sharedUrl) lines.push(`  shared_url: ${r.location.sharedUrl}`);
   if (r.location.lat != null) { lines.push(`  latitude: ${r.location.lat}`); lines.push(`  longitude: ${r.location.lng}`); }
@@ -324,6 +374,7 @@ function issueTitle(r) {
 /* ---------- 送信プレビュー ---------- */
 function humanSummary(r) {
   const parts = [];
+  if (r.location.existingId) parts.push(`📌 既存カードへの追記: ${r.location.existingId}（${r.location.existingKind}）`);
   parts.push(`📍 ${r.location.name || "（名前未入力）"}${r.location.lat ? `（現在地: ${r.location.lat.toFixed(4)}, ${r.location.lng.toFixed(4)}）` : ""}`);
   if (r.location.sharedUrl) parts.push(`🔗 ${r.location.sharedUrl}`);
   parts.push(`📅 ${r.visit.date}${r.visit.arrivedAt ? ` ${r.visit.arrivedAt}着` : ""}${r.visit.durationMin ? `・約${r.visit.durationMin}分滞在` : ""}`);
@@ -337,7 +388,7 @@ function humanSummary(r) {
 
 function showPreview() {
   collect();
-  if (!current.location.name && !current.location.sharedUrl && current.location.lat == null && !current.location.hint) {
+  if (!current.location.existingId && !current.location.name && !current.location.sharedUrl && current.location.lat == null && !current.location.hint) {
     alert("場所がわかる情報（名前・共有URL・現在地・目印メモ）をどれか1つ入力してください");
     return;
   }
@@ -423,6 +474,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 動線チェック
   document.getElementById("f-route-checks").innerHTML =
     ROUTE_CHOICES.map((r) => `<label><input type="checkbox" value="${r}">${r}</label>`).join("");
+
+  // 既存スポット選択
+  buildExistingSpotSelect();
+  document.getElementById("f-existing-spot").addEventListener("change", () => {
+    applyExistingSelection();
+    collect(); persist();
+  });
 
   // 直近の下書きを復元
   const drafts = Object.values(loadDrafts()).sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));

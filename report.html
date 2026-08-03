@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex">
 <title>📝 おでかけメモ｜ひんやりコギさんぽ</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
-<link rel="stylesheet" href="style.css?v=14">
-<link rel="stylesheet" href="report.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="report.css?v=15">
 </head>
 <body class="report-page">
 <header class="app-header report-header">
@@ -36,6 +36,10 @@
   <!-- 最小入力（常に表示） -->
   <section class="rcard">
     <h2>📍 どこに行った？</h2>
+    <label class="existing-label">📌 掲載済みスポットへの追記の場合はここで選択:
+      <select id="f-existing-spot"><option value="">🆕 新しい場所（下に入力）</option></select>
+    </label>
+    <p id="f-existing-badge" class="existing-badge hidden">📌 既存カード「<b id="f-existing-name"></b>」への訪問記録として送信します（場所の再調査は行われません）</p>
     <input type="text" id="f-place-name" placeholder="場所の名前（わからなければ近くの施設名でもOK）" autocomplete="off">
     <input type="url" id="f-place-url" placeholder="Googleマップの共有URL（任意）" autocomplete="off">
     <div class="btn-row">
@@ -144,6 +148,7 @@
   <p>🔒 入力内容はこの端末のブラウザ内（localStorage）にのみ自動保存されます。写真ファイル本体は保存されません。</p>
 </footer>
 
-<script src="report.js?v=14"></script>
+<script src="spots.js?v=15"></script>
+<script src="report.js?v=15"></script>
 </body>
 </html>
