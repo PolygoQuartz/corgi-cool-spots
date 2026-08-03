@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#475569">
+<title>⛔ 掲載を見送ったスポット｜ひんやりコギさんぽ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛔</text></svg>">
+<link rel="stylesheet" href="style.css?v=21">
+<style>
+  .ex-header { background: linear-gradient(135deg, #64748b 0%, #334155 100%); }
+  .ex-main { max-width: 720px; margin: 0 auto; padding: 12px 12px 30px; }
+  .ex-intro {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .ex-group { margin-bottom: 18px; }
+  .ex-group h2 {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .ex-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .ex-item-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .ex-item-head b { font-size: 0.92rem; }
+  .ex-area { font-size: 0.75rem; color: var(--muted); }
+  .ex-type {
+    font-size: 0.7rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .ex-type.gray { background: #e2e8f0; color: #334155; }
+  .ex-type.amber { background: #fef3c7; color: #92400e; }
+  .ex-reason { font-size: 0.83rem; line-height: 1.7; }
+  .ex-night-note { font-size: 0.8rem; color: var(--muted); margin: 4px 2px 8px; }
+  .back-to-main { display: block; text-align: center; margin: 20px auto; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="app-header ex-header">
+  <a class="profile-btn" href="index.html" title="遊び場をさがす" aria-label="遊び場をさがす">💦</a>
+  <h1>⛔ 掲載を見送ったスポット</h1>
+  <p class="subtitle">「行ってみたら犬NGだった」を防ぐための判断記録</p>
+</header>
+
+<main class="ex-main">
+  <section class="ex-intro">
+    川・海・湖・プールなど<b>水場のある場所を「コーギーと水遊びできるか」の視点で調査し、掲載しなかった理由</b>をここに残しています。
+    ルールは変わることがあるため、各項目の確認日時点の情報です。
+    「最近ルールが変わっていたよ」という情報があれば、<a href="report.html">おでかけメモ</a>から教えてください（再調査して反映します）。
+  </section>
+
+  <div id="ex-groups"></div>
+
+  <a class="back-to-main" href="index.html">← 遊び場をさがす</a>
+</main>
+
+<footer class="app-footer">
+  <p>🐕💦 <a href="index.html">ひんやりコギさんぽ</a></p>
+</footer>
+
+<script src="spots.js?v=21"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const groups = [
+    { key: "prohibited", title: "⛔ 犬の入水・立入が禁止されている", cls: "", match: (t) => /入水禁止|遊泳禁止|水遊びNG|遊び禁止/.test(t) },
+    { key: "seasonal", title: "🏖️ 夏季はNG（シーズン外は可の場所も）", cls: "amber", match: (t) => /夏季/.test(t) },
+    { key: "unknown", title: "❓ 犬の可否が確認できていない", cls: "gray", match: (t) => /不明|根拠なし|要確認/.test(t) },
+    { key: "unsuitable", title: "⚠️ 水遊びに不向き・その他", cls: "gray", match: () => true },
+  ];
+  const typeCls = (g) => g.cls;
+  const render = (items, night) => {
+    const used = new Set();
+    let html = "";
+    for (const g of groups) {
+      const hit = items.filter((e, i) => !used.has(i) && g.match(e.type || ""));
+      items.forEach((e, i) => { if (hit.includes(e)) used.add(i); });
+      if (!hit.length) continue;
+      html += `<section class="ex-group"><h2>${g.title}（${hit.length}件）</h2>` +
+        hit.map((e) => `
+          <div class="ex-item">
+            <div class="ex-item-head"><b>${e.name}</b><span class="ex-area">${e.area || ""}</span><span class="ex-type ${typeCls(g)}">${e.type || ""}</span></div>
+            <p class="ex-reason">${e.reason || ""}</p>
+          </div>`).join("") + `</section>`;
+    }
+    return html;
+  };
+  let html = render(typeof EXCLUDED !== "undefined" ? EXCLUDED : [], false);
+  if (typeof NIGHT_EXCLUDED !== "undefined" && NIGHT_EXCLUDED.length) {
+    html += `<section class="ex-group"><h2>🌙 夜さんぽで見送った場所（${NIGHT_EXCLUDED.length}件）</h2>` +
+      `<p class="ex-night-note">夜間の犬さんぽ視点での判断です。</p>` +
+      NIGHT_EXCLUDED.map((e) => `
+        <div class="ex-item">
+          <div class="ex-item-head"><b>${e.name}</b><span class="ex-area">${e.area || ""}</span><span class="ex-type gray">${e.type || ""}</span></div>
+          <p class="ex-reason">${e.reason || ""}</p>
+        </div>`).join("") + `</section>`;
+  }
+  document.getElementById("ex-groups").innerHTML = html;
+});
+</script>
+</body>
+</html>

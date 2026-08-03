@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ea580c">
+<title>🍽️ 犬OK飲食店一覧｜ひんやりコギさんぽ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
+<link rel="stylesheet" href="style.css?v=21">
+<style>
+  .resto-page-header { background: linear-gradient(135deg, #f97316 0%, #c2410c 100%); }
+  .resto-list-main { max-width: 720px; margin: 0 auto; padding: 12px 12px 30px; }
+  .resto-filters { margin-bottom: 12px; }
+  .resto-filters select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    background: var(--card);
+  }
+  .resto-count-line { font-size: 0.8rem; color: var(--muted); margin: 6px 2px 10px; }
+  .nearby-spots { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
+  .nearby-spots a { color: var(--sky-dark); font-weight: 600; }
+  .visited-badge {
+    font-size: 0.7rem;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .resto-area-line { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .back-to-main {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+<header class="app-header resto-page-header">
+  <a class="profile-btn" href="index.html" title="遊び場をさがす" aria-label="遊び場をさがす">💦</a>
+  <h1>🍽️ 犬OK飲食店</h1>
+  <p class="subtitle">遊び場とセットで使える、実地・調査済みの犬連れOK店リスト</p>
+</header>
+
+<main class="resto-list-main">
+  <section class="resto-filters">
+    <select id="rf-area"><option value="">📍 エリア: すべて</option></select>
+    <div class="filter-chips" id="rf-policy">
+      <button class="chip active" data-policy="">すべて</button>
+      <button class="chip" data-policy="店内OK">🏠 店内OK</button>
+      <button class="chip" data-policy="テラスのみ">🌤️ テラス</button>
+      <button class="chip" data-policy="open">🟢 今営業中</button>
+      <button class="chip" data-policy="visited">🐾 ルチル訪問済み</button>
+    </div>
+    <p class="resto-count-line" id="rf-count"></p>
+  </section>
+
+  <section id="resto-list"></section>
+
+  <a class="back-to-main" href="index.html">← 遊び場をさがす</a>
+</main>
+
+<footer class="app-footer">
+  <p>⚠️ 犬の入店ルール・営業時間は変わることがあります。おでかけ前に各店の公式情報をご確認ください。</p>
+  <p>🐕💦 <a href="index.html">ひんやりコギさんぽ</a></p>
+</footer>
+
+<script src="spots.js?v=21"></script>
+<script src="visits.js?v=21"></script>
+<script src="restaurants.js?v=21"></script>
+</body>
+</html>

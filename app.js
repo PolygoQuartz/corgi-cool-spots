@@ -1132,8 +1132,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("spot-list").innerHTML =
     '<p class="loading-note">スポットを読み込み中…</p>';
+  // サブ導線の飲食店件数
+  const rc = document.getElementById("subnav-resto-count");
+  if (rc && typeof RESTAURANTS !== "undefined") rc.textContent = Object.keys(RESTAURANTS).length;
+
   initMap();
   applyMode(currentMode);
   importFromSyncHash();
   refresh();
+
+  // 飲食店一覧の「近くの遊び場」リンクから来たとき該当カードへスクロール
+  // （気温取得後の再描画でスクロール位置がずれるため、数秒間ターゲットに追従する）
+  if (location.hash.startsWith("#spot-")) {
+    const id = location.hash.slice(6);
+    if (typeof NIGHT_SPOTS !== "undefined" && NIGHT_SPOTS.some((s) => s.id === id) && currentMode !== "night") applyMode("night");
+    let tries = 0;
+    const timer = setInterval(() => {
+      const el = document.getElementById("spot-" + id);
+      if (el) el.scrollIntoView({ block: "start" });
+      tries++;
+      if ((el && tries >= 6) || tries >= 12) clearInterval(timer);
+    }, 700);
+  }
 });

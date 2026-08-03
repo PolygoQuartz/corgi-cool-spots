@@ -534,6 +534,31 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 .visit-meta { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
 .visit-routes, .visit-notes { margin: 6px 0 0 18px; font-size: 0.8rem; }
 .visit-diary { margin-top: 8px; line-height: 1.7; white-space: pre-wrap; }
+/* トップのサブコンテンツ導線（メイン検索を食わない控えめチップ） */
+.sub-nav {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px 0;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.sub-nav a {
+  flex: 1;
+  text-align: center;
+  font-size: 0.78rem;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sub-nav a b { color: #334155; }
+.sub-nav a:active { background: #e2e8f0; }
+
 /* 写真ライトボックス */
 .lightbox {
   position: fixed;
