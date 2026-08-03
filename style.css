@@ -538,17 +538,13 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 .sub-nav {
   display: flex;
   gap: 8px;
-  padding: 10px 12px 0;
-  max-width: 720px;
-  margin: 0 auto;
+  margin: -4px 0 10px; /* 上下の間隔を揃える（mainのpadding-top 14pxと相殺） */
 }
 .sub-nav a {
   flex: 1;
   text-align: center;
   font-size: 0.78rem;
-  color: #475569;
-  background: #f1f5f9;
-  border: 1px solid var(--border);
+  font-weight: 600;
   border-radius: 999px;
   padding: 8px 10px;
   text-decoration: none;
@@ -556,8 +552,20 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.sub-nav a b { color: #334155; }
-.sub-nav a:active { background: #e2e8f0; }
+/* 各サブページのテーマ色の淡色版で「サブコンテンツへの入口」を示す */
+.sub-nav a.to-resto {
+  color: #9a3412;
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+}
+.sub-nav a.to-resto b { color: #c2410c; }
+.sub-nav a.to-resto:active { background: #ffedd5; }
+.sub-nav a.to-excluded {
+  color: #334155;
+  background: #eef2f7;
+  border: 1px solid #94a3b8;
+}
+.sub-nav a.to-excluded:active { background: #e2e8f0; }
 
 /* 写真ライトボックス */
 .lightbox {
