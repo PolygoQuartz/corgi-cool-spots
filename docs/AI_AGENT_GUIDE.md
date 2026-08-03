@@ -81,6 +81,7 @@
 **スポット（spots.js）**
 - 新規スポットは既存スポットと同じ形式（id, name, category, area, lat, lng, elevation_m, driveMin, water/night, parking[], restaurants[], surface, hours, photo, official, notes）。
 - 掲載基準（駐車場必須など）を満たさない場合は `EXCLUDED` / `NIGHT_EXCLUDED` へ理由つきで追加し、PRで人間に確認を求める。
+- **EXCLUDEDに載せてよいのは「川・海・湖・プールなどの水場があり、遊び場候補として検討した場所」だけ。** 判断の追跡が目的のリストなので、水場と関係のない施設（ドッグラン単体・カフェ等）を名指しで載せない（飼い主の方針）。
 - 飲食店を追加する場合は `RESTAURANTS` に正規化し、spotからは `{ref, note}` で参照する。
 
 ### 6. 写真
