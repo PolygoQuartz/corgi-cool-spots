@@ -623,6 +623,25 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
   opacity: 0.85;
 }
 
+/* 海水浴期間の犬NG表示 */
+.swimban {
+  font-size: 0.8rem;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.swimban.now {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+}
+.swimban.off {
+  background: #ecfeff;
+  border: 1px solid #67e8f9;
+  color: #155e75;
+}
+
 /* 複数訪問のエントリ区切り */
 .visit-entry { padding-top: 6px; }
 .visit-entry + .visit-entry { border-top: 1px dashed rgba(217, 119, 6, 0.35); margin-top: 10px; }

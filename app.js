@@ -374,10 +374,22 @@ function tempColor(t) {
 }
 
 /* ---------- 並び替え・絞り込み ---------- */
+/* 海水浴場開設期間による犬NG判定（water.swimBan: {from:"MM-DD", to:"MM-DD", label}） */
+function swimBanToday(spot) {
+  const b = spot.water && spot.water.swimBan;
+  if (!b) return false;
+  const now = new Date();
+  const md = String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  return md >= b.from && md <= b.to;
+}
+
+let excludeSwimBan = false;
+
 function visibleSpots() {
   let list = activeSpots().filter(
     (s) => (currentFilter === "all" || s.category === currentFilter) && withinDrive(s)
   );
+  if (excludeSwimBan) list = list.filter((s) => !swimBanToday(s));
   if (currentMarkFilter !== "all") {
     list = list.filter((s) => hasMark(s.id, currentMarkFilter));
   }
@@ -740,7 +752,8 @@ function renderTopPicks() {
     section.classList.add("hidden");
     return;
   }
-  const ranked = activeSpots().filter(withinDrive)
+  // 海水浴期間で本日犬NGの海岸はおすすめに出さない
+  const ranked = activeSpots().filter(withinDrive).filter((s) => !swimBanToday(s))
     .sort((a, b) => calcScore(b) - calcScore(a))
     .slice(0, 3);
   if (ranked.length === 0) {
@@ -878,6 +891,11 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
+    ${spot.water && spot.water.swimBan
+      ? swimBanToday(spot)
+        ? `<div class="swimban now">⛔ <b>本日は犬の入水NG</b>（${spot.water.swimBan.label}）</div>`
+        : `<div class="swimban off">🏖️ ${spot.water.swimBan.label}は犬NG ／ <b>現在はオフシーズンで入水解禁</b></div>`
+      : ""}
     ${hoursHtml}
     ${weatherBox}
     ${visitBlockHtml(spot)}
@@ -1040,6 +1058,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   document.getElementById("origin-geo-btn").addEventListener("click", setOriginFromGeolocation);
+
+  // 海水浴期間で本日犬NGの海岸を除外するトグル
+  const sbBtn = document.getElementById("swimban-filter");
+  if (sbBtn) {
+    // swimBan付きスポットが無ければ行ごと隠す
+    const anyBan = [...SPOTS, ...NIGHT_SPOTS].some((s) => s.water && s.water.swimBan);
+    if (!anyBan) document.getElementById("swimban-row").style.display = "none";
+    sbBtn.addEventListener("click", () => {
+      excludeSwimBan = !excludeSwimBan;
+      sbBtn.classList.toggle("active", excludeSwimBan);
+      renderSpots();
+      renderMarkers();
+    });
+  }
 
   // 端末間同期
   document.getElementById("sync-btn").addEventListener("click", () => {

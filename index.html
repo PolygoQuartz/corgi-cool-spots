@@ -7,7 +7,7 @@
 <title>ひんやりコギさんぽ 🐕💦</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=22">
+<link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 <header class="app-header">
@@ -92,6 +92,9 @@
       <button class="chip" data-hours="reachable">今から間に合う</button>
       <button class="chip" data-hours="allday">終日OK</button>
     </div>
+    <div class="filter-chips" id="swimban-row">
+      <button id="swimban-filter" class="chip">🚫 本日犬NGの海岸（海水浴期間中）を除外</button>
+    </div>
     <div class="sort-row">
       <label for="day-select">曜日で確認:</label>
       <select id="day-select">
@@ -140,8 +143,8 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="spots.js?v=22"></script>
-<script src="visits.js?v=22"></script>
-<script src="app.js?v=22"></script>
+<script src="spots.js?v=23"></script>
+<script src="visits.js?v=23"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>
