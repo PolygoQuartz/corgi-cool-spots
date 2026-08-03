@@ -3175,7 +3175,7 @@ const SPOTS = [
   },
   {
     "id": "kissa-zizi",
-    "name": "喫茶ZiZiの庭（君津）",
+    "name": "喫茶ZiZi（君津）",
     "category": "pool",
     "area": "千葉県君津市",
     "lat": 35.3437,
