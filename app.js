@@ -320,12 +320,7 @@ function calcScore(spot) {
     score += 15;
     if ((spot.water.depth || "").includes("泳げる")) score += 5;
   }
-  const best = bestRestaurant(spot);
-  if (best) {
-    if (best.policy === "店内OK") score += 10;
-    else if (best.policy === "テラスのみ") score += 5;
-    if (best.leadOK) score += 3;
-  }
+  // 近隣飲食店はカード登録状況に左右されるためスコアには使わない（飼い主の方針）
   if (spot.surface) {
     if (spot.surface.shade === "多い") score += 8;
     else if (spot.surface.shade === "普通") score += 4;
@@ -354,9 +349,9 @@ function calcScore(spot) {
 function bestRestaurant(spot) {
   if (!spot.restaurants || spot.restaurants.length === 0) return null;
   const rank = { 店内OK: 2, テラスのみ: 1, なし: 0 };
-  return [...spot.restaurants].sort(
-    (a, b) => (rank[b.policy] || 0) - (rank[a.policy] || 0)
-  )[0];
+  return spot.restaurants
+    .map((e) => resolveResto(e, spot)) // ref形式をRESTAURANTS本体に解決（カードバッジ用）
+    .sort((a, b) => (rank[b.policy] || 0) - (rank[a.policy] || 0))[0];
 }
 
 function tempClass(t) {
