@@ -180,6 +180,27 @@ function closeLightbox() {
   if (history.state && history.state.lightbox) history.back();
 }
 
+/* ---------- 観光ガイド風のざっくりエリア分け ---------- */
+const REGION_RULES = [
+  ["湘南・江の島・鎌倉", /藤沢|鎌倉|茅ヶ崎|平塚|逗子|葉山|大磯|二宮/],
+  ["三浦半島", /横須賀|三浦市/],
+  ["横浜・川崎", /横浜|川崎/],
+  ["箱根・小田原・湯河原", /箱根|小田原|湯河原|真鶴|南足柄/],
+  ["丹沢・宮ヶ瀬・相模原", /清川|愛川|相模原|厚木|伊勢原|秦野|山北|松田|大井町|開成|海老名|座間|綾瀬|大和市/],
+  ["東京都心", /東京都(新宿|渋谷|世田谷|目黒|大田|品川|杉並|中野|港|千代田|中央|文京|台東|墨田|江東|豊島|北|荒川|板橋|練馬|足立|葛飾|江戸川)区/],
+  ["多摩・奥多摩", /青梅|奥多摩|あきる野|檜原|八王子|府中市|調布|町田|稲城|多摩市|日野|立川|福生|羽村|昭島|狛江|三鷹|武蔵野|国立|国分寺|小金井|東村山|東大和|瑞穂/],
+  ["富士五湖・山梨", /山中湖|富士河口湖|富士吉田|忍野|都留|大月|道志|甲府|山梨市|笛吹|北杜|甲州|御殿場|小山町|市川三郷|身延|富士川町/],
+  ["伊豆・沼津", /伊東|下田|河津|南伊豆|東伊豆|西伊豆|松崎|伊豆市|伊豆の国|沼津|三島|函南|熱海|清水町|長泉|静岡市/],
+  ["秩父・長瀞・埼玉", /埼玉県/],
+  ["千葉・房総", /千葉県/],
+  ["北関東", /茨城県|栃木県|群馬県/],
+];
+
+function regionOf(area) {
+  for (const [label, re] of REGION_RULES) if (re.test(area || "")) return label;
+  return "その他";
+}
+
 /* ---------- 一覧の描画 ---------- */
 // 各店を参照している遊び場（逆リンク用）
 const SPOTS_BY_RESTO = {};
@@ -223,7 +244,7 @@ function restoListCardHtml(r) {
 function renderRestoList() {
   const all = Object.values(RESTAURANTS);
   let list = all.slice();
-  if (filterState.area) list = list.filter((r) => (r.area || "") === filterState.area);
+  if (filterState.area) list = list.filter((r) => regionOf(r.area) === filterState.area);
   if (filterState.policy === "店内OK") list = list.filter((r) => r.policy === "店内OK");
   else if (filterState.policy === "テラスのみ") list = list.filter((r) => r.policy !== "店内OK");
   else if (filterState.policy === "open") list = list.filter((r) => isRestoOpenNow(r));
@@ -241,13 +262,18 @@ function renderRestoList() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // エリアの選択肢（都道府県→市区町村順）
-  const areas = [...new Set(Object.values(RESTAURANTS).map((r) => r.area).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ja"));
+  // エリアの選択肢（観光ガイド風のざっくり区分・定義順）
+  const counts = {};
+  Object.values(RESTAURANTS).forEach((r) => {
+    const g = regionOf(r.area);
+    counts[g] = (counts[g] || 0) + 1;
+  });
+  const order = [...REGION_RULES.map(([l]) => l), "その他"];
   const sel = document.getElementById("rf-area");
-  areas.forEach((a) => {
+  order.filter((l) => counts[l]).forEach((l) => {
     const o = document.createElement("option");
-    o.value = a;
-    o.textContent = a;
+    o.value = l;
+    o.textContent = `${l}（${counts[l]}軒）`;
     sel.appendChild(o);
   });
   sel.addEventListener("change", () => { filterState.area = sel.value; renderRestoList(); });
