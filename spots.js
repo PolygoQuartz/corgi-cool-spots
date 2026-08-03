@@ -3341,6 +3341,49 @@ const SPOTS = [
       "closed": null,
       "note": "商店街の店舗はおおむね11:00〜16:00前後"
     }
+  },
+  {
+    "id": "akiya-tateishi",
+    "name": "秋谷・立石海岸",
+    "category": "sea",
+    "area": "神奈川県横須賀市",
+    "lat": 35.2387,
+    "lng": 139.6001,
+    "elevation_m": 2,
+    "driveMin": 55,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜＋磯場（遠泳は危険とされる・監視員なし）",
+      "note": "ペット可・リード着用で犬の海辺さんぽに人気（観光情報・確認日2026-08-03）。犬の入水に関する明文はなし。海水浴場非開設のため夏季のペット規制もなし"
+    },
+    "parking": [
+      {
+        "name": "県営立石駐車場",
+        "fee": "無料",
+        "note": "通年利用可・海岸隣接（飼い主確認）。夕景の時間帯は混みやすい",
+        "hours": "終日"
+      }
+    ],
+    "restaurants": [
+      {
+        "ref": "r139",
+        "note": "立石バス停徒歩1分の古民家バーガー店。看板犬のラブラドール・シェリーちゃんがいる"
+      }
+    ],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜と岩礁"
+    },
+    "notes": "高さ12mの奇岩「立石」と富士山のシルエットで知られる夕景の名所。かながわの景勝50選。飼い主おすすめスポット",
+    "official": {
+      "url": "https://www.cocoyoko.net/spot/akiya-beach.html",
+      "label": "横須賀市観光情報（ここはヨコスカ）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
   }
 ];
 
@@ -5084,6 +5127,20 @@ const RESTAURANTS = {
       "open": "11:30〜15:00",
       "closed": "不定休",
       "note": "朴葉焼き定食5種。ペットOKの中庭を囲む店群のひとつで、他店の料理も持ち寄り可"
+    }
+  },
+  "r139": {
+    "id": "r139",
+    "name": "AKIYA blue green",
+    "area": "神奈川県横須賀市",
+    "policy": "店内OK",
+    "leadOK": true,
+    "lat": 35.2401,
+    "lng": 139.5994,
+    "hours": {
+      "open": "11:00〜21:00",
+      "closed": "基本金・土・日のみ営業",
+      "note": "営業日変動あり・Instagram（@bluegreen_134）要確認。熟成肉100%バーガーの古民家カフェ。犬は店内OK（飼い主確認）"
     }
   }
 };
