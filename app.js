@@ -207,7 +207,10 @@ function congestionActive(spot) {
 
 function baseDriveMin(spot) {
   if (origin.isDefault) return spot.driveMin;
-  return Math.round(((distKm(spot) * 1.35) / 55) * 60 + 12);
+  // 道路距離 = 直線×1.35。平均速度は距離帯別（近距離ほど一般道率が高く遅い実態に合わせた校正値）
+  const roadKm = distKm(spot) * 1.35;
+  const speed = roadKm < 25 ? 30 : roadKm < 70 ? 42 : 55;
+  return Math.round((roadKm / speed) * 60 + 10);
 }
 
 function effDriveMin(spot) {
