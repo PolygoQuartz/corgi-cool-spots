@@ -88,9 +88,10 @@ function collect() {
     time: row.querySelector(".gt-time").value,
     surface: row.querySelector(".gt-surface").value,
     tempC: parseFloat(row.querySelector(".gt-temp").value) || null,
+    feel: row.querySelector(".gt-feel").value || "",
     sun: row.querySelector(".gt-sun").value,
     note: row.querySelector(".gt-note").value.trim(),
-  })).filter((t) => t.tempC != null);
+  })).filter((t) => t.tempC != null || t.feel);
   current.photos = [...document.querySelectorAll(".photo-item")].map((p, i) => ({
     name: p.dataset.name,
     size: +p.dataset.size,
@@ -141,7 +142,8 @@ function addGtRow(t = {}) {
   const nowStr = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
   div.innerHTML = `
     <label>測定時刻<input type="time" class="gt-time" value="${t.time || nowStr}"></label>
-    <label>表面温度℃<input type="number" step="0.1" inputmode="decimal" class="gt-temp" value="${t.tempC ?? ""}"></label>
+    <label>🖐️ 素手で触った体感<select class="gt-feel">${["", "ひんやり", "人肌", "アチアチ", "危険"].map((f) => `<option value="${f}" ${t.feel === f ? "selected" : ""}>${f || "--"}</option>`).join("")}</select></label>
+    <label>表面温度℃（計測できれば）<input type="number" step="0.1" inputmode="decimal" class="gt-temp" value="${t.tempC ?? ""}"></label>
     <label>路面<select class="gt-surface">${SURFACE_CHOICES.map((s) => `<option ${t.surface === s ? "selected" : ""}>${s}</option>`).join("")}</select></label>
     <label>日向/日陰<select class="gt-sun"><option ${t.sun === "日向" ? "selected" : ""}>日向</option><option ${t.sun === "日陰" ? "selected" : ""}>日陰</option></select></label>
     <input type="text" class="gt-note full" placeholder="一言メモ（任意）" value="${t.note || ""}">
@@ -171,22 +173,40 @@ function todayStr() { return new Date().toISOString().slice(0, 10); }
 /* ---------- 既存スポットへの追記UI ---------- */
 function buildExistingSpotSelect() {
   const sel = document.getElementById("f-existing-spot");
-  const add = (label, items, kind) => {
+  // 本体アプリと同じlocalStorageから「✅ 行った」マークを読む
+  let marks = {};
+  try { marks = JSON.parse(localStorage.getItem("cogi-marks") || "{}"); } catch (e) {}
+  const visited = (id) => marks[id] && marks[id].visited;
+  // 既にルチルレポートがあるか（visits.js参照）
+  const reported = new Set();
+  if (typeof VISITS !== "undefined") VISITS.forEach((v) => { if (v.spotId) reported.add(v.spotId); if (v.restaurantRef) reported.add(v.restaurantRef); });
+  const label = (kind, id, name) => {
+    const icon = { spot: "☀️", night: "🌙", restaurant: "🍽️" }[kind];
+    return `${icon} ${name}${reported.has(id) ? "" : "（レポ未）"}`;
+  };
+  const add = (groupLabel, items) => {
     if (!items.length) return;
     const og = document.createElement("optgroup");
-    og.label = label;
-    items.forEach(([id, name]) => {
+    og.label = groupLabel;
+    items.forEach(([kind, id, name]) => {
       const o = document.createElement("option");
       o.value = `${kind}:${id}`;
-      o.textContent = name;
+      o.textContent = label(kind, id, name);
       og.appendChild(o);
     });
     sel.appendChild(og);
   };
-  const byName = (a, b) => a[1].localeCompare(b[1], "ja");
-  if (typeof SPOTS !== "undefined") add("☀️ 昼・水遊びスポット", SPOTS.map((s) => [s.id, s.name]).sort(byName), "spot");
-  if (typeof NIGHT_SPOTS !== "undefined") add("🌙 夜さんぽスポット", NIGHT_SPOTS.map((s) => [s.id, s.name]).sort(byName), "night");
-  if (typeof RESTAURANTS !== "undefined") add("🍽️ 飲食店", Object.values(RESTAURANTS).map((r) => [r.id, r.name]).sort(byName), "restaurant");
+  const all = [];
+  if (typeof SPOTS !== "undefined") SPOTS.forEach((s) => all.push(["spot", s.id, s.name]));
+  if (typeof NIGHT_SPOTS !== "undefined") NIGHT_SPOTS.forEach((s) => all.push(["night", s.id, s.name]));
+  if (typeof RESTAURANTS !== "undefined") Object.values(RESTAURANTS).forEach((r) => all.push(["restaurant", r.id, r.name]));
+  const byName = (a, b) => a[2].localeCompare(b[2], "ja");
+  // 「行った」マーク済みを最上部に（レポ未のものが先）
+  const visitedItems = all.filter(([k, id]) => visited(id)).sort((a, b) => (reported.has(a[1]) - reported.has(b[1])) || byName(a, b));
+  add("✅ 行ったマーク済み（この端末）", visitedItems);
+  add("☀️ 昼・水遊びスポット", all.filter(([k]) => k === "spot").sort(byName));
+  add("🌙 夜さんぽスポット", all.filter(([k]) => k === "night").sort(byName));
+  add("🍽️ 飲食店", all.filter(([k]) => k === "restaurant").sort(byName));
 }
 
 function applyExistingSelection() {
@@ -332,7 +352,8 @@ function toIntakeYaml(r) {
       lines.push(`  - measured_at: "${t.time}"`);
       lines.push(`    surface: ${t.surface}`);
       lines.push(`    sun: ${t.sun}`);
-      lines.push(`    temperature_c: ${t.tempC}`);
+      if (t.tempC != null) lines.push(`    temperature_c: ${t.tempC}`);
+      if (t.feel) lines.push(`    hand_feel: ${t.feel}`); // 素手で触った体感（実測値ではない）
       if (t.note) lines.push(`    note: ${t.note}`);
     });
   }
@@ -379,7 +400,7 @@ function humanSummary(r) {
   if (r.location.sharedUrl) parts.push(`🔗 ${r.location.sharedUrl}`);
   parts.push(`📅 ${r.visit.date}${r.visit.arrivedAt ? ` ${r.visit.arrivedAt}着` : ""}${r.visit.durationMin ? `・約${r.visit.durationMin}分滞在` : ""}`);
   if (r.dogCondition.length) parts.push(`🐕 ${r.dogCondition.join("、")}`);
-  if (r.groundTemps.length) parts.push(`🌡️ ${r.groundTemps.map((t) => `${t.surface}${t.tempC}℃`).join("／")}`);
+  if (r.groundTemps.length) parts.push(`🌡️ ${r.groundTemps.map((t) => `${t.surface}${t.tempC != null ? t.tempC + "℃" : "・" + t.feel + "(体感)"}`).join("／")}`);
   if (r.routeChecks.length) parts.push(`🚶 ${r.routeChecks.join("、")}`);
   if (r.rawNote) parts.push(`📝 ${r.rawNote}`);
   if (r.photos.length) parts.push(`📷 写真${r.photos.length}枚（Issueに手動添付）`);

@@ -473,57 +473,61 @@ function visitPhotoImgs(v) {
     .join("");
 }
 
-/* 飲食店カード用のコンパクトな訪問記録欄 */
+/* 地面温度の1行（実測値 or 素手体感の両対応） */
+const GT_FEEL_ICON = { "危険": "🚨", "アチアチ": "🔥", "人肌": "🖐️", "ひんやり": "❄️" };
+function gtRowHtml(t, v) {
+  const val = t.tempC != null ? `${t.tempC}℃` : t.feel ? `${t.feel}${GT_FEEL_ICON[t.feel] || ""}` : "";
+  if (!val) return "";
+  const meta = t.tempC != null ? `${v.date} ${t.time || ""} 現地実測` : `${v.date} 飼い主の素手体感`;
+  return `<div class="gt-row"><span class="gt-label">${t.surface}${t.sun ? `（${t.sun}）` : ""}</span><b class="gt-val">${val}</b><span class="gt-meta">${meta}</span></div>`;
+}
+
+/* 訪問1回分のエントリ（スポット・飲食店共通） */
+function visitEntryHtml(v, opts) {
+  const full = !(opts && opts.compact);
+  const temps = (v.groundTemps || []).map((t) => gtRowHtml(t, v)).join("");
+  const dogs = (v.dogCondition || []).map((d) => `<span class="dog-chip">${d}</span>`).join("");
+  const routes = full ? (v.routeNotes || []).map((r) => `<li>${r}</li>`).join("") : "";
+  const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
+  const photos = visitPhotoImgs(v);
+  const detailBody =
+    (full && (v.shadeImpression || v.crowdImpression) ? `<p class="visit-meta">日陰: ${v.shadeImpression || "-"} ／ 混雑: ${v.crowdImpression || "-"}${v.weather ? ` ／ 天気: ${v.weather}（体感）` : ""}</p>` : "") +
+    (routes ? `<ul class="visit-routes">${routes}</ul>` : "") +
+    (notes ? `<ul class="visit-notes">${notes}</ul>` : "") +
+    (v.diary ? `<p class="visit-diary">${v.diary}</p>` : "");
+  return `
+    <div class="visit-entry">
+      <div class="visit-entry-date">📅 ${v.date}${v.arrivedAt ? ` ${v.arrivedAt}着` : ""}</div>
+      ${v.summary ? `<p class="visit-summary">「${v.summary}」</p>` : ""}
+      ${dogs && full ? `<div class="dog-chips">${dogs}</div>` : ""}
+      ${temps ? `<div class="gt-table">${temps}</div>` : ""}
+      ${photos ? `<div class="visit-photos">${photos}</div>` : ""}
+      ${detailBody ? `<details class="visit-details"><summary>${full ? "旅行記・詳細を読む" : "訪問メモを読む"}</summary>${detailBody}</details>` : ""}
+    </div>`;
+}
+
+/* 飲食店カード用のコンパクトな訪問記録欄（複数訪問対応） */
 function restoVisitHtml(rid) {
   if (typeof VISITS === "undefined") return "";
   const list = VISITS.filter((v) => v.restaurantRef === rid).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
   if (list.length === 0) return "";
-  const v = list[0];
-  const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
-  const photos = visitPhotoImgs(v);
   return `
   <div class="visit-block resto-visit">
-    <div class="visit-head">🐾 <b>ルチルが遊びに行きました</b><span class="visit-date">${v.date}${list.length > 1 ? `・計${list.length}回` : ""}</span></div>
-    ${v.summary ? `<p class="visit-summary">「${v.summary}」</p>` : ""}
-    ${photos ? `<div class="visit-photos">${photos}</div>` : ""}
-    <details class="visit-details">
-      <summary>訪問メモを読む</summary>
-      ${notes ? `<ul class="visit-notes">${notes}</ul>` : ""}
-      ${v.diary ? `<p class="visit-diary">${v.diary}</p>` : ""}
-      <p class="visit-caveat">※訪問時点の記録です。営業時間・ルールは変わることがあります。</p>
-    </details>
+    <div class="visit-head">🐾 <b>ルチルが遊びに行きました</b>${list.length > 1 ? `<span class="visit-date">計${list.length}回</span>` : ""}</div>
+    ${list.map((v) => visitEntryHtml(v, { compact: true })).join("")}
+    <p class="visit-caveat">※訪問時点の記録です。営業時間・ルールは変わることがあります。</p>
   </div>`;
 }
 
+/* スポットカードの訪問記録ブロック（複数訪問対応） */
 function visitBlockHtml(spot) {
   const list = visitsOf(spot);
   if (list.length === 0) return "";
-  const v = list[0]; // 最新の訪問
-  const temps = (v.groundTemps || [])
-    .map(
-      (t) =>
-        `<div class="gt-row"><span class="gt-label">${t.surface}${t.sun ? `（${t.sun}）` : ""}</span><b class="gt-val">${t.tempC}℃</b><span class="gt-meta">${v.date} ${t.time || ""} 現地実測</span></div>`
-    )
-    .join("");
-  const dogs = (v.dogCondition || []).map((d) => `<span class="dog-chip">${d}</span>`).join("");
-  const routes = (v.routeNotes || []).map((r) => `<li>${r}</li>`).join("");
-  const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
-  const photos = visitPhotoImgs(v);
   return `
   <div class="visit-block">
-    <div class="visit-head">🐾 <b>ルチルが遊びに行きました</b><span class="visit-date">${v.date}${v.arrivedAt ? ` ${v.arrivedAt}着` : ""}${list.length > 1 ? `・計${list.length}回` : ""}</span></div>
-    ${v.summary ? `<p class="visit-summary">「${v.summary}」</p>` : ""}
-    ${dogs ? `<div class="dog-chips">${dogs}</div>` : ""}
-    ${temps ? `<div class="gt-table">${temps}</div>` : ""}
-    ${photos ? `<div class="visit-photos">${photos}</div>` : ""}
-    <details class="visit-details">
-      <summary>旅行記・詳細を読む</summary>
-      ${v.shadeImpression || v.crowdImpression ? `<p class="visit-meta">日陰: ${v.shadeImpression || "-"} ／ 混雑: ${v.crowdImpression || "-"}${v.weather ? ` ／ 天気: ${v.weather}（体感）` : ""}</p>` : ""}
-      ${routes ? `<ul class="visit-routes">${routes}</ul>` : ""}
-      ${notes ? `<ul class="visit-notes">${notes}</ul>` : ""}
-      ${v.diary ? `<p class="visit-diary">${v.diary}</p>` : ""}
-      <p class="visit-caveat">※訪問時点の記録です。天候・季節・混雑によって状況は変わります。</p>
-    </details>
+    <div class="visit-head">🐾 <b>ルチルが遊びに行きました</b>${list.length > 1 ? `<span class="visit-date">計${list.length}回</span>` : ""}</div>
+    ${list.map((v) => visitEntryHtml(v)).join("")}
+    <p class="visit-caveat">※訪問時点の記録です。天候・季節・混雑によって状況は変わります。</p>
   </div>`;
 }
 

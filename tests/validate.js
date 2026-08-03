@@ -69,8 +69,10 @@ else {
     if (v.spotId == null && !v.restaurantRef && !v.pendingSpotName) fail(`${tag}: spotId/restaurantRef/pendingSpotNameのいずれもない`);
     if (!v.rawNote && !v.summary) fail(`${tag}: 一次情報（rawNote/summary）が空`);
     for (const t of v.groundTemps || []) {
-      if (typeof t.tempC !== "number") fail(`${tag}: 地面温度が数値でない`);
-      if (t.tempC < -20 || t.tempC > 90) fail(`${tag}: 地面温度が非現実的(${t.tempC})`);
+      if (t.tempC == null && !t.feel) fail(`${tag}: 地面温度にtempC（実測）もfeel（素手体感）もない`);
+      if (t.tempC != null && typeof t.tempC !== "number") fail(`${tag}: 地面温度が数値でない`);
+      if (typeof t.tempC === "number" && (t.tempC < -20 || t.tempC > 90)) fail(`${tag}: 地面温度が非現実的(${t.tempC})`);
+      if (t.feel && !["危険", "アチアチ", "人肌", "ひんやり"].includes(t.feel)) fail(`${tag}: feelが規定外(${t.feel})`);
     }
     for (const p of v.photos || []) {
       if (!/^assets\/visits\//.test(p.src)) fail(`${tag}: 写真パスが assets/visits/ 配下ではない(${p.src})`);

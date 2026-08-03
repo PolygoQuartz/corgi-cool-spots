@@ -23,8 +23,8 @@
      routeNotes: ["駐車場から川まで徒歩5分", "川沿いはほぼ木陰"],
      shadeImpression: "ほぼ木陰",   // 任意
      crowdImpression: "静か",       // 任意
-     groundTemps: [                  // 任意・現地実測
-       { time: "13:15", surface: "日向のアスファルト", tempC: 46.8, sun: "日向", device: "放射温度計", note: "" }
+     groundTemps: [                  // 任意。tempC=実測値、feel=素手体感（危険/アチアチ/人肌/ひんやり）。どちらか必須
+       { time: "13:15", surface: "日向のアスファルト", tempC: 46.8, feel: "", sun: "日向", device: "放射温度計", note: "" }
      ],
      onSiteNotes: ["現地看板: ..."],  // 現地で確認した注意事項（公式情報と食い違う場合もここに残す）
      rawNote: "飼い主の生メモ（原文のまま保存）",
@@ -41,7 +41,7 @@ const VISITS = [
     "schemaVersion": 1,
     "spotId": "yuyake-koyake",
     "pendingSpotName": null,
-    "date": "2026-08-01",
+    "date": "2026-08-02",
     "arrivedAt": "15:00",
     "durationMin": 60,
     "weather": "曇り",
