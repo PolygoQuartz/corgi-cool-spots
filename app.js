@@ -468,9 +468,84 @@ function visitPhotoImgs(v) {
   return (v.photos || [])
     .map(
       (p) =>
-        `<img class="visit-photo-img" src="${p.src}" alt="${p.alt || ""}" loading="lazy" onclick="window.open(this.src)" onload="const r=this.naturalWidth/this.naturalHeight;this.style.width=(130*r)+'px';this.style.flexGrow=r*100" onerror="this.remove()">`
+        `<img class="visit-photo-img" src="${p.src}" alt="${p.alt || ""}" loading="lazy" onload="const r=this.naturalWidth/this.naturalHeight;this.style.width=(130*r)+'px';this.style.flexGrow=r*100" onerror="this.remove()">`
     )
     .join("");
+}
+
+/* ---------- 写真ライトボックス（別タブを開かないページ内ビューア） ---------- */
+let lbPhotos = [];
+let lbIndex = 0;
+
+function ensureLightbox() {
+  if (document.getElementById("lightbox")) return;
+  const div = document.createElement("div");
+  div.id = "lightbox";
+  div.className = "lightbox hidden";
+  div.innerHTML = `
+    <button class="lb-close" aria-label="閉じる">✕</button>
+    <button class="lb-prev" aria-label="前の写真">‹</button>
+    <img class="lb-img" alt="">
+    <button class="lb-next" aria-label="次の写真">›</button>
+    <div class="lb-count"></div>`;
+  document.body.appendChild(div);
+  div.addEventListener("click", (e) => {
+    if (e.target === div || e.target.classList.contains("lb-close")) closeLightbox();
+  });
+  div.querySelector(".lb-prev").addEventListener("click", (e) => { e.stopPropagation(); lbShow(lbIndex - 1); });
+  div.querySelector(".lb-next").addEventListener("click", (e) => { e.stopPropagation(); lbShow(lbIndex + 1); });
+  document.addEventListener("keydown", (e) => {
+    if (div.classList.contains("hidden")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") lbShow(lbIndex - 1);
+    if (e.key === "ArrowRight") lbShow(lbIndex + 1);
+  });
+  // スワイプで前後の写真へ
+  let sx = 0;
+  div.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  div.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 50 && lbPhotos.length > 1) lbShow(lbIndex + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+  // スマホの「戻る」で閉じられるように
+  window.addEventListener("popstate", () => {
+    if (!div.classList.contains("hidden")) hideLightbox();
+  });
+}
+
+function lbShow(i) {
+  if (!lbPhotos.length) return;
+  lbIndex = (i + lbPhotos.length) % lbPhotos.length;
+  const lb = document.getElementById("lightbox");
+  const img = lb.querySelector(".lb-img");
+  img.src = lbPhotos[lbIndex].src;
+  img.alt = lbPhotos[lbIndex].alt;
+  lb.querySelector(".lb-count").textContent = lbPhotos.length > 1 ? `${lbIndex + 1} / ${lbPhotos.length}` : "";
+  const multi = lbPhotos.length > 1 ? "" : "none";
+  lb.querySelector(".lb-prev").style.display = multi;
+  lb.querySelector(".lb-next").style.display = multi;
+}
+
+function openLightbox(img) {
+  ensureLightbox();
+  const gallery = img.closest(".visit-photos");
+  const imgs = gallery ? [...gallery.querySelectorAll(".visit-photo-img")] : [img];
+  lbPhotos = imgs.map((i) => ({ src: i.src, alt: i.alt }));
+  lbIndex = Math.max(0, imgs.indexOf(img));
+  document.getElementById("lightbox").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+  history.pushState({ lightbox: true }, "");
+  lbShow(lbIndex);
+}
+
+function hideLightbox() {
+  document.getElementById("lightbox").classList.add("hidden");
+  document.body.style.overflow = "";
+}
+
+function closeLightbox() {
+  hideLightbox();
+  if (history.state && history.state.lightbox) history.back();
 }
 
 /* 地面温度の1行（実測値 or 素手体感の両対応） */
@@ -933,6 +1008,11 @@ async function refresh() {
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("mode-day").addEventListener("click", () => applyMode("day"));
   document.getElementById("mode-night").addEventListener("click", () => applyMode("night"));
+
+  // レポート写真タップ→ライトボックスで表示
+  document.addEventListener("click", (e) => {
+    if (e.target.classList && e.target.classList.contains("visit-photo-img")) openLightbox(e.target);
+  });
 
   // 隠しショートカット: タイトルを素早く2回タップ→おでかけメモ（飼い主用）
   let lastTitleTap = 0;
