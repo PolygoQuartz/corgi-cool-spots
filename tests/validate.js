@@ -52,6 +52,21 @@ if (RESTAURANTS) {
   ok(`RESTAURANTS ${Object.keys(RESTAURANTS).length}件（座標あり${geoN}）`);
 }
 
+console.log("== EXCLUDED整合 ==");
+{
+  // 昇格済みスポットの消し込み漏れ検出（括弧書きを除いた名前が一致したらNG）
+  const norm = (n) => (n || "").replace(/[（(].*?[）)]/g, "").trim();
+  const dayNames = new Set(SPOTS.map((s) => norm(s.name)));
+  const nightNames = new Set((NIGHT_SPOTS || []).map((s) => norm(s.name)));
+  for (const e of EXCLUDED || []) {
+    if (dayNames.has(norm(e.name))) fail(`EXCLUDED「${e.name}」は昇格済みスポットと重複（消し込み漏れ）`);
+  }
+  for (const e of NIGHT_EXCLUDED || []) {
+    if (nightNames.has(norm(e.name))) fail(`NIGHT_EXCLUDED「${e.name}」は夜スポットと重複（消し込み漏れ）`);
+  }
+  ok("EXCLUDEDと掲載スポットの重複なし");
+}
+
 console.log("== visits.js ==");
 const { VISITS } = loadConsts("visits.js", ["VISITS"]);
 if (!Array.isArray(VISITS)) fail("VISITSが配列ではない");
