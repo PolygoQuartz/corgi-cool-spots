@@ -16,7 +16,7 @@
 | ファイル | 内容 |
 |---|---|
 | `spots.js` | `SPOTS`（昼スポット）/ `NIGHT_SPOTS`（夜）/ `RESTAURANTS`（飲食店）/ `EXCLUDED` / `NIGHT_EXCLUDED` |
-| `visits.js` | `VISITS`（訪問記録＝管理人の一次情報）。スキーマはファイル冒頭のコメント参照 |
+| `visits.js` | `VISITS`（訪問記録＝飼い主の一次情報）。スキーマはファイル冒頭のコメント参照 |
 | `assets/visits/<visit-id>/` | 訪問写真の置き場（例: `assets/visits/visit-2026-07-20-001/01.jpg`） |
 | `tests/validate.js` | データ検証。`node tests/validate.js` |
 | `app.js` / `style.css` / `index.html` | 表示ロジック。**データ処理では原則変更しない** |
@@ -31,7 +31,7 @@
 - Issue本文の ```yaml ブロックを IntakeReport として読み取る。壊れている場合は独力で修復を試み、判断できなければIssueで人間に質問する。
 
 ### 2. 場所の特定
-- **`location_hint.existing_spot_id` がある場合は場所の特定・重複確認を省略する。** これは管理人が既存カードを明示指定した追記であり、`existing_kind` が `spot`/`night` なら該当スポットへ `spotId` で、`restaurant` なら `restaurantRef` で訪問記録を紐付ける。
+- **`location_hint.existing_spot_id` がある場合は場所の特定・重複確認を省略する。** これは飼い主が既存カードを明示指定した追記であり、`existing_kind` が `spot`/`night` なら該当スポットへ `spotId` で、`restaurant` なら `restaurantRef` で訪問記録を紐付ける。
 - `location_hint` の name / shared_url / latitude,longitude / nearby_note / 写真の順に手掛かりとして使う。
 - 共有URLは展開して座標・施設名を得る。
 - **似た名前の施設を同一と断定しない。** 座標と名称の両方が整合する場合のみ特定とみなす。
@@ -63,7 +63,7 @@
 - 各情報に **値・確認日・情報源URL・確認状態** を持たせる。確認状態:
   `confirmed_official` / `confirmed_on_site` / `reported_by_owner` / `third_party_only` / `not_found` / `conflicting`
 - スポットの `official` 欄・`sources` 欄・`lastChecked`（YYYY-MM-DD）を更新する。
-- 管理人の現地確認と公式情報が食い違う場合は、visits.jsの `onSiteNotes` に現地情報を残し、spots.js側には公式情報＋`conflicting`を記録し、**PRで明示する**。
+- 飼い主の現地確認と公式情報が食い違う場合は、visits.jsの `onSiteNotes` に現地情報を残し、spots.js側には公式情報＋`conflicting`を記録し、**PRで明示する**。
 
 ### 5. データ作成
 
@@ -74,7 +74,7 @@
 - `diary` は rawNote と入力項目を事実の範囲内で読みやすく編集した短い旅行記。
   - 構成: 一言まとめ → 訪問時の状況 → 実際の動線 → 犬の様子 → 良かった点 → 注意したい点 → 次回メモ
   - **事実の追加禁止。犬の感情の創作禁止。** 「絶対」「安全」「おすすめ」等の断定表現を避ける。
-  - 管理人の言葉・手作り感を残す。観光紹介文・広告文にしない。
+  - 飼い主の言葉・手作り感を残す。観光紹介文・広告文にしない。
 - 実測していない温度を実測値として書かない。
 - 過去の訪問記録は変更しない。
 
@@ -86,7 +86,7 @@
 ### 6. 写真
 - Issueに添付された写真をダウンロードし、`assets/visits/<visit-id>/01.jpg` 形式で配置（連番・小文字拡張子）。
 - 長辺1600px程度へリサイズ、JPEG品質80目安、**Exif（特に位置情報）を削除**する。
-- altの下書きを作る。**写っていない事実を書かない。** captionは付けない（管理人の方針によりキャプションの自動付与は不要。表示側もキャプションを描画しない）。
+- altの下書きを作る。**写っていない事実を書かない。** captionは付けない（飼い主の方針によりキャプションの自動付与は不要。表示側もキャプションを描画しない）。
 - 人物の顔・車のナンバー等が写っている可能性がある場合は、そのまま公開せずPRで人間に警告する。
 
 ### 7. 検証
@@ -122,7 +122,7 @@ git push origin spot-report/YYYY-MM-DD-<slug>
 - 公式に記載のない犬同伴可否の推測
 - 写真だけからのルール断定
 - 営業時間の一般値による補完
-- 管理人が訪問していない場所の訪問記風文章
+- 飼い主が訪問していない場所の訪問記風文章
 - 犬の感情の創作
 - 実測していない温度の実測値扱い
 - 人間の確認なしでの公開（マージ）

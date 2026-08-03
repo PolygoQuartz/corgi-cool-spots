@@ -1,4 +1,4 @@
-/* 管理人用おでかけメモ
+/* 飼い主用おでかけメモ
    - 人間の一次情報だけを記録し、AI処理用データ（IntakeReport）を生成する
    - 下書きはlocalStorageへ自動保存（写真ファイル本体は保存しない）
    - GitHubトークンは一切扱わない。Issue作成はプリフィルURL/コピー/ダウンロードで人間が行う */
@@ -350,7 +350,7 @@ function toIntakeYaml(r) {
 
 function toIssueMarkdown(r) {
   return [
-    "<!-- ひんやりコギさんぽ 訪問レポート（管理人の一次情報）。AIエージェントは docs/AI_AGENT_GUIDE.md の手順で処理すること -->",
+    "<!-- ひんやりコギさんぽ 訪問レポート（飼い主の一次情報）。AIエージェントは docs/AI_AGENT_GUIDE.md の手順で処理すること -->",
     "## 訪問レポート",
     "",
     "```yaml",

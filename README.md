@@ -12,8 +12,8 @@ Vanilla HTML/CSS/JSの静的サイト。ビルド工程なし。main と gh-page
 |---|---|
 | `index.html` / `app.js` / `style.css` | アプリ本体（昼/夜モード・地図・フィルター・飲食店カード） |
 | `spots.js` | スポットデータ（SPOTS / NIGHT_SPOTS / RESTAURANTS / EXCLUDED / NIGHT_EXCLUDED） |
-| `visits.js` | 訪問記録（管理人の一次情報。スキーマはファイル冒頭コメント） |
-| `report.html` / `report.js` / `report.css` | 📝 おでかけメモ（管理人用の現地入力フォーム） |
+| `visits.js` | 訪問記録（飼い主の一次情報。スキーマはファイル冒頭コメント） |
+| `report.html` / `report.js` / `report.css` | 📝 おでかけメモ（飼い主用の現地入力フォーム） |
 | `assets/visits/` | 訪問写真 |
 | `tests/validate.js` | データ検証（`node tests/validate.js`） |
 | `docs/AI_AGENT_GUIDE.md` | AIエージェントの処理手順書 |
@@ -63,7 +63,7 @@ docs/AI_AGENT_GUIDE.md の手順で、Issue #<番号> の訪問レポートを�
 
 ## 情報の扱い
 
-- **管理人実測**（地面温度など）・**管理人の体感**・**公式情報**・**未確認**をデータと表示の両方で区別する。
+- **飼い主実測**（地面温度など）・**飼い主の体感**・**公式情報**・**未確認**をデータと表示の両方で区別する。
 - 公式情報には確認日（`lastChecked`）と情報源を持たせる。訪問レポート処理時に関連する公式情報を再確認する（定期監視はしない）。
 - 過去の訪問記録は当時の記録として保持し、書き換えない。
 - 写真は公開前にExif（位置情報）を削除する。

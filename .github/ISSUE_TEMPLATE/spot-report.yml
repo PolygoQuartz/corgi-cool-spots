@@ -1,4 +1,4 @@
-name: 🐾 訪問レポート（管理人用）
+name: 🐾 訪問レポート（飼い主用）
 description: 現地で記録した一次情報をAIに渡す。通常は report.html から自動生成されたものを使う
 title: "[訪問レポート] "
 labels: ["spot-report", "ai-research-needed"]
