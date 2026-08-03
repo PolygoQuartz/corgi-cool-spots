@@ -192,14 +192,37 @@ function distKm(spot) {
 }
 
 /* 直線距離から車での所要時間をざっくり推定（道路係数1.35・平均55km/h・準備12分） */
-function effDriveMin(spot) {
+/* 渋滞係数（spot.congestion: {factor, months?, weekendOnly?, note}）が今日効くか */
+function congestionActive(spot) {
+  const c = spot.congestion;
+  if (!c) return false;
+  const now = new Date();
+  if (c.months && !c.months.includes(now.getMonth() + 1)) return false;
+  if (c.weekendOnly) {
+    const d = now.getDay();
+    if (d !== 0 && d !== 6) return false;
+  }
+  return true;
+}
+
+function baseDriveMin(spot) {
   if (origin.isDefault) return spot.driveMin;
   return Math.round(((distKm(spot) * 1.35) / 55) * 60 + 12);
 }
 
+function effDriveMin(spot) {
+  const base = baseDriveMin(spot);
+  if (congestionActive(spot)) return Math.round(base * spot.congestion.factor);
+  return base;
+}
+
 function driveLabel(spot) {
-  if (origin.isDefault) return `車で約${spot.driveMin}分`;
-  return `車で約${effDriveMin(spot)}分（推定）・直線${distKm(spot).toFixed(0)}km`;
+  const base = baseDriveMin(spot);
+  const est = origin.isDefault ? "" : `（推定）・直線${distKm(spot).toFixed(0)}km`;
+  if (congestionActive(spot)) {
+    return `車で約${effDriveMin(spot)}分 ⚠️${spot.congestion.note || "渋滞考慮"}（通常約${base}分）${est}`;
+  }
+  return `車で約${base}分${est}`;
 }
 
 async function setOriginFromAddress(query) {
