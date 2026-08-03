@@ -380,6 +380,8 @@ function swimBanToday(spot) {
   if (!b) return false;
   const now = new Date();
   const md = String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+  // from > to は年またぎ期間（例: 08-01〜03-06）
+  if (b.from > b.to) return md >= b.from || md <= b.to;
   return md >= b.from && md <= b.to;
 }
 
