@@ -891,15 +891,20 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
-    ${spot.water && spot.water.swimBan
-      ? swimBanToday(spot)
-        ? spot.water.swimBan.soft
-          ? `<div class="swimban now soft">⚠️ <b>本日は海水浴場開設期間</b>・犬の入水は控えるのが無難（${spot.water.swimBan.label}）</div>`
-          : `<div class="swimban now">⛔ <b>本日は犬の入水NG</b>（${spot.water.swimBan.label}）</div>`
-        : spot.water.swimBan.soft
-          ? `<div class="swimban off">🏖️ ${spot.water.swimBan.label}中は入水を控えたい ／ <b>現在はオフシーズン</b></div>`
-          : `<div class="swimban off">🏖️ ${spot.water.swimBan.label}は犬NG ／ <b>現在はオフシーズンで入水解禁</b></div>`
-      : ""}
+    ${(() => {
+      const b = spot.water && spot.water.swimBan;
+      if (!b) return "";
+      if (swimBanToday(spot)) {
+        if (b.nowText) return `<div class="swimban now${b.soft ? " soft" : ""}">${b.nowText}</div>`;
+        return b.soft
+          ? `<div class="swimban now soft">⚠️ <b>本日は海水浴場開設期間</b>・犬の入水は控えるのが無難（${b.label}）</div>`
+          : `<div class="swimban now">⛔ <b>本日は犬の入水NG</b>（${b.label}）</div>`;
+      }
+      if (b.offText) return `<div class="swimban off">${b.offText}</div>`;
+      return b.soft
+        ? `<div class="swimban off">🏖️ ${b.label}中は入水を控えたい ／ <b>現在はオフシーズン</b></div>`
+        : `<div class="swimban off">🏖️ ${b.label}は犬NG ／ <b>現在はオフシーズンで入水解禁</b></div>`;
+    })()}
     ${hoursHtml}
     ${weatherBox}
     ${visitBlockHtml(spot)}
