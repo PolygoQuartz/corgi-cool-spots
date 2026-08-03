@@ -413,6 +413,10 @@ function showPreview() {
     alert("場所がわかる情報（名前・共有URL・現在地・目印メモ）をどれか1つ入力してください");
     return;
   }
+  if (!current.visit.date) {
+    alert("📅 訪問日（いつ？）を入力してください。昔のおでかけでも日付があると記録として残せます");
+    return;
+  }
   persist();
   document.getElementById("f-preview").classList.remove("hidden");
   document.getElementById("f-preview-body").textContent = humanSummary(current);
