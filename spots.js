@@ -3445,6 +3445,396 @@ const SPOTS = [
       "closed": null,
       "note": "駐車場は入庫4:00〜22:00"
     }
+  },
+  {
+    "id": "yuigahama-zaimokuza",
+    "name": "由比ヶ浜・材木座海岸（鎌倉）",
+    "category": "sea",
+    "area": "神奈川県鎌倉市",
+    "lat": 35.3096,
+    "lng": 139.5442,
+    "elevation_m": 3,
+    "driveMin": 60,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "08-31",
+        "label": "海水浴場開設期間（2026年は7/1〜8/31・開場9〜17時）"
+      },
+      "note": "開設期間中は開場時間（9〜17時）の海への入水が市条例で禁止。さらに由比ヶ浜中央部（滑川〜稲瀬川のブルーフラッグ区域）は期間中砂浜も犬NG。他の砂浜はリード着用で散歩可。オフシーズンは規制対象外で犬の海遊びが定番（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "由比ガ浜地下駐車場",
+        "fee": "30分210円（夏期260円）",
+        "note": "188台・24時間・最大平日1,800円/土日祝2,700円・シャワーあり",
+        "hours": "24時間"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "オフシーズン（5〜6月・9月以降）の海さんぽ・水遊び向き。材木座側の公営駐車場はなし（民間コインP）",
+    "official": {
+      "url": "https://www.city.kamakura.kanagawa.jp/kan-hozen/umi_hama_rulebook.html",
+      "label": "鎌倉市 海・浜のルールブック"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "katase-higashihama",
+    "name": "片瀬東浜海岸（江の島）",
+    "category": "sea",
+    "area": "神奈川県藤沢市",
+    "lat": 35.304,
+    "lng": 139.4872,
+    "elevation_m": 3,
+    "driveMin": 55,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "09-06",
+        "label": "海水浴場開設期間（2026年は7/1〜9/6・開設時間9〜17時）"
+      },
+      "note": "開設期間中の開設時間内は砂浜へのペット持ち込み自体が市ルールで禁止（補助犬除く）。早朝・夕方（開設時間外）とオフシーズンは規制対象外。オフシーズンは犬さんぽの定番（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "片瀬海岸地下駐車場",
+        "fee": "30分210円（7〜8月260円）",
+        "note": "200台・当日最大1,710円（7-8月は最大なし）・高さ2.1m制限",
+        "hours": "営業時間は要確認"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "江の島の目の前の遠浅ビーチ。オフシーズンの早朝さんぽに。江の島（夜さんぽ掲載）とセットで",
+    "official": {
+      "url": "https://www.fujisawa-kanko.jp/event/20260602-1.html",
+      "label": "藤沢市海水浴場公式（2026）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "katase-nishihama-kugenuma",
+    "name": "片瀬西浜・鵠沼海岸",
+    "category": "sea",
+    "area": "神奈川県藤沢市",
+    "lat": 35.3095,
+    "lng": 139.475,
+    "elevation_m": 3,
+    "driveMin": 55,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "09-13",
+        "label": "海水浴場開設期間（2026年は7/1〜9/13・開設時間9〜17時）"
+      },
+      "note": "開設期間中の開設時間内は砂浜へのペット持ち込み自体が市ルールで禁止（補助犬除く）。早朝・夕方とオフシーズンは規制対象外。犬とサーフィンの定番エリア（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "片瀬海岸地下駐車場・湘南海岸公園中部駐車場",
+        "fee": "30分210円〜",
+        "note": "地下200台ほか。夏期料金変動あり",
+        "hours": "駐車場により異なる"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "東浜より1週間遅い9/13までが海水浴期間なのでオフシーズン入りが遅い点に注意",
+    "official": {
+      "url": "https://www.fujisawa-kanko.jp/event/20260602-1.html",
+      "label": "藤沢市海水浴場公式（2026）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "morito-kaigan",
+    "name": "森戸海岸（葉山）",
+    "category": "sea",
+    "area": "神奈川県葉山町",
+    "lat": 35.272,
+    "lng": 139.58,
+    "elevation_m": 3,
+    "driveMin": 55,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "08-31",
+        "label": "海水浴場開設期間（2026年は7/1〜8/31・9〜17時）",
+        "soft": true
+      },
+      "note": "葉山の海水浴場ルールに犬の明文規定はなし（R6年度版原文確認・リード着用と砂浜の熱さ注意は町公式が案内）。期間中の遊泳エリアでの入水は控えるのが無難。オフシーズンは犬連れ定番ビーチ（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "葉山新港駐車場（最寄り公営）",
+        "fee": "60分310円",
+        "note": "135台・上限1,550円。海岸前は民間コインP（夏期料金変動）",
+        "hours": "5:00〜22:00"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "富士山と名島の鳥居を望む葉山の代表ビーチ。オフシーズンの犬さんぽ定番",
+    "official": {
+      "url": "https://www.town.hayama.lg.jp/soshiki/sangyou/1/16887.html",
+      "label": "葉山町公式（海水浴場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "isshiki-kaigan",
+    "name": "一色海岸（葉山）",
+    "category": "sea",
+    "area": "神奈川県葉山町",
+    "lat": 35.2606,
+    "lng": 139.5866,
+    "elevation_m": 3,
+    "driveMin": 58,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "08-31",
+        "label": "海水浴場開設期間（2026年は7/1〜8/31・9〜17時）",
+        "soft": true
+      },
+      "note": "葉山の海水浴場ルールに犬の明文規定はなし（町公式はリード着用等を案内）。期間中の遊泳エリアでの入水は控えるのが無難。オフシーズンは静かな犬さんぽ向き（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "葉山公園駐車場",
+        "fee": "10〜4月平日30分50円",
+        "note": "114台・30分未満無料・夏期は料金変動",
+        "hours": "6:00〜18:00"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "御用邸裏の落ち着いたビーチ。世界の厳選ビーチに選ばれたことでも知られる",
+    "official": {
+      "url": "https://www.town.hayama.lg.jp/soshiki/sangyou/1/16887.html",
+      "label": "葉山町公式（海水浴場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "chojagasaki",
+    "name": "長者ヶ崎・大浜海岸（葉山）",
+    "category": "sea",
+    "area": "神奈川県葉山町",
+    "lat": 35.2478,
+    "lng": 139.5844,
+    "elevation_m": 3,
+    "driveMin": 60,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-01",
+        "to": "08-31",
+        "label": "海水浴場開設期間（2026年は7/1〜8/31・9〜17時）",
+        "soft": true
+      },
+      "note": "葉山の海水浴場ルールに犬の明文規定はなし。期間中の遊泳エリアでの入水は控えるのが無難。オフシーズンは岬の景色と静かな浜が魅力（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "長者ヶ崎駐車場",
+        "fee": "土日祝60分400円",
+        "note": "130台・7〜8月以外の平日無料",
+        "hours": "夏期7:00〜19:00"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "葉山と横須賀の境の岬。夕景の名所で真名瀬海岸（掲載中）からも近い",
+    "official": {
+      "url": "https://www.town.hayama.lg.jp/soshiki/sangyou/1/16887.html",
+      "label": "葉山町公式（海水浴場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "oiso-kitahama",
+    "name": "大磯北浜海岸",
+    "category": "sea",
+    "area": "神奈川県大磯町",
+    "lat": 35.306,
+    "lng": 139.316,
+    "elevation_m": 3,
+    "driveMin": 65,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-12",
+        "to": "08-30",
+        "label": "海水浴場開設期間（2026年は7/12〜8/30・8:30〜17時）"
+      },
+      "note": "開設期間中は遊泳区域内の犬入場不可・砂浜散歩は可（民間情報・要現地確認）。オフシーズンは犬さんぽの実態が定着。西側のこゆるぎの浜（海水浴場外の小石浜）も散歩定番（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "県営大磯港第1・第2駐車場",
+        "fee": "60分310円",
+        "note": "計353台・1日最大1,040円＋緑化協力金20円",
+        "hours": "終日"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "日本初の海水浴場として知られる浜。オフシーズンの散歩・水遊びに",
+    "official": {
+      "url": "https://www.town.oiso.kanagawa.jp/isotabi/meguru/pagedate/14407.html",
+      "label": "大磯町公式（海水浴場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "minamichikura",
+    "name": "南千倉海水浴場（南房総）",
+    "category": "sea",
+    "area": "千葉県南房総市",
+    "lat": 34.95,
+    "lng": 139.957,
+    "elevation_m": 3,
+    "driveMin": 120,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-17",
+        "to": "08-16",
+        "label": "海水浴場開設期間（2026年は7/17〜8/16・9〜16時）"
+      },
+      "note": "市観光サイトに「愛犬と海遊びが可能。但し海水浴場開設期間は入水禁止」と明文あり（準公式）。オフシーズンは犬と海遊びできる貴重な明文付きビーチ（確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "海岸沿い無料駐車場",
+        "fee": "無料",
+        "note": "トイレ・シャワーあり（台数は公式記載なし）",
+        "hours": "終日"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "サーフスポットとしても知られる南房総の砂浜。開設期間が8/16までと短く、8月後半から犬と遊べるのが特長",
+    "official": {
+      "url": "https://www.mboso-etoko.jp/mboso_map/detail.php?poi=248",
+      "label": "南房総いいとこどり（市観光サイト）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
+  },
+  {
+    "id": "atami-nagahama",
+    "name": "熱海・長浜海水浴場",
+    "category": "sea",
+    "area": "静岡県熱海市",
+    "lat": 35.067,
+    "lng": 139.069,
+    "elevation_m": 3,
+    "driveMin": 95,
+    "water": {
+      "allowed": true,
+      "depth": "砂浜の遠浅海岸",
+      "swimBan": {
+        "from": "07-11",
+        "to": "08-30",
+        "label": "海水浴場開設期間（2026年は7/11〜8/30・9〜16時）"
+      },
+      "note": "開設期間中はペット同伴不可（熱海市公式明文・砂浜散歩も不可）。オフシーズンの長浜海浜公園は犬連れスポットとして定番（観光協会が犬連れモデルコースを掲載・確認日2026-08-04）"
+    },
+    "parking": [
+      {
+        "name": "長浜海浜公園駐車場",
+        "fee": "期間外無料",
+        "note": "海水浴場開設期間中のみ有料（台数は公式記載なし）",
+        "hours": "終日"
+      }
+    ],
+    "restaurants": [],
+    "surface": {
+      "shade": "少ない",
+      "ground": "砂浜"
+    },
+    "notes": "うみえ〜る長浜。波が穏やかでオフシーズンの犬水遊びに人気。熱海市街より空いている",
+    "official": {
+      "url": "https://www.city.atami.lg.jp/shisetsu/bunka/1002073/1002075.html",
+      "label": "熱海市公式（長浜海水浴場）"
+    },
+    "hours": {
+      "open": "終日",
+      "closed": null,
+      "note": null
+    }
   }
 ];
 
@@ -5485,34 +5875,16 @@ const EXCLUDED = [
     "type": "入水禁止"
   },
   {
-    "name": "熱海・長浜海水浴場",
-    "area": "静岡県熱海市",
-    "reason": "海水浴場開設期間中はペット同伴不可",
-    "type": "夏期NG"
-  },
-  {
-    "name": "南千倉海水浴場・御宿など千葉の主要海水浴場",
-    "area": "千葉県",
-    "reason": "海水浴場開設期間中は犬の入水禁止",
-    "type": "夏期NG"
+    "name": "御宿中央海水浴場",
+    "area": "千葉県御宿町",
+    "reason": "犬に関する明文規定が確認できず（2026年開設期間7/18〜8/23。期間中入水不可・遊歩道散歩可は民間情報のみ・確認日2026-08-04）。観光協会（0470-68-2414）への確認が必要。南千倉は明文ありのため本掲載へ昇格済み",
+    "type": "可否不明"
   },
   {
     "name": "三戸浜海岸",
     "area": "神奈川県三浦市",
     "reason": "2020年から駐車場が閉鎖されており車でのアクセスが困難",
     "type": "駐車場なし"
-  },
-  {
-    "name": "由比ヶ浜・材木座海水浴場",
-    "area": "神奈川県鎌倉市",
-    "reason": "海水浴場開設期間（7-8月）は犬の入水不可。砂浜の散歩のみ可",
-    "type": "夏期NG"
-  },
-  {
-    "name": "片瀬東浜・片瀬西浜鵠沼海水浴場",
-    "area": "神奈川県藤沢市",
-    "reason": "海水浴場開設期間（7-8月）は犬の入水不可",
-    "type": "夏期NG"
   },
   {
     "name": "辻堂海岸",
@@ -5527,12 +5899,6 @@ const EXCLUDED = [
     "type": "夏期NG"
   },
   {
-    "name": "森戸・一色・長者ヶ崎海岸",
-    "area": "神奈川県葉山町",
-    "reason": "オフシーズンは犬連れ定番だが、海水浴場開設期間（7/1-8/31）は犬の入水禁止",
-    "type": "夏期NG"
-  },
-  {
     "name": "サザンビーチちがさき",
     "area": "神奈川県茅ヶ崎市",
     "reason": "夏期は海水浴場開設のため犬の入水不可（西側の柳島海岸へ）",
@@ -5543,12 +5909,6 @@ const EXCLUDED = [
     "area": "神奈川県平塚市",
     "reason": "公衆衛生・安全のためペットの入水禁止と市公式に明記（通年）",
     "type": "入水禁止"
-  },
-  {
-    "name": "大磯北浜海岸（大磯海水浴場）",
-    "area": "神奈川県大磯町",
-    "reason": "開設期間（7月中旬-8/31）は犬の入水不可（西側のこゆるぎの浜へ）",
-    "type": "夏期NG"
   },
   {
     "name": "濃溝の滝・亀岩の洞窟",

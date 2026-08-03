@@ -636,6 +636,11 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
   border: 1px solid #fca5a5;
   color: #991b1b;
 }
+.swimban.now.soft {
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
 .swimban.off {
   background: #ecfeff;
   border: 1px solid #67e8f9;

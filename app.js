@@ -893,8 +893,12 @@ function renderCard(spot) {
     <div class="spot-badges">${badges.join("")}</div>
     ${spot.water && spot.water.swimBan
       ? swimBanToday(spot)
-        ? `<div class="swimban now">⛔ <b>本日は犬の入水NG</b>（${spot.water.swimBan.label}）</div>`
-        : `<div class="swimban off">🏖️ ${spot.water.swimBan.label}は犬NG ／ <b>現在はオフシーズンで入水解禁</b></div>`
+        ? spot.water.swimBan.soft
+          ? `<div class="swimban now soft">⚠️ <b>本日は海水浴場開設期間</b>・犬の入水は控えるのが無難（${spot.water.swimBan.label}）</div>`
+          : `<div class="swimban now">⛔ <b>本日は犬の入水NG</b>（${spot.water.swimBan.label}）</div>`
+        : spot.water.swimBan.soft
+          ? `<div class="swimban off">🏖️ ${spot.water.swimBan.label}中は入水を控えたい ／ <b>現在はオフシーズン</b></div>`
+          : `<div class="swimban off">🏖️ ${spot.water.swimBan.label}は犬NG ／ <b>現在はオフシーズンで入水解禁</b></div>`
       : ""}
     ${hoursHtml}
     ${weatherBox}
