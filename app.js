@@ -476,8 +476,12 @@ function visitBlockHtml(spot) {
   const dogs = (v.dogCondition || []).map((d) => `<span class="dog-chip">${d}</span>`).join("");
   const routes = (v.routeNotes || []).map((r) => `<li>${r}</li>`).join("");
   const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
+  // 縦横混在でも隙間なく並ぶジャスティファイドギャラリー（キャプションは表示しない）
   const photos = (v.photos || [])
-    .map((p) => `<figure class="visit-photo"><img src="${p.src}" alt="${p.alt || ""}" loading="lazy" onerror="this.parentElement.remove()">${p.caption ? `<figcaption>${p.caption}</figcaption>` : ""}</figure>`)
+    .map(
+      (p) =>
+        `<img class="visit-photo-img" src="${p.src}" alt="${p.alt || ""}" loading="lazy" onclick="window.open(this.src)" onload="const r=this.naturalWidth/this.naturalHeight;this.style.width=(130*r)+'px';this.style.flexGrow=r*100" onerror="this.remove()">`
+    )
     .join("");
   return `
   <div class="visit-block">
@@ -753,9 +757,9 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
-    ${visitBlockHtml(spot)}
     ${hoursHtml}
     ${weatherBox}
+    ${visitBlockHtml(spot)}
     <div class="spot-detail">
       ${spot.water ? `<div class="detail-row"><span class="detail-icon">💦</span><span>${spot.water.note || spot.water.depth || ""}</span></div>` : ""}
       ${spot.night ? `<div class="detail-row"><span class="detail-icon">💡</span><span>照明: ${spot.night.lighting} ／ ${spot.night.vibe || ""}${spot.night.note ? `<br>${spot.night.note}` : ""}</span></div>` : ""}
