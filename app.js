@@ -463,6 +463,38 @@ function visitsOf(spot) {
   return VISITS.filter((v) => v.spotId === spot.id).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 }
 
+/* 縦横混在でも隙間なく並ぶジャスティファイドギャラリー（キャプションは表示しない） */
+function visitPhotoImgs(v) {
+  return (v.photos || [])
+    .map(
+      (p) =>
+        `<img class="visit-photo-img" src="${p.src}" alt="${p.alt || ""}" loading="lazy" onclick="window.open(this.src)" onload="const r=this.naturalWidth/this.naturalHeight;this.style.width=(130*r)+'px';this.style.flexGrow=r*100" onerror="this.remove()">`
+    )
+    .join("");
+}
+
+/* 飲食店カード用のコンパクトな訪問記録欄 */
+function restoVisitHtml(rid) {
+  if (typeof VISITS === "undefined") return "";
+  const list = VISITS.filter((v) => v.restaurantRef === rid).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  if (list.length === 0) return "";
+  const v = list[0];
+  const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
+  const photos = visitPhotoImgs(v);
+  return `
+  <div class="visit-block resto-visit">
+    <div class="visit-head">🐾 <b>管理人が訪問しました</b><span class="visit-date">${v.date}${list.length > 1 ? `・計${list.length}回` : ""}</span></div>
+    ${v.summary ? `<p class="visit-summary">「${v.summary}」</p>` : ""}
+    <details class="visit-details">
+      <summary>訪問メモ・写真を見る</summary>
+      ${notes ? `<ul class="visit-notes">${notes}</ul>` : ""}
+      ${v.diary ? `<p class="visit-diary">${v.diary}</p>` : ""}
+      ${photos ? `<div class="visit-photos">${photos}</div>` : ""}
+      <p class="visit-caveat">※訪問時点の記録です。営業時間・ルールは変わることがあります。</p>
+    </details>
+  </div>`;
+}
+
 function visitBlockHtml(spot) {
   const list = visitsOf(spot);
   if (list.length === 0) return "";
@@ -476,9 +508,7 @@ function visitBlockHtml(spot) {
   const dogs = (v.dogCondition || []).map((d) => `<span class="dog-chip">${d}</span>`).join("");
   const routes = (v.routeNotes || []).map((r) => `<li>${r}</li>`).join("");
   const notes = (v.onSiteNotes || []).map((r) => `<li>⚠️ ${r}</li>`).join("");
-  const photos = (v.photos || [])
-    .map((p) => `<figure class="visit-photo"><img src="${p.src}" alt="${p.alt || ""}" loading="lazy" onerror="this.parentElement.remove()">${p.caption ? `<figcaption>${p.caption}</figcaption>` : ""}</figure>`)
-    .join("");
+  const photos = visitPhotoImgs(v);
   return `
   <div class="visit-block">
     <div class="visit-head">🐾 <b>管理人が訪問しました</b><span class="visit-date">${v.date}${v.arrivedAt ? ` ${v.arrivedAt}着` : ""}${list.length > 1 ? `・計${list.length}回` : ""}</span></div>
@@ -549,6 +579,7 @@ function restaurantCardHtml(r, spot) {
     ${media}
     ${hoursLine}
     ${r.pairNote ? `<div class="resto-note">${r.pairNote}</div>` : ""}
+    ${r.id ? restoVisitHtml(r.id) : ""}
   </div>`;
 }
 
@@ -753,9 +784,9 @@ function renderCard(spot) {
     </div>
     ${mediaHtml}
     <div class="spot-badges">${badges.join("")}</div>
-    ${visitBlockHtml(spot)}
     ${hoursHtml}
     ${weatherBox}
+    ${visitBlockHtml(spot)}
     <div class="spot-detail">
       ${spot.water ? `<div class="detail-row"><span class="detail-icon">💦</span><span>${spot.water.note || spot.water.depth || ""}</span></div>` : ""}
       ${spot.night ? `<div class="detail-row"><span class="detail-icon">💡</span><span>照明: ${spot.night.lighting} ／ ${spot.night.vibe || ""}${spot.night.note ? `<br>${spot.night.note}` : ""}</span></div>` : ""}

@@ -48,6 +48,19 @@
 
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
+/* 既存スポットへの追記UI */
+.existing-label { display: block; font-size: 0.8rem; color: var(--muted, #64748b); margin-bottom: 8px; }
+.existing-label select { margin-top: 4px; }
+.existing-badge {
+  font-size: 0.82rem;
+  background: #fce7f3;
+  border: 1px solid #db2777;
+  color: #9d174d;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
 .dog-select { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 .dog-select .chip { padding: 10px 14px; font-size: 0.88rem; }
 .dog-select .chip.on { background: #fce7f3; border-color: #db2777; color: #9d174d; font-weight: 700; }

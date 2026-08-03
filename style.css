@@ -534,10 +534,24 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
 .visit-meta { font-size: 0.78rem; color: var(--muted); margin-top: 6px; }
 .visit-routes, .visit-notes { margin: 6px 0 0 18px; font-size: 0.8rem; }
 .visit-diary { margin-top: 8px; line-height: 1.7; white-space: pre-wrap; }
-.visit-photos { display: flex; gap: 8px; overflow-x: auto; margin-top: 8px; }
-.visit-photo { flex-shrink: 0; width: 180px; margin: 0; }
-.visit-photo img { width: 100%; border-radius: 8px; }
-.visit-photo figcaption { font-size: 0.68rem; color: var(--muted); }
+/* 飲食店カード内のコンパクトな訪問記録欄 */
+.resto-visit { margin-top: 8px; padding: 8px 10px; }
+.resto-visit .visit-head { font-size: 0.78rem; }
+.resto-visit .visit-summary { font-size: 0.8rem; }
+
+/* 縦横混在の写真が隙間なく並ぶジャスティファイドギャラリー */
+.visit-photos { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.visit-photos::after { content: ""; flex-grow: 999999; }
+.visit-photo-img {
+  height: 130px;
+  flex-grow: 100;
+  width: 130px; /* onloadでアスペクト比に応じて上書き */
+  object-fit: cover;
+  border-radius: 8px;
+  min-width: 0;
+  max-width: 100%;
+  cursor: pointer;
+}
 .visit-caveat { font-size: 0.7rem; color: var(--muted); margin-top: 8px; }
 
 /* 除外リスト */

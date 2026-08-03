@@ -25,6 +25,7 @@ const SURFACE_CHOICES = [
 
 let current = newReport();
 let saveTimer = null;
+let sessionPhotoFiles = []; // 「写真を選択」で選んだFile本体（縮小版書き出し用・保存はしない）
 
 function newReport() {
   const now = new Date();
@@ -33,7 +34,7 @@ function newReport() {
     reportId: "visit-" + now.toISOString().slice(0, 10) + "-" + String(now.getTime()).slice(-4),
     createdAt: now.toISOString(),
     updatedAt: now.toISOString(),
-    location: { name: "", sharedUrl: "", lat: null, lng: null, hint: "" },
+    location: { name: "", sharedUrl: "", lat: null, lng: null, hint: "", existingId: "", existingKind: "" },
     visit: { date: now.toISOString().slice(0, 10), arrivedAt: "", durationMin: "", weather: "", feel: "", crowd: "", shade: "" },
     dogCondition: [],
     rawNote: "",
@@ -94,6 +95,7 @@ function collect() {
     name: p.dataset.name,
     size: +p.dataset.size,
     lastModified: p.dataset.lm,
+    takenAt: p.dataset.takenAt || "",
     note: p.querySelector("input[type=text]").value.trim(),
     representative: p.querySelector("input[type=radio]").checked,
   }));
@@ -101,6 +103,10 @@ function collect() {
 
 function fill() {
   const s = (id, v) => (document.getElementById(id).value = v || "");
+  const sel = document.getElementById("f-existing-spot");
+  sel.value = current.location.existingId ? `${current.location.existingKind}:${current.location.existingId}` : "";
+  if (sel.selectedIndex < 0) sel.value = ""; // 削除済みスポット等
+  applyExistingSelection();
   s("f-place-name", current.location.name);
   s("f-place-url", current.location.sharedUrl);
   s("f-place-hint", current.location.hint);
@@ -151,12 +157,140 @@ function addPhotoItem(p) {
   div.dataset.name = p.name;
   div.dataset.size = p.size;
   div.dataset.lm = p.lastModified || "";
+  div.dataset.takenAt = p.takenAt || "";
   div.innerHTML = `
     <input type="radio" name="rep-photo" title="代表写真" ${p.representative ? "checked" : ""}>
     <span>📷 ${p.name}</span>
     <input type="text" placeholder="短いメモ（任意）" value="${p.note || ""}">`;
   div.querySelectorAll("input").forEach((el) => el.addEventListener("input", () => { collect(); scheduleSave(); }));
   document.getElementById("f-photo-list").appendChild(div);
+}
+
+function todayStr() { return new Date().toISOString().slice(0, 10); }
+
+/* ---------- 既存スポットへの追記UI ---------- */
+function buildExistingSpotSelect() {
+  const sel = document.getElementById("f-existing-spot");
+  const add = (label, items, kind) => {
+    if (!items.length) return;
+    const og = document.createElement("optgroup");
+    og.label = label;
+    items.forEach(([id, name]) => {
+      const o = document.createElement("option");
+      o.value = `${kind}:${id}`;
+      o.textContent = name;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  };
+  const byName = (a, b) => a[1].localeCompare(b[1], "ja");
+  if (typeof SPOTS !== "undefined") add("☀️ 昼・水遊びスポット", SPOTS.map((s) => [s.id, s.name]).sort(byName), "spot");
+  if (typeof NIGHT_SPOTS !== "undefined") add("🌙 夜さんぽスポット", NIGHT_SPOTS.map((s) => [s.id, s.name]).sort(byName), "night");
+  if (typeof RESTAURANTS !== "undefined") add("🍽️ 飲食店", Object.values(RESTAURANTS).map((r) => [r.id, r.name]).sort(byName), "restaurant");
+}
+
+function applyExistingSelection() {
+  const sel = document.getElementById("f-existing-spot");
+  const badge = document.getElementById("f-existing-badge");
+  const v = sel.value;
+  if (!v) {
+    current.location.existingId = "";
+    current.location.existingKind = "";
+    badge.classList.add("hidden");
+    return;
+  }
+  const [kind, id] = v.split(":");
+  current.location.existingKind = kind;
+  current.location.existingId = id;
+  const name = sel.options[sel.selectedIndex].textContent;
+  document.getElementById("f-existing-name").textContent = name;
+  badge.classList.remove("hidden");
+  // 名前欄が空なら自動で入れる（編集可）
+  const nameEl = document.getElementById("f-place-name");
+  if (!nameEl.value) { nameEl.value = name; current.location.name = name; }
+}
+
+/* ---------- 写真のExif読み取り（撮影時刻・GPS） ---------- */
+async function readExif(file) {
+  try {
+    const buf = await file.slice(0, 256 * 1024).arrayBuffer();
+    const v = new DataView(buf);
+    if (v.getUint16(0) !== 0xffd8) return {}; // JPEGのみ対応
+    let o = 2;
+    while (o + 4 < v.byteLength) {
+      const marker = v.getUint16(o);
+      if ((marker & 0xff00) !== 0xff00) break;
+      const size = v.getUint16(o + 2);
+      if (marker === 0xffe1 && v.getUint32(o + 4) === 0x45786966) return parseTiff(v, o + 10);
+      o += 2 + size;
+    }
+  } catch (e) { /* Exifなし・HEIC等は無視 */ }
+  return {};
+}
+
+function parseTiff(v, base) {
+  const little = v.getUint16(base) === 0x4949;
+  const g16 = (p) => v.getUint16(p, little);
+  const g32 = (p) => v.getUint32(p, little);
+  const out = {};
+  const readIfd = (off, cb) => {
+    const n = g16(off);
+    for (let i = 0; i < n; i++) { const e = off + 2 + i * 12; cb(g16(e), g16(e + 2), g32(e + 4), e); }
+  };
+  const valPtr = (e, count, unitSize) => (count * unitSize <= 4 ? e + 8 : base + g32(e + 8));
+  const ascii = (e, count) => {
+    const p = valPtr(e, count, 1);
+    let s = "";
+    for (let i = 0; i < count - 1; i++) s += String.fromCharCode(v.getUint8(p + i));
+    return s;
+  };
+  const rat = (p) => g32(p) / (g32(p + 4) || 1);
+  let exifOff = 0, gpsOff = 0;
+  readIfd(base + g32(base + 4), (tag, type, count, e) => {
+    if (tag === 0x8769) exifOff = base + g32(e + 8);
+    if (tag === 0x8825) gpsOff = base + g32(e + 8);
+  });
+  if (exifOff) readIfd(exifOff, (tag, type, count, e) => {
+    if (tag === 0x9003) out.dateTime = ascii(e, count); // "YYYY:MM:DD HH:MM:SS"
+  });
+  if (gpsOff) {
+    let latRef, lonRef, lat, lon;
+    readIfd(gpsOff, (tag, type, count, e) => {
+      if (tag === 1) latRef = ascii(e, count);
+      if (tag === 3) lonRef = ascii(e, count);
+      if (tag === 2) { const p = valPtr(e, count, 8); lat = rat(p) + rat(p + 8) / 60 + rat(p + 16) / 3600; }
+      if (tag === 4) { const p = valPtr(e, count, 8); lon = rat(p) + rat(p + 8) / 60 + rat(p + 16) / 3600; }
+    });
+    if (lat != null && lon != null && (lat || lon)) {
+      out.lat = (latRef === "S" ? -1 : 1) * lat;
+      out.lng = (lonRef === "W" ? -1 : 1) * lon;
+    }
+  }
+  return out;
+}
+
+/* Exif情報でフォームを自動補完（空欄のみ・上書きしない） */
+function autofillFromExif(exifs) {
+  const filled = [];
+  const times = exifs.map((x) => x.dateTime).filter(Boolean).sort();
+  if (times.length) {
+    const m = times[0].match(/^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2})/);
+    if (m) {
+      const dateEl = document.getElementById("f-date");
+      const arrEl = document.getElementById("f-arrived");
+      const photoDate = `${m[1]}-${m[2]}-${m[3]}`;
+      if (!dateEl.value || dateEl.value === todayStr()) { dateEl.value = photoDate; filled.push(`日付${m[2]}/${m[3]}`); }
+      if (!arrEl.value) { arrEl.value = `${m[4]}:${m[5]}`; filled.push(`到着${m[4]}:${m[5]}（最初の写真の撮影時刻）`); }
+    }
+  }
+  const gps = exifs.find((x) => x.lat != null);
+  if (gps && current.location.lat == null) {
+    current.location.lat = +gps.lat.toFixed(5);
+    current.location.lng = +gps.lng.toFixed(5);
+    document.getElementById("f-geo-status").textContent = `記録済み: ${current.location.lat}, ${current.location.lng}（写真のExifから）`;
+    filled.push("撮影場所の座標");
+  }
+  return filled;
 }
 
 /* ---------- AI処理用データ生成 ---------- */
@@ -166,6 +300,10 @@ function toIntakeYaml(r) {
   lines.push(`schema_version: ${r.schemaVersion}`);
   lines.push(`submitted_at: ${new Date().toISOString()}`);
   lines.push(`location_hint:`);
+  if (r.location.existingId) {
+    lines.push(`  existing_spot_id: ${r.location.existingId}`); // 既存カードへの追記（場所の特定・重複確認は不要）
+    lines.push(`  existing_kind: ${r.location.existingKind}`); // spot | night | restaurant
+  }
   if (r.location.name) lines.push(`  name: ${r.location.name}`);
   if (r.location.sharedUrl) lines.push(`  shared_url: ${r.location.sharedUrl}`);
   if (r.location.lat != null) { lines.push(`  latitude: ${r.location.lat}`); lines.push(`  longitude: ${r.location.lng}`); }
@@ -204,7 +342,7 @@ function toIntakeYaml(r) {
       lines.push(`  - local_reference: ${p.name}`);
       if (p.representative) lines.push(`    representative: true`);
       if (p.note) lines.push(`    note: ${p.note}`);
-      if (p.lastModified) lines.push(`    taken_at_hint: ${p.lastModified}`);
+      if (p.takenAt || p.lastModified) lines.push(`    taken_at_hint: ${p.takenAt || p.lastModified}`);
     });
   }
   return lines.join("\n");
@@ -236,6 +374,7 @@ function issueTitle(r) {
 /* ---------- 送信プレビュー ---------- */
 function humanSummary(r) {
   const parts = [];
+  if (r.location.existingId) parts.push(`📌 既存カードへの追記: ${r.location.existingId}（${r.location.existingKind}）`);
   parts.push(`📍 ${r.location.name || "（名前未入力）"}${r.location.lat ? `（現在地: ${r.location.lat.toFixed(4)}, ${r.location.lng.toFixed(4)}）` : ""}`);
   if (r.location.sharedUrl) parts.push(`🔗 ${r.location.sharedUrl}`);
   parts.push(`📅 ${r.visit.date}${r.visit.arrivedAt ? ` ${r.visit.arrivedAt}着` : ""}${r.visit.durationMin ? `・約${r.visit.durationMin}分滞在` : ""}`);
@@ -249,7 +388,7 @@ function humanSummary(r) {
 
 function showPreview() {
   collect();
-  if (!current.location.name && !current.location.sharedUrl && current.location.lat == null && !current.location.hint) {
+  if (!current.location.existingId && !current.location.name && !current.location.sharedUrl && current.location.lat == null && !current.location.hint) {
     alert("場所がわかる情報（名前・共有URL・現在地・目印メモ）をどれか1つ入力してください");
     return;
   }
@@ -261,13 +400,14 @@ function showPreview() {
   const warn = document.getElementById("f-url-warn");
   const btn = document.getElementById("f-issue-btn");
   if (url.length > 7500) {
-    btn.removeAttribute("href");
-    btn.style.opacity = 0.5;
-    warn.textContent = "⚠️ メモが長いためURL方式が使えません。「Markdownをコピー」してGitHubのIssueへ貼り付けてください（ラベル: spot-report, ai-research-needed）。";
+    // 本文が長い場合はタイトル・ラベルだけプリフィル（本文はボタン押下時に自動コピー済み）
+    btn.href = `https://github.com/${REPO}/issues/new?labels=${encodeURIComponent(ISSUE_LABELS)}&title=${encodeURIComponent(issueTitle(current))}`;
+    btn.style.opacity = 1;
+    warn.textContent = "⚠️ メモが長いため本文のプリフィルは省略されます。ボタンを押すと本文を自動コピーするので、開いたIssueの本文欄に貼り付けてください。";
   } else {
     btn.href = url;
     btn.style.opacity = 1;
-    warn.textContent = "Issueが開いたら内容を確認して「Submit new issue」を押すだけです。写真はIssue作成後にコメントへ添付してください。";
+    warn.textContent = "ボタンを押すと本文を自動コピーしてからGitHubを開きます。ブラウザで開けば内容入力済み。GitHubアプリに飛んで本文が空だった場合は、新規Issueの本文欄に貼り付けるだけでOK。写真はIssue作成後にコメントへ添付してください。";
   }
   document.getElementById("f-preview").scrollIntoView({ behavior: "smooth" });
 }
@@ -335,6 +475,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("f-route-checks").innerHTML =
     ROUTE_CHOICES.map((r) => `<label><input type="checkbox" value="${r}">${r}</label>`).join("");
 
+  // 既存スポット選択
+  buildExistingSpotSelect();
+  document.getElementById("f-existing-spot").addEventListener("change", () => {
+    applyExistingSelection();
+    collect(); persist();
+  });
+
   // 直近の下書きを復元
   const drafts = Object.values(loadDrafts()).sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || ""));
   if (drafts.length && drafts[0].aiStatus === "draft") current = drafts[0];
@@ -362,17 +509,70 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("f-gt-add").addEventListener("click", () => addGtRow());
-  document.getElementById("f-photos").addEventListener("change", (e) => {
-    [...e.target.files].forEach((f) => addPhotoItem({
-      name: f.name, size: f.size,
-      lastModified: f.lastModified ? new Date(f.lastModified).toISOString() : "",
-      note: "", representative: false,
-    }));
+  document.getElementById("f-photos").addEventListener("change", async (e) => {
+    const files = [...e.target.files];
     e.target.value = "";
+    const st = document.getElementById("f-photo-status");
+    st.textContent = "Exifを読み取り中…";
+    const exifs = [];
+    for (const f of files) {
+      const x = await readExif(f);
+      exifs.push(x);
+      sessionPhotoFiles.push(f); // 縮小版書き出し用（この画面を開いている間だけ保持）
+      addPhotoItem({
+        name: f.name, size: f.size,
+        lastModified: f.lastModified ? new Date(f.lastModified).toISOString() : "",
+        takenAt: x.dateTime ? x.dateTime.replace(/^(\d{4}):(\d{2}):/, "$1-$2-").replace(":", "-").replace(" ", "T") : "",
+        note: "", representative: false,
+      });
+    }
+    const filled = autofillFromExif(exifs);
+    st.textContent = filled.length ? `📸 写真から自動入力: ${filled.join("・")}` : "写真情報を記録しました";
     collect(); scheduleSave();
   });
 
+  // 縮小版の書き出し（長辺1600px・Exif除去。現地の弱い電波でも添付が軽くなる）
+  document.getElementById("f-photo-export").addEventListener("click", async () => {
+    const st = document.getElementById("f-photo-status");
+    if (!sessionPhotoFiles.length) { st.textContent = "先に「写真を選択」で写真を選んでください（選び直しでもOK）"; return; }
+    st.textContent = "縮小版を作成中…";
+    const outFiles = [];
+    for (let i = 0; i < sessionPhotoFiles.length; i++) {
+      const f = sessionPhotoFiles[i];
+      try {
+        const bmp = await createImageBitmap(f);
+        const scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+        const cv = document.createElement("canvas");
+        cv.width = Math.round(bmp.width * scale);
+        cv.height = Math.round(bmp.height * scale);
+        cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+        const blob = await new Promise((r) => cv.toBlob(r, "image/jpeg", 0.8));
+        outFiles.push(new File([blob], `s_${String(i + 1).padStart(2, "0")}.jpg`, { type: "image/jpeg" }));
+      } catch (err) { console.warn("変換不可:", f.name, err); }
+    }
+    if (!outFiles.length) { st.textContent = "⚠️ 縮小版を作成できませんでした（HEICは非対応の場合があります）"; return; }
+    const total = Math.round(outFiles.reduce((s, f) => s + f.size, 0) / 1024);
+    if (navigator.canShare && navigator.canShare({ files: outFiles })) {
+      st.textContent = `共有シートから「画像を保存」→GitHubアプリで添付（計${total}KB）`;
+      try { await navigator.share({ files: outFiles }); } catch (err) { /* キャンセル */ }
+    } else {
+      outFiles.forEach((f) => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(f);
+        a.download = f.name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+      });
+      st.textContent = `縮小版${outFiles.length}枚をダウンロードしました（計${total}KB）`;
+    }
+  });
+
   document.getElementById("f-preview-btn").addEventListener("click", showPreview);
+  // GitHubアプリに飛ぶとURLプリフィルが失われるため、遷移前に本文を自動コピーしておく
+  document.getElementById("f-issue-btn").addEventListener("click", () => {
+    collect();
+    try { navigator.clipboard.writeText(toIssueMarkdown(current)); } catch (e) { /* コピー不可でもプリフィルがあるので続行 */ }
+  });
   document.getElementById("f-copy-btn").addEventListener("click", async () => {
     collect();
     await navigator.clipboard.writeText(toIssueMarkdown(current));

@@ -65,7 +65,8 @@ else {
     if (v.schemaVersion !== 1) fail(`${tag}: schemaVersionが1ではない`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v.date || "")) fail(`${tag}: dateがYYYY-MM-DD形式ではない`);
     if (v.spotId != null && !ids.has(v.spotId)) fail(`${tag}: 存在しないspotId ${v.spotId}`);
-    if (v.spotId == null && !v.pendingSpotName) fail(`${tag}: spotIdもpendingSpotNameもない`);
+    if (v.restaurantRef && !(RESTAURANTS || {})[v.restaurantRef]) fail(`${tag}: 存在しないrestaurantRef ${v.restaurantRef}`);
+    if (v.spotId == null && !v.restaurantRef && !v.pendingSpotName) fail(`${tag}: spotId/restaurantRef/pendingSpotNameのいずれもない`);
     if (!v.rawNote && !v.summary) fail(`${tag}: 一次情報（rawNote/summary）が空`);
     for (const t of v.groundTemps || []) {
       if (typeof t.tempC !== "number") fail(`${tag}: 地面温度が数値でない`);
