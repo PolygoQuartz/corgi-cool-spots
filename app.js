@@ -506,10 +506,23 @@ function visitEntryHtml(v, opts) {
     </div>`;
 }
 
+/* カード写真が無い場合に訪問記録の代表写真を流用する */
+function visitCardPhoto(list) {
+  for (const v of list) {
+    const p = (v.photos || []).find((x) => x.representative) || (v.photos || [])[0];
+    if (p) return { url: p.src, credit: `現地撮影（${v.date}）` };
+  }
+  return null;
+}
+
+function restoVisitsOf(rid) {
+  if (typeof VISITS === "undefined") return [];
+  return VISITS.filter((v) => v.restaurantRef === rid).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+}
+
 /* 飲食店カード用のコンパクトな訪問記録欄（複数訪問対応） */
 function restoVisitHtml(rid) {
-  if (typeof VISITS === "undefined") return "";
-  const list = VISITS.filter((v) => v.restaurantRef === rid).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const list = restoVisitsOf(rid);
   if (list.length === 0) return "";
   return `
   <div class="visit-block resto-visit">
@@ -555,8 +568,9 @@ function restaurantCardHtml(r, spot) {
   const hoursLine = r.hours && r.hours.open
     ? `<div class="resto-hours">🕐 ${r.hours.open}${r.hours.closed ? `・<span class="hours-closed">${r.hours.closed}</span>` : ""}${r.hours.note ? `<span class="hours-note">（${r.hours.note}）</span>` : ""}</div>`
     : "";
-  const photoHtml = r.photo && r.photo.url
-    ? `<div class="spot-photo"><img src="${r.photo.url}" alt="${r.name}" loading="lazy" onerror="this.parentElement.remove()"><span class="photo-credit">📷 ${r.photo.credit || ""}</span></div>`
+  const rCardPhoto = r.photo && r.photo.url ? r.photo : r.id ? visitCardPhoto(restoVisitsOf(r.id)) : null;
+  const photoHtml = rCardPhoto
+    ? `<div class="spot-photo"><img src="${rCardPhoto.url}" alt="${r.name}" loading="lazy" onerror="this.parentElement.remove()"><span class="photo-credit">📷 ${rCardPhoto.credit || ""}</span></div>`
     : "";
   let mapHtml = "";
   if (r.lat && r.lng) {
@@ -721,11 +735,12 @@ function renderCard(spot) {
     badges.push(`<span class="badge warn">⚠️ 到着後 約${reach.remain}分で営業終了</span>`);
   }
 
-  const photoHtml = spot.photo && spot.photo.url
+  const cardPhoto = spot.photo && spot.photo.url ? spot.photo : visitCardPhoto(visitsOf(spot));
+  const photoHtml = cardPhoto
     ? `<div class="spot-photo">
-         <img src="${spot.photo.url}" alt="${spot.name}" loading="lazy"
+         <img src="${cardPhoto.url}" alt="${spot.name}" loading="lazy"
               onerror="this.closest('.spot-media') && this.parentElement.remove()">
-         <span class="photo-credit">📷 ${spot.photo.credit || "Wikimedia Commons"}</span>
+         <span class="photo-credit">📷 ${cardPhoto.credit || "Wikimedia Commons"}</span>
        </div>`
     : "";
   const mediaHtml = `<div class="spot-media">${photoHtml}${miniMapHtml(spot)}</div>`;
