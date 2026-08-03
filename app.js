@@ -192,17 +192,31 @@ function distKm(spot) {
 }
 
 /* 直線距離から車での所要時間をざっくり推定（道路係数1.35・平均55km/h・準備12分） */
-/* 渋滞係数（spot.congestion: {factor, months?, weekendOnly?, note}）が今日効くか */
-function congestionActive(spot) {
+/* 渋滞係数: {factor(通常混雑), months?, weekendOnly?, peak:{from,to,factor}(激混み時間帯), note}
+   いま適用すべき係数を返す（非適用日は1） */
+function congestionFactorNow(spot) {
   const c = spot.congestion;
-  if (!c) return false;
+  if (!c) return 1;
   const now = new Date();
-  if (c.months && !c.months.includes(now.getMonth() + 1)) return false;
+  if (c.months && !c.months.includes(now.getMonth() + 1)) return 1;
   if (c.weekendOnly) {
     const d = now.getDay();
-    if (d !== 0 && d !== 6) return false;
+    if (d !== 0 && d !== 6) return 1;
   }
-  return true;
+  const h = now.getHours();
+  if (c.peak && h >= c.peak.from && h < c.peak.to) return c.peak.factor;
+  return c.factor;
+}
+
+function congestionActive(spot) {
+  return congestionFactorNow(spot) > 1;
+}
+
+function congestionPeakNow(spot) {
+  const c = spot.congestion;
+  if (!c || !c.peak || !congestionActive(spot)) return false;
+  const h = new Date().getHours();
+  return h >= c.peak.from && h < c.peak.to;
 }
 
 function baseDriveMin(spot) {
@@ -214,16 +228,15 @@ function baseDriveMin(spot) {
 }
 
 function effDriveMin(spot) {
-  const base = baseDriveMin(spot);
-  if (congestionActive(spot)) return Math.round(base * spot.congestion.factor);
-  return base;
+  return Math.round(baseDriveMin(spot) * congestionFactorNow(spot));
 }
 
 function driveLabel(spot) {
   const base = baseDriveMin(spot);
   const est = origin.isDefault ? "" : `（推定）・直線${distKm(spot).toFixed(0)}km`;
   if (congestionActive(spot)) {
-    return `車で約${effDriveMin(spot)}分 ⚠️${spot.congestion.note || "渋滞考慮"}（通常約${base}分）${est}`;
+    const peak = congestionPeakNow(spot) ? "・いま激混み時間帯" : "";
+    return `車で約${effDriveMin(spot)}分 ⚠️${spot.congestion.note || "渋滞考慮"}${peak}（通常約${base}分）${est}`;
   }
   return `車で約${base}分${est}`;
 }
