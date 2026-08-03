@@ -135,5 +135,46 @@ const VISITS = [
       }
     ],
     "issue": 3
+  },
+  {
+    "id": "visit-2024-08-10-1101",
+    "schemaVersion": 1,
+    "spotId": "highland-dogyard",
+    "restaurantRef": null,
+    "pendingSpotName": null,
+    "date": "2024-08-10",
+    "arrivedAt": "",
+    "durationMin": null,
+    "weather": "",
+    "summary": "浅め・深めの2種類のプールで全犬種が楽しめる。プール内のおもちゃ使用もOK",
+    "dogCondition": [
+      "楽しそうだった",
+      "水遊びをした",
+      "泳いだ",
+      "また来てもよさそう"
+    ],
+    "routeNotes": [],
+    "shadeImpression": "",
+    "crowdImpression": "",
+    "groundTemps": [],
+    "onSiteNotes": [
+      "プールへのスロープは無し。段差が気になる子は抱っこで入れる必要あり",
+      "プールサイドは陽射しに当たって暑くなるので注意"
+    ],
+    "rawNote": "プールは膝下ほどの浅いものと腰ぐらいの深いものの2種類で全犬種楽しめる作り。プール内でのおもちゃ使用もOK。プールへのスロープは無いので段差が気になる子は抱っこで入れる必要あり。プールサイドは陽射しに当たって暑くなるので注意。洗い場や人間用の更衣室あり。",
+    "diary": "プールは膝下ほどの浅いものと腰くらいの深いものの2種類で、体格を問わず楽しめるつくり。プール内でおもちゃを使うのもOK。ルチルはライフジャケットを着て泳いで、楽しそうだった。プールへのスロープはないので、段差が気になる子は抱っこで入れてあげる必要がある。プールサイドは陽射しで暑くなるので注意。洗い場や人間用の更衣室もあって、帰り支度がしやすかった。",
+    "photos": [
+      {
+        "src": "assets/visits/visit-2024-08-10-1101/01.jpg",
+        "alt": "ライフジャケットを着てプールで泳ぐコーギー",
+        "representative": true
+      },
+      {
+        "src": "assets/visits/visit-2024-08-10-1101/02.jpg",
+        "alt": "プールの浅い段に立って舌を出すコーギー",
+        "representative": false
+      }
+    ],
+    "issue": 6
   }
 ];
