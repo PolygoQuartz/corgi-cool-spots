@@ -623,6 +623,17 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 12px 30px; }
   opacity: 0.85;
 }
 
+/* 同期QRコード */
+.sync-qr-wrap { text-align: center; margin: 8px 0; }
+.sync-qr-wrap img {
+  width: 180px;
+  height: 180px;
+  image-rendering: pixelated;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
 /* 海水浴期間の犬NG表示 */
 .swimban {
   font-size: 0.8rem;

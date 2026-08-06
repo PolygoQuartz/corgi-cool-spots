@@ -212,6 +212,23 @@ function congestionActive(spot) {
   return congestionFactorNow(spot) > 1;
 }
 
+/* 同期URLのQRコード表示（qrcode-generatorライブラリ使用） */
+function renderSyncQr(url) {
+  const wrap = document.getElementById("sync-qr-wrap");
+  if (!wrap) return;
+  if (typeof qrcode === "undefined") { wrap.classList.add("hidden"); return; }
+  try {
+    const qr = qrcode(0, "M");
+    qr.addData(url, "Byte");
+    qr.make();
+    document.getElementById("sync-qr").src = qr.createDataURL(4, 8);
+    wrap.classList.remove("hidden");
+  } catch (e) {
+    console.warn("QR生成失敗（データ長超過の可能性）", e);
+    wrap.classList.add("hidden");
+  }
+}
+
 function congestionPeakNow(spot) {
   const c = spot.congestion;
   if (!c || !c.peak || !congestionActive(spot)) return false;
@@ -467,20 +484,51 @@ function globalPx(lat, lng, z) {
 }
 
 /* ---------- 端末間同期（マーク＋出発地をURLに載せて手動同期） ---------- */
-function buildSyncUrl() {
-  const payload = { v: 1, marks, origin: origin.isDefault ? null : { label: origin.label, lat: origin.lat, lng: origin.lng } };
-  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))))
-    .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+function bytesToB64url(bytes) {
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) {
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  }
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function b64urlToBytes(b64) {
+  const bin = atob(b64.replace(/-/g, "+").replace(/_/g, "/"));
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+
+async function buildSyncUrl() {
+  const payload = { v: 2, marks, origin: origin.isDefault ? null : { label: origin.label, lat: origin.lat, lng: origin.lng } };
+  const json = JSON.stringify(payload);
+  if (window.CompressionStream) {
+    // deflate圧縮でURLを短縮（マークが増えても長文になりにくい）
+    const stream = new Blob([json]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+    const buf = new Uint8Array(await new Response(stream).arrayBuffer());
+    return location.origin + location.pathname + "#sync2=" + bytesToB64url(buf);
+  }
+  // 旧形式フォールバック
+  const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
   return location.origin + location.pathname + "#sync=" + b64;
 }
 
-function importFromSyncHash() {
-  if (!location.hash.startsWith("#sync=")) return;
+async function importFromSyncHash() {
+  const isV2 = location.hash.startsWith("#sync2=");
+  if (!isV2 && !location.hash.startsWith("#sync=")) return;
   const clear = () => history.replaceState(null, "", location.pathname + location.search);
   try {
-    const b64 = location.hash.slice(6).replace(/-/g, "+").replace(/_/g, "/");
-    const data = JSON.parse(decodeURIComponent(escape(atob(b64))));
-    if (data.v !== 1) throw new Error("version");
+    let json;
+    if (isV2) {
+      const bytes = b64urlToBytes(location.hash.slice(7));
+      const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      json = await new Response(stream).text();
+    } else {
+      const b64 = location.hash.slice(6).replace(/-/g, "+").replace(/_/g, "/");
+      json = decodeURIComponent(escape(atob(b64)));
+    }
+    const data = JSON.parse(json);
+    if (data.v !== 1 && data.v !== 2) throw new Error("version");
     const markN = Object.values(data.marks || {}).filter((m) => m.fav || m.visited || m.want).length;
     const originTxt = data.origin ? `出発地「${data.origin.label}」` : "出発地: なし";
     if (!confirm(`別の端末からの同期データを取り込みますか？\n\nマーク: ${markN}件 ／ ${originTxt}\n（この端末の既存マークとは統合されます）`)) {
@@ -1119,23 +1167,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 端末間同期
-  document.getElementById("sync-btn").addEventListener("click", () => {
+  document.getElementById("sync-btn").addEventListener("click", async () => {
     const panel = document.getElementById("sync-panel");
     panel.classList.toggle("hidden");
     if (!panel.classList.contains("hidden")) {
-      document.getElementById("sync-url").value = buildSyncUrl();
+      const url = await buildSyncUrl();
+      document.getElementById("sync-url").value = url;
+      renderSyncQr(url);
     }
   });
   document.getElementById("sync-copy-btn").addEventListener("click", async () => {
     const input = document.getElementById("sync-url");
-    input.value = buildSyncUrl();
+    input.value = await buildSyncUrl();
     await navigator.clipboard.writeText(input.value);
     const btn = document.getElementById("sync-copy-btn");
     btn.textContent = "✅ コピー済み";
     setTimeout(() => (btn.textContent = "コピー"), 2000);
   });
-  document.getElementById("sync-share-btn").addEventListener("click", () => {
-    const url = buildSyncUrl();
+  document.getElementById("sync-share-btn").addEventListener("click", async () => {
+    const url = await buildSyncUrl();
     if (navigator.share) {
       navigator.share({ title: "ひんやりコギさんぽ 同期", url }).catch(() => {});
     } else {

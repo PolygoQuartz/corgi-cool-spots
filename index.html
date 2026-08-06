@@ -7,7 +7,7 @@
 <title>ひんやりコギさんぽ 🐕💦</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=30">
+<link rel="stylesheet" href="style.css?v=31">
 </head>
 <body>
 <header class="app-header">
@@ -38,7 +38,11 @@
       <button id="sync-btn" class="mini-btn" title="別の端末とマーク・出発地を同期">📤 同期</button>
     </div>
     <div id="sync-panel" class="origin-form hidden">
-      <p class="privacy-note">🔁 このURLをLINEやメールで自分に送り、<b>もう一方の端末で開く</b>と、⭐✅👀マークと出発地が取り込まれます（既存のマークとは統合されます）。データはURLの中にだけ入っており、サーバーには保存されません。</p>
+      <p class="privacy-note">🔁 <b>もう一方の端末のカメラでQRを読み取る</b>か、URLを自分宛てに送って開くと、⭐✅👀マークと出発地が取り込まれます（既存のマークとは統合されます）。データはURL・QRの中にだけ入っており、サーバーには保存されません。</p>
+      <div id="sync-qr-wrap" class="sync-qr-wrap hidden">
+        <img id="sync-qr" alt="同期用QRコード">
+        <p class="privacy-note">📷 スマホのカメラで読み取り→開くだけ</p>
+      </div>
       <div class="origin-form-row">
         <input type="text" id="sync-url" readonly>
         <button id="sync-copy-btn" class="mini-btn primary">コピー</button>
@@ -143,8 +147,9 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="spots.js?v=30"></script>
-<script src="visits.js?v=30"></script>
-<script src="app.js?v=30"></script>
+<script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="spots.js?v=31"></script>
+<script src="visits.js?v=31"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>
